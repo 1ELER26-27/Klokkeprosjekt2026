@@ -16,6 +16,6 @@
 - [ ] Kun min(e) egen(e) funksjon(er) er endret – ikke `loop()`/`setup()` eller andres funksjoner
 - [ ] Funksjonssignatur (navn/parametere/returtype) er uendret
 - [ ] `// Laget av: <Fornavn>` er fylt inn
-- [ ] Dokumentasjonskommentaren følger malen i [ELEVOPPGAVER.md](../ELEVOPPGAVER.md)
+- [ ] Dokumentasjonen er fylt ut i [DOKUMENTASJON.md](../DOKUMENTASJON.md) for funksjonen din
 
 Closes #<!-- issue-nummeret der du claimet funksjonen -->

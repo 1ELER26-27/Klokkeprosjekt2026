@@ -13,17 +13,7 @@ En smart skole-timeplan-klokke bygget med ESP32 og en NeoPixel LED-ring. Prosjek
 
 ## Hardware-tilkobling
 
-Koble ESP32 til NeoPixel-ringen og eventuell buzzer slik:
-
-| Signal | NeoPixel / Buzzer Pin | ESP32 Pin | Kommentar |
-|---|---|---|---|
-| **Spenning** | 5V / VCC | **5V / VIN** | Strømforsyning til LED-ene |
-| **Jord** | GND | **GND** | Felles jord |
-| **LED-data** | DIN (Data In) | **GPIO 25** | Styresignal til ringen (`LED_PIN`) |
-| **Buzzer (+)** | Pluss (+) | **GPIO 26** | *(Valgfritt)* Lydsignal (`soundpin`) |
-| **Buzzer (-)** | Minus (-) | **GND** | Felles jord |
-
-> **Tips:** Har dere ikke buzzer koblet til? Ingen fare — funksjonen `spillMelodi` kan fint blinke LED-ringen med farger i stedet for å spille lyd!
+Se **[HARDWARE.md](HARDWARE.md)** for koblingstabell, koblingsskjema (draw.io) og lenke til 3D-modellen av rammen (Autodesk Fusion 360).
 
 ## Simulering med Wokwi & VS Code (Valgfritt)
 
@@ -35,6 +25,8 @@ Se **[ELEVOPPGAVER.md](ELEVOPPGAVER.md)** for:
 - Full oversikt over alle funksjonene som skal implementeres (enkel/middels/avansert)
 - Hvilken dokumentasjonsmal du skal bruke over funksjonen din
 - Beskrivelse, parametere, returverdi og hint for hver funksjon
+
+Selve dokumentasjonen av funksjonen din skriver du i **[DOKUMENTASJON.md](DOKUMENTASJON.md)** (ikke som kommentarer i sketch.ino).
 
 Velg én funksjon som ingen andre har tatt, og opprett et **issue** for den på GitHub (**Issues → New issue → Velg en funksjon**) — det er slik hele klassen holder oversikt over hvem som har tatt hva.
 
@@ -71,7 +63,7 @@ Hver gang du starter en ny økt: åpne GitHub Desktop, sjekk at du står på bra
 - Åpne `sketch/sketch.ino` fra mappen du klonet, i Arduino IDE.
 - Endre **kun** koden inni funksjonen(e) du har tatt ansvar for.
 - Ikke endre navn, parametere eller returtype på funksjonen.
-- Legg til `// Laget av: <Fornavn>` og dokumentasjonskommentaren beskrevet i [ELEVOPPGAVER.md](ELEVOPPGAVER.md).
+- Legg til `// Laget av: <Fornavn>` i koden, og fyll ut dokumentasjonen for funksjonen din i [DOKUMENTASJON.md](DOKUMENTASJON.md).
 - Lagre filen (Ctrl+S), og test gjerne at koden kompilerer/laster opp riktig.
 
 ### 5. Commit endringene dine i GitHub Desktop
@@ -114,7 +106,7 @@ Når PR-en er merget: bytt til `main` i GitHub Desktop og trykk **Fetch origin**
 
 - ✅ Én PR per funksjon (eller en liten, avgrenset gruppe funksjoner du jobber med samtidig).
 - ✅ Koden må kompilere før du åpner PR-en (den automatiske CI-sjekken må også bli grønn før læreren kan merge).
-- ✅ Dokumentasjonskommentaren (se [ELEVOPPGAVER.md](ELEVOPPGAVER.md)) skal være med.
+- ✅ Dokumentasjonen i [DOKUMENTASJON.md](DOKUMENTASJON.md) (se malen der) skal være fylt ut for funksjonen din.
 - ❌ Ikke rør andre sine funksjoner eller `loop()`/`setup()` med mindre dere har avtalt det.
 - ❌ Ikke jobb direkte i `main`.
 - ❌ Ikke merge din egen PR — det gjør læreren.

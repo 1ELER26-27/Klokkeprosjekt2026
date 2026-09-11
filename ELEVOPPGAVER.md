@@ -6,7 +6,7 @@ Dere skal sammen bygge ferdig en smart skole-timeplan-klokke med en NeoPixel LED
 
 1. Velg en funksjon fra listen under som ingen andre i klassen har tatt.
 2. Skriv navnet ditt i `// Laget av: <Fornavn>` inne i funksjonen.
-3. Legg til dokumentasjonskommentaren beskrevet under, **over** funksjonen.
+3. Fyll ut dokumentasjonen for funksjonen din i [DOKUMENTASJON.md](DOKUMENTASJON.md) — ikke i sketch.ino, se hvorfor under.
 4. Ikke endre funksjonens navn, parametere eller returtype — resten av koden er avhengig av at signaturen er uendret.
 5. **Test funksjonen din før du leverer!** Du kan teste den via Serial-monitoren, eller legge til en midlertidig testlinje nederst i `setup()` for å se at den virker (husk å fjerne testlinjen før du committer):
    - For `sjekkHelg`: `Serial.println(sjekkHelg(LORDAG) ? "OK: Helg!" : "Feil");`
@@ -18,66 +18,13 @@ Dere skal sammen bygge ferdig en smart skole-timeplan-klokke med en NeoPixel LED
 
 ## Dokumentasjonsstandard
 
-Over **hver** funksjon dere lager, skal det stå en kommentarblokk som følger denne malen:
+`sketch/sketch.ino` er en C++-fil og egner seg dårlig til lange forklaringer — derfor skrives dokumentasjonen i en egen fil, [DOKUMENTASJON.md](DOKUMENTASJON.md), i stedet for som kommentarblokker i koden. Inne i selve funksjonen holder det med den korte `// Laget av: <Fornavn>`-kommentaren.
 
-```cpp
-/*
- * Funksjon:     <navn på funksjonen>
- * Laget av:     <Fornavn>
- *
- * Hva gjør den?
- *   <1-3 setninger som forklarer hva funksjonen gjør, med egne ord>
- *
- * Parametere:
- *   - <navn> (<type>): <hva parameteren betyr / brukes til>
- *   (skriv "Ingen" hvis funksjonen ikke tar imot noen parametere)
- *
- * Returverdi:
- *   - <type>: <hva som returneres og hva det betyr>
- *   (skriv "Ingen (void)" hvis funksjonen ikke returnerer noe)
- *
- * Refleksjon:
- *   - <Hvorfor løste du det på denne måten? Var det noe som var vanskelig
- *     eller lurt å tenke på? Er det noe du ville gjort annerledes?>
- */
-```
+Se [DOKUMENTASJON.md](DOKUMENTASJON.md) for malen du skal fylle ut (og et utfylt eksempel for `fagFarge`) — finn overskriften for din funksjon der, og fyll inn under den.
 
 Poenget med dokumentasjonen er todelt: den skal gjøre det lett for andre (og deg selv) å forstå hva funksjonen gjør uten å lese hele koden, **og** den skal tvinge deg til å reflektere over løsningen din i stedet for bare å skrive kode og gå videre.
 
-### Eksempel: `uint32_t fagFarge(Fag fag)`
-
-Denne funksjonen tar imot ett fag og returnerer en LED-farge. Slik kan dokumentasjonen se ut når den er korrekt fylt ut:
-
-```cpp
-/*
- * Funksjon:     fagFarge
- * Laget av:     Kari
- *
- * Hva gjør den?
- *   Slår opp hvilken farge LED-ringen skal lyse i basert på hvilket fag
- *   som er sendt inn, ved hjelp av en switch-setning på enum-verdien.
- *
- * Parametere:
- *   - fag (Fag): Hvilket skolefag det skal hentes en farge for (se enum Fag
- *     øverst i filen, f.eks. MATTE, NORSK, FRIMINUTT osv.)
- *
- * Returverdi:
- *   - uint32_t: En fargeverdi laget med strip.Color(r, g, b) som kan sendes
- *     rett til strip.setPixelColor()/strip.fill(). Returnerer svart (av)
- *     dersom faget ikke er gjenkjent.
- *
- * Refleksjon:
- *   - Jeg valgte kalde farger (blå/grønn) til teorifag og en varm farge til
- *     gym, slik at det er lett å skille dem fra hverandre på avstand.
- *   - Jeg måtte huske på default-caset i switch-en, ellers ville funksjonen
- *     ikke returnere noe for et ukjent fag.
- */
-uint32_t fagFarge(Fag fag) {
-  ...
-}
-```
-
-Bruk denne malen på **alle** funksjonene dere implementerer, ikke bare `fagFarge`.
+Bruk malen i [DOKUMENTASJON.md](DOKUMENTASJON.md) på **alle** funksjonene dere implementerer.
 
 ---
 
@@ -257,7 +204,7 @@ I tillegg til kodefunksjonene over finnes det to fysiske oppgaver som noen i kla
 
 **Hva skal gjøres?**
 1. Lodd ledninger fast på riktig pad/pinne på LED-ringen (DIN, VCC, GND) slik at den kan kobles til ESP32-en med dupontledninger.
-2. Koble ESP32-en til LED-ringen (og buzzer, hvis dere har en) med dupontledninger, i tråd med koblingstabellen i [README.md](README.md#hardware-tilkobling).
+2. Koble ESP32-en til LED-ringen (og buzzer, hvis dere har en) med dupontledninger, i tråd med koblingstabellen i [HARDWARE.md](HARDWARE.md#oppkobling).
 3. Last opp koden og bekreft at LED-ringen faktisk lyser riktig — det er den endelige testen på at loddingen er god.
 
 **Hvorfor er dette viktig?**
@@ -269,7 +216,7 @@ Uansett hvor god koden er, fungerer ikke klokken uten en pålitelig fysisk tilko
 - Dobbeltsjekk polaritet (VCC/GND) *før* dere kobler til strøm — feilkobling kan ødelegge LED-ringen eller ESP32-en permanent.
 - Test loddepunktene med et multimeter (kontinuitetstest) før strøm kobles til, for å avsløre kalde loddepunkter eller utilsiktede kortslutninger.
 
-**Dokumentasjon:** Ta et bilde av den ferdige kablingen/loddingen og legg det ved i PR-en (f.eks. i en `dokumentasjon/hardware/`-mappe), sammen med en kort refleksjon: Hva var vanskelig? Hvordan testet dere at koblingen fungerte?
+**Dokumentasjon:** Ta et bilde av den ferdige kablingen/loddingen og legg det ved i PR-en (f.eks. i en `dokumentasjon/hardware/`-mappe). Fyll deretter ut malen i [HARDWARE.md](HARDWARE.md#dokumentasjon-fra-hardware-gruppene) med bilder og en kort refleksjon: Hva var vanskelig? Hvordan testet dere at koblingen fungerte?
 
 ### 🖨️ 3D-printet ramme/kabinett
 
@@ -289,4 +236,4 @@ Dette er en øvelse i produktdesign og fysikk: dere må måle det fysiske utstyr
 - Gratis CAD-verktøy: Tinkercad (nybegynnervennlig, nettbasert) eller Fusion 360 (mer avansert, gratis for studenter).
 - Iterér! Print gjerne en liten testbit (f.eks. 1/8 av ringen) først for å sjekke mål og lysspredning, før dere printer hele rammen.
 
-**Dokumentasjon:** Legg ved et skjermbilde av 3D-modellen og et bilde av den ferdig monterte rammen, sammen med en kort refleksjon: Hvilke valg tok dere for å spre lyset godt utover og skille LED-ene fra hverandre? Hva ville dere gjort annerledes neste gang?
+**Dokumentasjon:** Del Fusion 360-prosjektet i skyen og lim inn lenken i [HARDWARE.md](HARDWARE.md#3d-modell-av-rammen-autodesk-fusion-360). Legg deretter ved et skjermbilde av 3D-modellen og et bilde av den ferdig monterte rammen i den utfylte malen, sammen med en kort refleksjon: Hvilke valg tok dere for å spre lyset godt utover og skille LED-ene fra hverandre? Hva ville dere gjort annerledes neste gang?
