@@ -16,6 +16,7 @@
 #define LED_PIN 25        // Pin for NeoPixel ring
 #define NUM_LEDS 77       // Antall LEDs på ringen/stripen (juster dette tallet hvis dere bruker en ring med f.eks. 60 eller 24 LEDs)
 #define soundpin 26       // Buzzerpin hvis vil bruke buzzer....
+#define BUTTON_PIN 27     // Pin for valgfri fysisk knapp (kobles med INPUT_PULLUP: ett ben til pinnen, det andre til GND)
 
 Adafruit_NeoPixel strip = Adafruit_NeoPixel(NUM_LEDS, LED_PIN, NEO_GRB + NEO_KHZ800);
 
@@ -90,6 +91,16 @@ int planIndex(int ukedag, int time, int minutt); // Returnerer indeksen i plan[]
 void handterAktivitetsbytte(Fag nyttFag, int ukedag); // Oppdager fagbytte og setter riktige status-flagg/melodi
 void settDummyTid(int ukedag, int time, int minutt, int sekund); // Setter ESP32-klokken manuelt til test-tidspunkt
 
+// EKSTRA / VALGFRIE FUNKSJONER (utvider funksjonaliteten - se ELEVOPPGAVER.md):
+void startNedtelling(uint32_t farge, int minutt, int sekund); // Blokkerende nedtellingstimer, avbrytes ved å skrive "stopp" i Serial
+void spillAnimasjon(uint32_t farge, int sekunder); // Fri animasjon i en gitt farge, i et gitt antall sekunder
+void startStoppeklokke(uint32_t farge); // Blokkerende stoppeklokke (teller oppover), avbrytes ved å skrive "stopp" i Serial
+bool knappTrykket(); // Returnerer true én gang når den fysiske knappen trykkes ned (krever kabling, se HARDWARE.md)
+void spillRTTTL(String sang); // Spiller av en RTTTL-ringetonestreng på buzzeren
+void settOppWebserver(); // (Ekstra stor oppgave) Setter opp webserveren og definerer nettsidene
+void handterWebKlient(); // (Ekstra stor oppgave) Håndterer innkommende nettleser-forespørsler, kalles hver loop()
+String genererMenyHTML(); // (Ekstra stor oppgave) Bygger HTML-menyen som vises i nettleseren
+
 //==================================================================================================================================
 
 void startupAnimasjon() {
@@ -126,6 +137,9 @@ void settDummyTid(int ukedag, int time, int minutt, int sekund) {
 void setup() {
   Serial.begin(115200);
   Serial.println("🕐 KLOKKEPROSJEKT STARTER...");
+
+  // Initialiser valgfri fysisk knapp (se HARDWARE.md for kobling)
+  pinMode(BUTTON_PIN, INPUT_PULLUP);
   
   // Initialiser LED-strip
   strip.begin();
@@ -143,6 +157,9 @@ void setup() {
     settDummyTid(ONSDAG, 9, 30, 0);
     blinkLED(strip.Color(255, 150, 0), 2); // Oransje/gul = dummytid aktiv
   }
+
+  // (Ekstra stor oppgave) Sett opp webserveren for web-grensesnittet, hvis implementert
+  settOppWebserver();
   
   // Lag timeplan
   fyllPlan();
@@ -160,6 +177,8 @@ void loop() {
   localtime_r(&now, &timeinfo);
 
   sjekkSerialMeny();
+  if (knappTrykket()) { visMeny(); } // Valgfri fysisk knapp åpner menyen (se ELEVOPPGAVER.md)
+  handterWebKlient(); // (Ekstra stor oppgave) Håndterer nettleser-forespørsler, hvis implementert
   handterHelg(timeinfo.tm_wday);
 
   // Beregn gjeldende fag og tid igjen
@@ -531,6 +550,105 @@ void visGjeldendeStatus(int index, int minutt) {
   //       - Hvis ferdigForDagen: kall ferdigForDagenAnimasjon() og nullstill flagget (ferdigForDagen = false;)
   //       - Hvis nyttFriminutt:  kall friminuttAnimasjon(minutt, index) og nullstill flagget (nyttFriminutt = false;)
   //       - Hvis nyTime:         kall timeStartAnimasjon(fagFarge(gjeldendeFag)) og nullstill flagget (nyTime = false;)
+}
+
+//==================================================================================================================================
+// ========== EKSTRA / VALGFRIE FUNKSJONER ==========
+// Disse er valgfrie tilleggsoppgaver - se ELEVOPPGAVER.md for beskrivelse, hint og vanskelighetsgrad.
+//==================================================================================================================================
+
+void startNedtelling(uint32_t farge, int minutt, int sekund) {
+  // Laget av: 
+  // TODO: Lag en blokkerende nedtellingstimer som tar over hele ringen
+  // Input: farge er fargen ringen skal telle ned i, minutt/sekund er hvor lang tid som skal telles ned
+  // Tips: Regn ut totalt antall sekunder: int totalSek = minutt * 60 + sekund;
+  // Tips: Bruk en løkke som teller ned ett sekund om gangen med delay(1000), og regn ut hvor mange
+  //       LEDs som skal være tent akkurat nå (f.eks. med map()) basert på hvor mange sekunder som er igjen.
+  // Tips: Sjekk Serial.available() i hver runde av løkken - hvis brukeren skriver "stopp", avbryt løkken tidlig.
+  // Tips: Kall f.eks. blinkLED(farge, 5) helt til slutt for å markere at nedtellingen er ferdig (hopp over dette ved avbrytelse).
+  // Tips: Husk strip.clear() + strip.show() før funksjonen returnerer.
+}
+
+//==================================================================================================================================
+
+void spillAnimasjon(uint32_t farge, int sekunder) {
+  // Laget av: 
+  // TODO: Vis en fri, selvvalgt animasjon i "farge" som varer i omtrent "sekunder" sekunder
+  // Tips: Dette er din egen frie oppgave - kombiner gjerne effekter du har sett i andre animasjoner
+  //       (fade, rotasjon, blink), men bruk parameterne til å style farge og varighet.
+}
+
+//==================================================================================================================================
+
+void startStoppeklokke(uint32_t farge) {
+  // Laget av: 
+  // TODO: Lag en blokkerende stoppeklokke som teller oppover til brukeren avbryter den
+  // Input: farge er fargen "viseren" skal ha
+  // Tips: Bruk en uendelig løkke (f.eks. while(true)) som hvert sekund flytter en tent LED ett hakk videre
+  //       rundt ringen (bruk % NUM_LEDS for å håndtere at den går en runde og starter på nytt)
+  // Tips: Sjekk Serial.available() hver runde - hvis brukeren skriver "stopp", avbryt løkken
+  // Tips: Skriv ut totalt antall sekunder som gikk til Serial når løkken avbrytes
+  // Tips: Husk strip.clear() + strip.show() før funksjonen returnerer
+}
+
+//==================================================================================================================================
+
+bool knappTrykket() {
+  // Laget av: 
+  // TODO: Les av den fysiske knappen på BUTTON_PIN og returner true KUN én gang per trykk (ikke hver loop mens den holdes inne)
+  // Krever kabling: se koblingstabellen i HARDWARE.md
+  // Tips: digitalRead(BUTTON_PIN) er LOW når knappen er trykket inn (siden vi bruker INPUT_PULLUP)
+  // Tips: Bruk en static bool for å huske om knappen var nede forrige gang du sjekket, slik at du
+  //       kun returnerer true på selve overgangen fra "ikke trykket" til "trykket" (debouncing)
+  return false; // Placeholder - knappen er "aldri trykket"
+}
+
+//==================================================================================================================================
+
+// Hjelpetabell for RTTTL-toner (ferdig laget, kan brukes direkte i spillRTTTL):
+// Rekkefølge: c, c#, d, d#, e, f, f#, g, g#, a, a#, b (frekvenser for oktav 4)
+int noteFrekvenser[12] = {262, 277, 294, 311, 330, 349, 370, 392, 415, 440, 466, 494};
+
+int rtttlFrekvens(int noteIndeks, int oktav) {
+  // Ganger/deler grunnfrekvensen med 2 for hver oktav opp/ned fra oktav 4
+  return noteFrekvenser[noteIndeks] * pow(2, oktav - 4);
+}
+
+void spillRTTTL(String sang) {
+  // Laget av: 
+  // TODO: Parse en RTTTL-ringetonestreng og spill den av med tone()
+  // Input: sang er en RTTTL-streng på formatet "Navn:d=4,o=5,b=125:8c,8d,8e,2f" (navn:standardverdier:noter)
+  // Tips: Del strengen opp med sang.indexOf(':') og substring() for å skille navn/standardverdier/noter
+  // Tips: Del opp notedelen med komma (','), og hver enkelt note i varighet+tone(+#)+oktav, f.eks. "8c" = 1/8 note, tonen C
+  // Tips: Bruk noteFrekvenser[] og rtttlFrekvens(indeks, oktav) rett over denne funksjonen til å slå opp frekvensen for hver tone
+  // Tips: tone(soundpin, frekvens, varighetMs) spiller tonen - legg inn en kort delay/pause mellom hver note
+}
+
+//==================================================================================================================================
+// EKSTRA STOR OPPGAVE (krever samarbeid, se ELEVOPPGAVER.md): Web-grensesnitt via nettleser.
+// Kan først startes når visMeny() og sjekkSerialMeny() er ferdig implementert.
+//==================================================================================================================================
+
+void settOppWebserver() {
+  // Laget av: 
+  // TODO: Sett opp og start webserveren (kalles én gang fra setup(), etter at WiFi er koblet til)
+  // Tips: #include <WebServer.h> øverst i fila, og lag et globalt objekt: WebServer server(80);
+  // Tips: Definer ruter med server.on("/", handlerFunksjon), og kall til slutt server.begin()
+}
+
+void handterWebKlient() {
+  // Laget av: 
+  // TODO: Håndter innkommende nettleser-forespørsler (kalles hver loop())
+  // Tips: Dette blir stort sett bare ett enkelt kall til server.handleClient(), forutsatt at
+  //       settOppWebserver() har definert rutene riktig
+}
+
+String genererMenyHTML() {
+  // Laget av: 
+  // TODO: Bygg og returner en HTML-streng som viser de samme valgene som visMeny() viser på Serial
+  // Tips: Bygg opp en String med vanlig HTML (<html><body><ul><li>...</li></ul></body></html>)
+  // Tips: Gjenbruk gjerne samme tekster/valg som du skrev i visMeny()
+  return "<html><body><h1>TODO: Lag menyen din her!</h1></body></html>"; // Placeholder
 }
 
 

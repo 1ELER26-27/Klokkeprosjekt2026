@@ -35,6 +35,8 @@ Bruk malen i [DOKUMENTASJON.md](DOKUMENTASJON.md) på **alle** funksjonene dere 
 | Enkel | `sjekkHelg`, `fagFarge`, `fagNavn`, `blinkLED`, `timeStartAnimasjon`, `friminuttAnimasjon`, `visMeny`, `sjekkSerialMeny` |
 | Middels | `visKlokkevisere`, `nedtellingBar`, `melodiSpiller`, `spillMelodi`, `visGjeldendeStatus`, `ferdigForDagenAnimasjon`, `helgeSluttAnimasjon`, `handterHelg` |
 | Avansert | `fyllPlan`, `beregnTidIgjen`, `hentGjeldendeFag`, `hentInternetTid`, `helgAnimasjon`, `planIndex`, `handterAktivitetsbytte` |
+| Ekstra (valgfritt) | `startNedtelling`, `spillAnimasjon`, `startStoppeklokke`, `knappTrykket` (krever kabling), `spillRTTTL` — se [Ekstra / valgfrie funksjoner](#ekstra--valgfrie-funksjoner) |
+| Ekstra stort (avansert, samarbeid) | Web-grensesnitt — se [Web-grensesnitt](#-web-grensesnitt-ekstra-stor-oppgave-krever-samarbeid) nederst |
 | Hardware (samarbeid, ikke koding) | Kabling og lodding, 3D-printet ramme — se [Hardware-oppgaver](#hardware-oppgaver-krever-samarbeid) nederst |
 
 ---
@@ -193,6 +195,62 @@ Oppdager om faget/aktiviteten har endret seg siden forrige gang, og setter rikti
   - Hvis `nyttFag == FRIMINUTT`, sett `nyttFriminutt = true` og kall `spillMelodi(1)`.
   - Hvis `nyttFag != INGENTING` og `nyttFag != FRIMINUTT`, sett `nyTime = true` og kall `spillMelodi(2)`.
   - Husk å oppdatere `forrigeFag = nyttFag` til slutt!
+
+---
+
+## Ekstra / valgfrie funksjoner
+
+Disse funksjonene er ikke en del av kjernefunksjonaliteten, men er valgfrie tillegg dere kan ta hvis dere har lyst til å utvide klokken. De ligger allerede som tomme skjeletter i `sketch/sketch.ino`.
+
+### `void startNedtelling(uint32_t farge, int minutt, int sekund)`
+En nedtellingstimer (som en kjøkkentimer) som tar over hele ringen. Ringen starter full og tømmes gradvis etter hvert som tiden går.
+- **Parametere:** `farge` (uint32_t) – fargen ringen skal telle ned i, `minutt`/`sekund` (int) – hvor lang tid som skal telles ned.
+- **Returverdi:** Ingen (void).
+- **Viktig:** Dette er en **blokkerende** funksjon (den tar pause i resten av klokkelogikken mens den kjører) — akkurat som en fysisk kjøkkentimer. Den skal kunne **avbrytes** ved at brukeren skriver `stopp` i Serial Monitor mens den teller ned.
+- **Hint:** Bruk en løkke med `delay(1000)` som teller ned sekund for sekund, og regn ut hvor mange LEDs som skal være tent basert på hvor stor andel av tiden som er igjen. Sjekk `Serial.available()` hver runde for å oppdage `stopp`. Spill gjerne av en enkel animasjon (f.eks. `blinkLED`) helt til slutt hvis den fikk telle helt ferdig.
+
+### `void spillAnimasjon(uint32_t farge, int sekunder)`
+En fri, selvvalgt animasjonsfunksjon — akkurat som `helgAnimasjon()`, men med farge og varighet som parametere i stedet for faste verdier.
+- **Parametere:** `farge` (uint32_t) – fargen animasjonen skal bruke, `sekunder` (int) – omtrent hvor lenge animasjonen skal vare.
+- **Returverdi:** Ingen (void).
+- **Hint:** Vær kreativ! Dette er en fri oppgave uten fasit — bruk gjerne effekter du har laget/sett i andre animasjonsfunksjoner.
+
+### `void startStoppeklokke(uint32_t farge)`
+En stoppeklokke (motsatt av `startNedtelling`) som teller oppover helt til brukeren stopper den selv.
+- **Parameter:** `farge` (uint32_t) – fargen på LED-en som beveger seg rundt ringen ett hakk i sekundet.
+- **Returverdi:** Ingen (void).
+- **Viktig:** Også denne er **blokkerende**, og avbrytes ved å skrive `stopp` i Serial Monitor. Skriv ut hvor mange sekunder som gikk til Serial når den stoppes.
+- **Hint:** Bruk `% NUM_LEDS` for å håndtere at "viseren" går en hel runde og fortsetter fra begynnelsen igjen.
+
+### `bool knappTrykket()`
+Leser av en valgfri fysisk trykknapp koblet til `BUTTON_PIN`, og returnerer `true` nøyaktig én gang per trykk.
+- **Parametere:** Ingen.
+- **Returverdi:** `bool` – `true` akkurat idet knappen trykkes ned, ellers `false`.
+- **Krever kabling:** Se koblingstabellen i [HARDWARE.md](HARDWARE.md#oppkobling) for hvordan knappen skal kobles til (`BUTTON_PIN`, med `INPUT_PULLUP`).
+- **Hint:** `digitalRead(BUTTON_PIN)` er `LOW` når knappen er nede (siden vi bruker `INPUT_PULLUP`). Bruk en `static bool` for å huske forrige tilstand, slik at du kun får `true` på selve overgangen fra oppe til nede (debouncing) — ellers vil den telle mange trykk mens du holder den inne.
+
+### `void spillRTTTL(String sang)`
+Spiller av en RTTTL-ringetonestreng (samme format som gamle Nokia-ringetoner) på buzzeren.
+- **Parameter:** `sang` (String) – en RTTTL-streng på formatet `"Navn:d=4,o=5,b=125:8c,8d,8e,2f"` (navn:standardverdier:noter).
+- **Returverdi:** Ingen (void).
+- **Hint:** Del strengen opp med `indexOf(':')`/`substring()` for å skille navn, standardverdier og noter. Del notedelen opp med komma, og hver note i varighet + tonenavn (+ evt. `#`) + oktav. Hjelpetabellen `noteFrekvenser[]` og funksjonen `rtttlFrekvens(indeks, oktav)` (ferdig laget rett over `spillRTTTL` i koden) regner ut frekvensen for deg — du trenger «bare» å parse strengen riktig og kalle `tone(soundpin, frekvens, varighetMs)`.
+
+### 🌐 Web-grensesnitt (ekstra stor oppgave, krever samarbeid)
+
+En avansert tilleggsoppgave for en gruppe som vil gå videre: la brukeren styre klokken via en nettside i stedet for (eller i tillegg til) Serial-menyen, ved å koble seg til IP-adressen til ESP32-en i en nettleser.
+
+> **Avhengighet:** Denne oppgaven kan først startes når `visMeny()` og `sjekkSerialMeny()` er ferdig implementert, siden web-menyen skal gjenbruke samme meny-logikk.
+
+**Hva skal gjøres?** Tre funksjoner må implementeres sammen:
+- `settOppWebserver()` – setter opp `WebServer`-objektet og definerer nettsidene/rutene, kalles én gang fra `setup()`.
+- `handterWebKlient()` – håndterer innkommende nettleser-forespørsler, kalles hver `loop()`.
+- `genererMenyHTML()` – bygger HTML-siden som viser de samme valgene som `visMeny()`.
+
+**Hint:**
+- `#include <WebServer.h>` følger med ESP32-kortpakken og krever ingen ekstra installasjon.
+- Lag et globalt objekt `WebServer server(80);`, definer ruter med `server.on("/", ...)`, og kall `server.begin()` i `settOppWebserver()`.
+- `handterWebKlient()` blir stort sett bare et enkelt kall til `server.handleClient()`.
+- Test ved å skrive ut `WiFi.localIP()` til Serial og åpne den IP-en i en nettleser på samme nettverk.
 
 ---
 

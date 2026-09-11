@@ -132,3 +132,23 @@ _(ikke dokumentert ennå)_
 
 ### `handterAktivitetsbytte`
 _(ikke dokumentert ennå)_
+
+## Ekstra / valgfrie funksjoner
+
+### `startNedtelling`
+_(ikke dokumentert ennå)_
+
+### `spillAnimasjon`
+_(ikke dokumentert ennå)_
+
+### `startStoppeklokke`
+_(ikke dokumentert ennå)_
+
+### `knappTrykket`
+_(ikke dokumentert ennå)_
+
+### `spillRTTTL`
+_(ikke dokumentert ennå)_
+
+### Web-grensesnitt (`settOppWebserver`, `handterWebKlient`, `genererMenyHTML`)
+_(ikke dokumentert ennå)_

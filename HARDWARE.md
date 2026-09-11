@@ -13,6 +13,8 @@ Koble ESP32 til NeoPixel-ringen og eventuell buzzer slik:
 | **LED-data** | DIN (Data In) | **GPIO 25** | Styresignal til ringen (`LED_PIN`) |
 | **Buzzer (+)** | Pluss (+) | **GPIO 26** | *(Valgfritt)* Lydsignal (`soundpin`) |
 | **Buzzer (-)** | Minus (-) | **GND** | Felles jord |
+| **Knapp (ben 1)** | - | **GPIO 27** | *(Valgfritt)* Trykknapp for `knappTrykket()` (`BUTTON_PIN`, bruker `INPUT_PULLUP`) |
+| **Knapp (ben 2)** | - | **GND** | Felles jord |
 
 > **Tips:** Har dere ikke buzzer koblet til? Ingen fare — funksjonen `spillMelodi` kan fint blinke LED-ringen med farger i stedet for å spille lyd!
 
