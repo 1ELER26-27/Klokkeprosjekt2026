@@ -36,6 +36,8 @@ Velg én funksjon som ingen andre har tatt, og opprett et **issue** for den på 
 
 ## Slik leverer du: GitHub Desktop + Arduino IDE
 
+> 💡 **Trenger du en trinn-for-trinn-guide for levering?** Se **[LEVERINGSGUIDE.md](LEVERINGSGUIDE.md)** for en fullstendig sjekkliste fra valg av oppgave til godkjent Pull Request!
+
 Du trenger [GitHub Desktop](https://desktop.github.com/) installert og en GitHub-konto. Du skal **ikke** jobbe direkte i `main` (hovedversjonen av koden — den som til slutt skal fungere for alle) — alt du gjør skjer i din egen **branch** (en løsrevet kopi av koden der du trygt kan gjøre endringer uten å påvirke andre), og læreren godkjenner og slår sammen (**merger** — kombinerer endringene dine inn i `main`) arbeidet ditt etterpå.
 
 ### 1. Klon repoet (kun første gang)
