@@ -488,22 +488,29 @@ int planIndex(int ukedag, int time, int minutt) {
 //==================================================================================================================================
 
 bool hentInternetTid() {
-  // Laget av: 
-  // TODO: Koble til WiFi og hent riktig klokkeslett fra internett (NTP)
-  // Tips: WiFi bruker litt tid på å koble til. Vent i en while-løkke med teller/timeout:
-  //       int forsok = 0;
-  //       while (WiFi.status() != WL_CONNECTED && forsok < 20) {
-  //         delay(500);
-  //         forsok++;
-  //       }
-  //       if (WiFi.status() != WL_CONNECTED) return false;
-  // Tips: Skriv gjerne ut en Serial-bekreftelse og WiFi.localIP() etter tilkobling.
-  // Tips: For norsk tid (GMT+1 og 1 time sommertid):
-  //       configTime(3600, 3600, "pool.ntp.org");
-  // Tips: Verifiser at tiden er synkronisert med getLocalTime():
-  //       struct tm t;
-  //       return getLocalTime(&t);
-  return false; // Placeholder - "tid ikke hentet"
+  // Laget av: Marcel & Luka
+  int forsok = 0;
+  const char* TZ_INFO = "CET-1CEST,M3.5.0/2,M10.5.0/3";
+  while(WiFi.status() != WL_CONNECTED && forsok < 5) {
+    delay(500);
+    forsok++;
+  }
+  if(WiFi.status() != WL_CONNECTED) {
+    Serial.println("WiFi-tilkobling mislyktes.");
+    return false;
+  }
+  else {
+    Serial.println("WiFi-tilkobling lyktes!");
+    Serial.println(WiFi.localIP());
+    configTzTime(TZ_INFO, "pool.ntp.org");
+
+    struct tm t;
+
+    getLocalTime(&t);
+    
+    return getLocalTime(&t);
+  }
+  return false;
 }
 
 //==================================================================================================================================
