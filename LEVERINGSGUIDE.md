@@ -12,9 +12,11 @@ Følg stegene i rekkefølge, så unngår du feil, overskriving av andres arbeid 
 ```mermaid
 flowchart TD
     A["1️⃣ Finn oppgave & lag Issue på GitHub"] --> B["2️⃣ Åpne GitHub Desktop og oppdater main (Pull)"]
-    B --> C["3️⃣ Lag din egen Branch FØR du koder!"]
+    B --> C["3️⃣ Lag din egen Branch
+FØR du koder!"]
     C --> D["4️⃣ Skriv koden i din funksjon"]
-    D --> E["5️⃣ Skriv dokumentasjon i DOKUMENTASJON.md"]
+    D --> E["5️⃣ Skriv dokumentasjon i
+DOKUMENTASJON.md"]
     E --> F["6️⃣ Test koden grundig lokalt"]
     F --> G["7️⃣ Commit & Push i GitHub Desktop"]
     G --> H["8️⃣ Opprett Pull Request (husk Closes #nr)"]
