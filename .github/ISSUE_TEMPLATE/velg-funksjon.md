@@ -18,4 +18,4 @@ labels: funksjon
 - [ ] Jeg har sett gjennom [åpne issues merket `funksjon`](../../issues?q=is%3Aopen+label%3Afunksjon) og bekreftet at ingen andre allerede jobber med denne.
 
 ---
-Læreren lukker dette issuet når pull requesten din er merget inn i `main`.
+Dette issuet lukkes automatisk når pull requesten din (med `Closes #<nummer>`) merges inn i `main`.

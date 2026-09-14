@@ -60,14 +60,14 @@ arduino-cli lib install "Adafruit NeoPixel"
    - Trykk `F1` → **Wokwi: Start Simulator**.
 
 3. **Interaksjon:**
-   - Du vil se ESP32, NeoPixel-stripen (77 LED-er) og buzzeren i simuleringen.
+   - Du vil se ESP32, NeoPixel-stripen (77 LED-er), buzzeren og trykknappen (GPIO 27) i simuleringen.
    - Serial Monitor åpnes i VS Code slik at du kan sende kommandotekst (f.eks. "meny") eller lese utskrifter.
 
 ---
 
 ## Filstruktur for Wokwi i prosjektet
 
-- `diagram.json`: Definerer de virtuelle komponentene (ESP32 DevKit V1, NeoPixel-stripe, Buzzer) og koblingene mellom dem.
+- `diagram.json`: Definerer de virtuelle komponentene (ESP32 DevKit V1, NeoPixel-stripe, Buzzer, Trykknapp) og koblingene mellom dem.
 - `wokwi.toml`: Forteller Wokwi hvor den kompilerte filen (`build/sketch.ino.elf` og `.bin`) ligger.
 - `sketch/sketch.ino`: Selve kildekoden som kompileres.
 - `.vscode/tasks.json`: VS Code-byggeoppgave som bygger skissen med `arduino-cli`.

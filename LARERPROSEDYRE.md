@@ -18,7 +18,7 @@ Sjekkliste for hver PR før du merger:
 1. **Omfang:** Sjekk fanen "Files changed" på GitHub — endrer PR-en kun den/de funksjonen(e) eleven skulle implementere? Rop varsku hvis `loop()`, `setup()` eller andres funksjoner er endret uten avtale.
 2. **Signatur uendret:** Funksjonsnavn, parametere og returtype skal være identiske med det som lå i malen.
 3. **`// Laget av:`** er fylt inn med elevens navn.
-4. **Dokumentasjonskommentar** følger malen i [ELEVOPPGAVER.md](ELEVOPPGAVER.md) (Funksjon / Laget av / Hva gjør den / Parametere / Returverdi / Refleksjon), og refleksjonsdelen er reelt utfylt (ikke bare tomme fraser).
+4. **Dokumentasjonen i [DOKUMENTASJON.md](DOKUMENTASJON.md)** følger malen (Funksjon / Laget av / Hva gjør den / Parametere / Returverdi / Refleksjon), og refleksjonsdelen er reelt utfylt (ikke bare tomme fraser). Husk at all dokumentasjon og refleksjon skal ligge i denne filen, ikke som kommentarblokker i koden.
 5. **Kompilerer koden?** PR-siden viser automatisk en ✅/❌ fra CI-sjekken `compile` (se [GITHUB_OPPSETT.md](GITHUB_OPPSETT.md)) — men test gjerne lokalt også (se under) før du godkjenner, siden CI kun sjekker at koden bygger, ikke at den faktisk fungerer på ringen.
 6. Gi tilbakemelding som PR-kommentarer hvis noe må rettes, eller godkjenn/merge hvis alt er i orden.
 

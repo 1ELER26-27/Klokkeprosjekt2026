@@ -34,7 +34,7 @@ Bruk malen i [DOKUMENTASJON.md](DOKUMENTASJON.md) på **alle** funksjonene dere 
 |---|---|
 | Enkel | `sjekkHelg`, `fagFarge`, `fagNavn`, `blinkLED`, `timeStartAnimasjon`, `friminuttAnimasjon`, `visMeny`, `sjekkSerialMeny` |
 | Middels | `visKlokkevisere`, `nedtellingBar`, `melodiSpiller`, `spillMelodi`, `visGjeldendeStatus`, `ferdigForDagenAnimasjon`, `helgeSluttAnimasjon`, `handterHelg` |
-| Avansert | `fyllPlan`, `beregnTidIgjen`, `hentGjeldendeFag`, `hentInternetTid`, `helgAnimasjon`, `planIndex`, `handterAktivitetsbytte` |
+| Avansert | `fyllPlan`, `beregnTidIgjen`, `hentGjeldendeFag`, `hentInternetTid` *(ferdig – Marcel & Luka)*, `helgAnimasjon`, `planIndex`, `handterAktivitetsbytte` |
 | Ekstra (valgfritt) | `startNedtelling`, `spillAnimasjon`, `startStoppeklokke`, `knappTrykket` (krever kabling), `spillRTTTL` — se [Ekstra / valgfrie funksjoner](#ekstra--valgfrie-funksjoner) |
 | Ekstra stort (avansert, samarbeid) | Web-grensesnitt — se [Web-grensesnitt](#-web-grensesnitt-ekstra-stor-oppgave-krever-samarbeid) nederst |
 | Hardware (samarbeid, ikke koding) | Kabling og lodding, 3D-printet ramme — se [Hardware-oppgaver](#hardware-oppgaver-krever-samarbeid) nederst |
@@ -99,13 +99,15 @@ Sjekker om brukeren har skrevet noe på Serial-monitoren, og åpner menyen hvis 
 Tegner time-, minutt- og sekundviser på LED-ringen, som en vanlig klokke.
 - **Parametere:** `time` (0-23), `minutt` (0-59), `sec` (0-59).
 - **Returverdi:** Ingen (void).
+- **Viktig:** `strip.clear()` og `strip.show()` håndteres automatisk i `loop()` rett før og etter denne funksjonen. Du skal **ikke** kalle `strip.clear()` eller `strip.show()` inne i funksjonen din!
 - **Hint:** En hel runde rundt ringen (`NUM_LEDS` piksler) tilsvarer 12 timer for timeviseren, og 60 minutter/sekunder for de andre viserne. I koden ligger hjelpefunksjonene `time_viser()`, `minutt_viser()` og `sekund_viser()` ferdig laget rett over funksjonen – du kan kalle disse direkte for å finne pikselposisjonen til hver viser, og så sette farger med `strip.setPixelColor(pos, farge)`.
 
 ### `void nedtellingBar(int index, int sekunderIgjen, uint32_t fagfarge)`
 Tegner en "bue" av LED-er som viser hvor mye tid som er igjen av den aktiviteten som pågår nå.
 - **Parametere:** `index` (int) – raden i `plan[]`, `sekunderIgjen` (int) – sekunder igjen, `fagfarge` (uint32_t) – fargen buen skal ha.
 - **Returverdi:** Ingen (void).
-- **Hint:** Bruk `plan[index].startTime`/`.startMinutt`/`.varighet` til å finne når aktiviteten startet/slutter, og `map()` for å regne om tid til LED-posisjon. Husk å håndtere `index == -1`.
+- **Viktig:** `strip.clear()` og `strip.show()` håndteres automatisk i `loop()`. Du skal **ikke** kalle `strip.clear()` eller `strip.show()` inne i funksjonen din!
+- **Hint:** Bruk `plan[index].varighet * 60` til å finne total varighet i sekunder, og `map()` for å regne om `sekunderIgjen` til LED-posisjon (0 til `NUM_LEDS`). Husk å håndtere `index == -1`.
 
 ### `void melodiSpiller(int note[], int varighet[], int antallToner)`
 Spiller av en liste med toner (frekvenser) og tilhørende varigheter på buzzeren.
@@ -168,11 +170,13 @@ Slår opp hvilket fag som pågår, ut fra en indeks i `plan[]`.
 - **Returverdi:** `Fag` – faget i `plan[index]`, eller `INGENTING` hvis `index == -1`.
 - **Hint:** Dette er en enkel oppslagsfunksjon — pass på grensetilfellet med `index == -1`.
 
-### `bool hentInternetTid()`
+### `bool hentInternetTid()` *(Ferdig implementert – Marcel & Luka)*
 Kobler til WiFi og henter riktig klokkeslett fra internett (NTP).
+
+> ℹ️ **Denne funksjonen er allerede ferdig implementert og dokumentert av Marcel & Luka som et referanseeksempel.** Se koden i `sketch/sketch.ino` og dokumentasjonen i `DOKUMENTASJON.md`.
 - **Parametere:** Ingen.
 - **Returverdi:** `bool` – `true` hvis tiden ble hentet, `false` ved feil.
-- **Hint:** WiFi bruker 2-5 sekunder på å koble til, så du må vente i en `while (WiFi.status() != WL_CONNECTED)`-løkke med timeout (f.eks. maks 20 forsøk med `delay(500)`). For norsk tidssone (GMT+1 og 1 time sommertid), bruk `configTime(3600, 3600, "pool.ntp.org")`. Sjekk deretter om tiden er gyldig med `getLocalTime(&timeinfo)`.
+- **Hint:** WiFi bruker 2-5 sekunder på å koble til, så du må vente i en `while (WiFi.status() != WL_CONNECTED)`-løkke med timeout (f.eks. maks 20 forsøk med `delay(500)`). For norsk tidssone (GMT+1 og 1 time sommertid), bruk `configTime(3600, 3600, "pool.ntp.org")` eller `configTzTime()`. Sjekk deretter om tiden er gyldig med `getLocalTime(&timeinfo)`.
 
 ### `void helgAnimasjon()`
 Viser en kul animasjon som spilles gjentatte ganger i helgene.

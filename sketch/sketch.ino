@@ -338,25 +338,27 @@ void friminuttAnimasjon(int minutt, int index){
 
 // Hjelpefunksjoner for klokkevisere (disse er ferdig laget og kan brukes direkte i visKlokkevisere):
 int time_viser(int time, int minutt) {
-  int t_min = time % 12 * 60;
+  int t_min = (time % 12) * 60;
   int time_pix = ((t_min + minutt) * NUM_LEDS) / 720;
-  return time_pix;
+  return time_pix % NUM_LEDS;
 }
 
 int minutt_viser(int minutt, int sekund) {
-  int min_pix = ((minutt * 60 + sekund) * NUM_LEDS) / 3599;
-  return min_pix;
+  int min_pix = ((minutt * 60 + sekund) * NUM_LEDS) / 3600;
+  return min_pix % NUM_LEDS;
 }
 
 int sekund_viser(int sekund) {
-  float total = sekund + (millis() % 1000) / 1000.0;
-  return (int)((total * NUM_LEDS) / 60);
+  float total = (sekund % 60) + (millis() % 1000) / 1000.0;
+  int sek_pix = (int)((total * NUM_LEDS) / 60);
+  return sek_pix % NUM_LEDS;
 }
 
 void visKlokkevisere(int time, int minutt, int sec) {
   // Laget av: 
   // TODO: Tegn time-, minutt- og sekundviseren på ringen
   // Input: time (0-23), minutt (0-59), sec (0-59)
+  // NB: strip.clear() og strip.show() håndteres automatisk i loop() - ikke kall dem her!
   // Tips: Du kan bruke de ferdige hjelpefunksjonene over for å finne LED-indeksene:
   //       int pTime = time_viser(time, minutt);
   //       int pMin  = minutt_viser(minutt, sec);
@@ -370,11 +372,11 @@ void nedtellingBar(int index, int sekunderIgjen, uint32_t fagfarge) {
   // Laget av: 
   // TODO: Tegn en "bue" av LEDs som viser hvor mye tid som er igjen av gjeldende aktivitet
   // Input: index er raden i plan[], sekunderIgjen er tid igjen, fagfarge er fargen som skal brukes
-  strip.clear();
+  // NB: strip.clear() og strip.show() håndteres automatisk i loop() - ikke kall dem her!
   if(index == -1){return;}
 
-  // Tips: Bruk plan[index].startTime/.startMinutt/.varighet for å finne når aktiviteten startet/slutter
-  // Tips: map() kan regne om et tidspunkt (sekunder) til en LED-posisjon (0 til NUM_LEDS)
+  // Tips: Bruk plan[index].varighet * 60 for å finne total varighet i sekunder
+  // Tips: map() kan regne om sekunderIgjen til en LED-posisjon (0 til NUM_LEDS)
 }
 
 //==================================================================================================================================
