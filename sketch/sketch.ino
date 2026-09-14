@@ -210,7 +210,17 @@ void loop() {
 
 void debugInfo() {
   // Tips: Utvid gjerne med flere Serial.print()-linjer etter hvert som dere legger til flere variabler (f.eks. erHelg, index_plan, WiFi.status())
-  Serial.print("Fag: ");
+  time_t now;
+  struct tm timeinfo;
+  time(&now);
+  localtime_r(&now, &timeinfo);
+
+  char tidStr[9];
+  snprintf(tidStr, sizeof(tidStr), "%02d:%02d:%02d", timeinfo.tm_hour, timeinfo.tm_min, timeinfo.tm_sec);
+
+  Serial.print("Tid: ");
+  Serial.print(tidStr);
+  Serial.print(" | Fag: ");
   Serial.print(fagNavn(gjeldendeFag));
   Serial.print(" (id ");
   Serial.print(gjeldendeFag);
@@ -491,7 +501,7 @@ bool hentInternetTid() {
   // Laget av: Marcel & Luka
   int forsok = 0;
   const char* TZ_INFO = "CET-1CEST,M3.5.0/2,M10.5.0/3";
-  while(WiFi.status() != WL_CONNECTED && forsok < 5) {
+  while(WiFi.status() != WL_CONNECTED && forsok < 20) {
     delay(500);
     forsok++;
   }
@@ -503,11 +513,7 @@ bool hentInternetTid() {
     Serial.println("WiFi-tilkobling lyktes!");
     Serial.println(WiFi.localIP());
     configTzTime(TZ_INFO, "pool.ntp.org");
-
     struct tm t;
-
-    getLocalTime(&t);
-    
     return getLocalTime(&t);
   }
   return false;
