@@ -8,6 +8,10 @@ Se **[GITHUB_OPPSETT.md](GITHUB_OPPSETT.md)** for full sjekkliste (organisasjon,
 
 1. **Beskytt `main`-branchen**: Require a pull request before merging + require den automatiske CI-sjekken (`compile`) skal være grønn før merge.
 2. **Bruk GitHub Issues til å holde oversikt** over hvem som har tatt hvilken funksjon — elevene bruker den ferdige issue-malen "Velg en funksjon" (label `funksjon`) i stedet for et regneark eller en tavle i klasserommet.
+3. **Nettverksoppsett for fysisk ESP32 (`secrets.h`)**: Prosjektet bruker `WiFiMulti`, slik at samme kode fungerer automatisk både i Wokwi-simulatoren og på det fysiske labnettverket. For å koble en fysisk klokke til labben:
+   - Kopier `sketch/secrets.example.h` til `sketch/secrets.h`.
+   - Fyll inn ditt fysiske nettverksnavn (SSID) og passord (og eventuell fast IP hvis dere bruker det).
+   - `secrets.h` er i `.gitignore` og vil aldri lastes opp til GitHub. Elevene som kun simulerer i Wokwi trenger ikke denne filen.
 
 ---
 

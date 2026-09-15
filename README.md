@@ -10,6 +10,7 @@ En smart skole-timeplan-klokke bygget med ESP32 og en NeoPixel LED-ring. Prosjek
 2. Installer nødvendig bibliotek: søk på **"Adafruit NeoPixel"** i Library Manager (Ctrl+Shift+I) og installer det.
 3. Sørg for at ESP32-kortpakken er installert (Tools → Board → Boards Manager → søk "esp32" av Espressif Systems), og velg riktig ESP32-kort under Tools → Board. Vi bruker den som heter "DOIT ESP32 DEVKIT V1"
 4. `WiFi.h`, `time.h` og `<sys/time.h>` følger automatisk med og trenger ingen installasjon.
+5. **WiFi-oppsett for fysisk ESP32 (valgfritt):** Koden fungerer rett ut av boksen i Wokwi-simulatoren. Hvis du skal teste på en fysisk ESP32 i klasserommet: kopier `sketch/secrets.example.h` til `sketch/secrets.h` og fyll inn nettverksnavn og passord. Filen ignoreres av Git og lastes aldri opp til GitHub.
 
 ## Hardware-tilkobling
 

@@ -8,9 +8,20 @@
 */
 
 #include <WiFi.h> // Bibliotek for WiFi-funksjoner, inkludert i Arduino IDE (Må bruke ESP32 eller ESP8266 for WiFi)
+#include <WiFiMulti.h> // Lar ESP32 koble seg til beste tilgjengelige nettverk (Wokwi eller fysisk)
+#include <ArduinoOTA.h> // Bibliotek for trådløs programmering (Over-The-Air) over WiFi
 #include <time.h> // Bibliotek for tidsfunksjoner, inkludert i Arduino IDE
 #include <sys/time.h> // Bibliotek for timeval og settimeofday (brukes til dummytid/testing)
 #include <Adafruit_NeoPixel.h> // Bibliotek for NeoPixel LED-ring, må lastes ned via Library Manager i Arduino IDE
+
+// Hent lokale nettverkshemmeligheter hvis secrets.h finnes (ignorert av Git):
+#if __has_include("secrets.h")
+  #include "secrets.h"
+#else
+  #define FYSISK_WIFI_SSID ""
+  #define FYSISK_WIFI_PASS ""
+  #define BRUK_STATISK_IP false
+#endif
 
 // ========== HARDWARE KONFIGURASJON ==========
 #define LED_PIN 25        // Pin for NeoPixel ring
@@ -21,8 +32,12 @@
 Adafruit_NeoPixel strip = Adafruit_NeoPixel(NUM_LEDS, LED_PIN, NEO_GRB + NEO_KHZ800);
 
 // ========== WIFI KONFIGURASJON ==========
-const char* ssid = "Wokwi-GUEST";      // WiFi navn
-const char* password = "";               // WiFi passord
+WiFiMulti wifiMulti;
+const char* WOKWI_SSID = "Wokwi-GUEST";
+const char* WOKWI_PASS = "";
+// Bakoverkompatibilitet hvis noen funksjoner refererer til ssid/password:
+const char* ssid = WOKWI_SSID;
+const char* password = WOKWI_PASS;
 
 // ========== ENUMS OG DATASTRUKTURER ==========
 enum Fag {
@@ -90,6 +105,7 @@ void helgAnimasjon(); // Viser animasjon i helgene
 int planIndex(int ukedag, int time, int minutt); // Returnerer indeksen i plan[] for gjeldende time, eller -1
 void handterAktivitetsbytte(Fag nyttFag, int ukedag); // Oppdager fagbytte og setter riktige status-flagg/melodi
 void settDummyTid(int ukedag, int time, int minutt, int sekund); // Setter ESP32-klokken manuelt til test-tidspunkt
+void setupArduinoOTA(); // Klargjør ESP32 for trådløse oppdateringer (OTA) over WiFi
 
 // EKSTRA / VALGFRIE FUNKSJONER (utvider funksjonaliteten - se ELEVOPPGAVER.md):
 void startNedtelling(uint32_t farge, int minutt, int sekund); // Blokkerende nedtellingstimer, avbrytes ved å skrive "stopp" i Serial
@@ -133,6 +149,41 @@ void settDummyTid(int ukedag, int time, int minutt, int sekund) {
   settimeofday(&tv, NULL);
 }
 
+void setupArduinoOTA() {
+  // Hostname som vises i Arduino IDE og på nettverket
+  ArduinoOTA.setHostname("klokke-esp32");
+
+  ArduinoOTA.onStart([]() {
+    String type = (ArduinoOTA.getCommand() == U_FLASH) ? "skisse/kode" : "filsystem";
+    Serial.println("\n📡 Starter trådløs OTA-oppdatering (" + type + ")...");
+  });
+
+  ArduinoOTA.onEnd([]() {
+    Serial.println("\n✅ OTA-oppdatering fullført! Restarter ESP32...");
+  });
+
+  ArduinoOTA.onProgress([](unsigned int progress, unsigned int total) {
+    static int sisteProsent = -1;
+    int prosent = (progress / (total / 100));
+    if (prosent != sisteProsent && prosent % 10 == 0) {
+      Serial.printf("⏳ OTA-fremdrift: %u%%\n", prosent);
+      sisteProsent = prosent;
+    }
+  });
+
+  ArduinoOTA.onError([](ota_error_t error) {
+    Serial.printf("❌ OTA-feil [%u]: ", error);
+    if (error == OTA_AUTH_ERROR) Serial.println("Autentisering feilet");
+    else if (error == OTA_BEGIN_ERROR) Serial.println("Oppstart feilet");
+    else if (error == OTA_CONNECT_ERROR) Serial.println("Tilkobling feilet");
+    else if (error == OTA_RECEIVE_ERROR) Serial.println("Mottak feilet");
+    else if (error == OTA_END_ERROR) Serial.println("Avslutning feilet");
+  });
+
+  ArduinoOTA.begin();
+  Serial.println("📡 ArduinoOTA aktivert (Hostname: klokke-esp32)");
+}
+
 // ========== SETUP ==========
 void setup() {
   Serial.begin(115200);
@@ -146,8 +197,22 @@ void setup() {
   strip.show();
   startupAnimasjon();
   
+  // Sett eventuell fast/statisk IP hvis konfigurert i secrets.h
+  #if BRUK_STATISK_IP
+    IPAddress local_IP(STATISK_IP);
+    IPAddress gateway(STATISK_GATEWAY);
+    IPAddress subnet(STATISK_SUBNET);
+    IPAddress primaryDNS(STATISK_DNS);
+    WiFi.config(local_IP, gateway, subnet, primaryDNS);
+  #endif
+
+  // Registrer nettverk i WiFiMulti (ESP32 velger automatisk det som er tilgjengelig):
+  wifiMulti.addAP(WOKWI_SSID, WOKWI_PASS); // Alltid klar for Wokwi-simulering
+  if (strlen(FYSISK_WIFI_SSID) > 0) {
+    wifiMulti.addAP(FYSISK_WIFI_SSID, FYSISK_WIFI_PASS); // Fysisk nettverk fra secrets.h
+  }
+
   // Koble til WiFi og hent tid
-  WiFi.begin(ssid, password); // Start forbindelsen til internett
   if(hentInternetTid()) {
     Serial.println("✅ WiFi og tid OK!");
     blinkLED(strip.Color(0, 255, 0), 2); // Grønn = success
@@ -156,6 +221,11 @@ void setup() {
     Serial.println("🕒 Setter dummytid: Onsdag kl. 09:30:00 (for at klokken skal tikke og kunne testes)");
     settDummyTid(ONSDAG, 9, 30, 0);
     blinkLED(strip.Color(255, 150, 0), 2); // Oransje/gul = dummytid aktiv
+  }
+
+  // Klargjør trådløs programmering (OTA) hvis WiFi er tilkoblet
+  if (WiFi.status() == WL_CONNECTED) {
+    setupArduinoOTA();
   }
 
   // (Ekstra stor oppgave) Sett opp webserveren for web-grensesnittet, hvis implementert
@@ -170,6 +240,16 @@ void setup() {
 
 // ========== HOVEDLOOP ==========
 void loop() {
+  // Håndter trådløs programmering (OTA) – aktiveres automatisk hvis WiFi kobler til
+  static bool otaAktiv = false;
+  if (!otaAktiv && WiFi.status() == WL_CONNECTED) {
+    setupArduinoOTA();
+    otaAktiv = true;
+  }
+  if (otaAktiv) {
+    ArduinoOTA.handle();
+  }
+
   // Hent gjeldende tid
   time_t now;
   struct tm timeinfo;
@@ -503,7 +583,9 @@ bool hentInternetTid() {
   // Laget av: Marcel & Luka
   int forsok = 0;
   const char* TZ_INFO = "CET-1CEST,M3.5.0/2,M10.5.0/3";
-  while(WiFi.status() != WL_CONNECTED && forsok < 20) {
+
+  // wifiMulti.run() skanner og kobler automatisk til beste tilgjengelige nettverk (Wokwi eller fysisk)
+  while(wifiMulti.run() != WL_CONNECTED && forsok < 20) {
     delay(500);
     forsok++;
   }
@@ -512,7 +594,9 @@ bool hentInternetTid() {
     return false;
   }
   else {
-    Serial.println("WiFi-tilkobling lyktes!");
+    Serial.print("WiFi-tilkobling lyktes til: ");
+    Serial.println(WiFi.SSID());
+    Serial.print("IP-adresse: ");
     Serial.println(WiFi.localIP());
     configTzTime(TZ_INFO, "pool.ntp.org");
     struct tm t;

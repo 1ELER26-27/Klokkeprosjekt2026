@@ -20,6 +20,13 @@ Denne filen dekker det som er spesifikt for at klassen jobber i en **GitHub Orga
 
 Alle filene som beskriver opplegget (README, ELEVOPPGAVER, LARERPROSEDYRE, denne filen, issue- og PR-malene og CI-sjekken i `.github/`) følger automatisk med kopien, og fungerer med det samme i din egen organisasjon.
 
+### Konfigurer nettverk for fysisk klokke (secrets.h)
+
+Koden støtter både Wokwi-simulatoren og fysiske ESP32-er automatisk ved hjelp av `WiFiMulti`.
+1. I prosjektmappen: kopier `sketch/secrets.example.h` og gi kopien navnet `sketch/secrets.h`.
+2. Fyll inn ditt lokale nettverksnavn (SSID) og passord for det fysiske nettverket i labben.
+3. `secrets.h` er registrert i `.gitignore` og blir aldri lastet opp til GitHub, slik at nettverkspassord holdes trygge.
+
 ## 1. Legg elevene inn i organisasjonen
 
 1. Gå til organisasjonens side på github.com → **People** → **Invite member**.
