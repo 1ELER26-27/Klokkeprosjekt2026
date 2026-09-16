@@ -550,16 +550,11 @@ Fag hentGjeldendeFag(int index) {
 //==================================================================================================================================
 
 int beregnTidIgjen(int index, int time, int minutt, int sekund) {
-  // Laget av: 
-  // TODO: Regn ut hvor mange sekunder som er igjen av aktiviteten i plan[index]
-  // Input: index er raden i plan[], time/minutt/sekund er klokkeslettet akkurat nå
+  // Laget av: Marcel & Luka
   if (index == -1) { return 0; }
-
-  // Tips: Gjør om både "nå" og "når timen slutter" til sekunder fra midnatt og ta differansen:
-  //       int naSek = time * 3600 + minutt * 60 + sekund;
-  //       int sluttSek = plan[index].startTime * 3600 + (plan[index].startMinutt + plan[index].varighet) * 60;
-  //       return max(0, sluttSek - naSek);
-  return 0; // Placeholder
+  int naSek = time * 3600 + minutt * 60 + sekund;
+  int sluttSek = plan[index].startTime * 3600 + (plan[index].startMinutt + plan[index].varighet) * 60;
+  return max(0, sluttSek - naSek);
 }
 
 //==================================================================================================================================
