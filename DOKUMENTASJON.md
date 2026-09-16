@@ -132,7 +132,7 @@ sekund (int) - Sekund i tid akkurat nå, eks: kl 12:15:37 sekund = 37
 int: returnerer hvor mye tid som er igjen av timen i sekunder.
 
 **Refleksjon:**
-Hintene var til god hjelp, men vi forsto fort hva vi måtte gjøre. Vi testet det med å lage en dummy plan, siden timeplanen ikke var laget enda.
+Hintene var til god hjelp, men vi forsto fort hva vi måtte gjøre. Vi testet det med å lage en dummy plan, siden timeplanen ikke var laget enda. Bruker max(0, SluttSek - naSek), slik at man får 0 hvis timen er ferdig, ikke negative verdier.
 
 ### `hentGjeldendeFag`
 _(ikke dokumentert ennå)_
