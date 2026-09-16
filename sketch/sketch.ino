@@ -350,6 +350,10 @@ void sjekkSerialMeny() {
   // TODO: Sjekk om brukeren har skrevet noe i Serial-monitoren, og åpne menyen med visMeny() hvis teksten er "meny"
   // Tips: Serial.available() forteller om det finnes tekst å lese
   // Tips: Serial.readStringUntil('\n') leser inn teksten, input.trim() fjerner mellomrom/linjeskift
+
+  if(Serial.available()){
+    String svar = Serial.readString();
+    Serial.println(svar);
 }
 
 //==================================================================================================================================
