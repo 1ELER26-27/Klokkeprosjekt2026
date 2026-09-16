@@ -404,14 +404,87 @@ void timeStartAnimasjon(uint32_t fagfarge) {
 //==================================================================================================================================
 
 void friminuttAnimasjon(int minutt, int index){
-  // Laget av: 
+  // Laget av: Vilde 
   // TODO: Vis en animasjon i friminuttet som viser hvor mye tid som er igjen
   // Input: minutt er gjeldende minutt, index er raden i plan[] for friminuttet
-  if(index == -1){return;}
+   // En runde med rødt
+  for(int i = 0; i < NUM_LEDS; i++) {
+    strip.setPixelColor(i, strip.Color(255, 0, 0));
+    strip.show();
+    delay(8);
+  }
+  strip.clear();
+  strip.show();
+
+  // En runde med orange
+  for(int i = 0; i < NUM_LEDS; i++) {
+    strip.setPixelColor(i, strip.Color(255, 128, 0));
+    strip.show();
+    delay(7);
+  }
+  strip.clear();
+  strip.show();
+
+  // En runde med gul
+  for(int i = 0; i < NUM_LEDS; i++) {
+    strip.setPixelColor(i, strip.Color(255, 255, 0));
+    strip.show();
+    delay(6);
+  }
+  strip.clear();
+  strip.show();
+
+  // En runde med grønn
+  for(int i = 0; i < NUM_LEDS; i++) {
+    strip.setPixelColor(i, strip.Color(0, 255, 0));
+    strip.show();
+    delay(5);
+  }
+  strip.clear();
+  strip.show();
+
+  // En runde med blå
+  for(int i = 0; i < NUM_LEDS; i++) {
+    strip.setPixelColor(i, strip.Color(0, 40, 255));
+    strip.show();
+    delay(4);
+  }
+  strip.clear();
+  strip.show();
+
+  // En runde med indigo
+  for(int i = 0; i < NUM_LEDS; i++) {
+    strip.setPixelColor(i, strip.Color(75, 0, 130));
+    strip.show();
+    delay(3);
+  }
+  strip.clear();
+  strip.show();
+
+  // En runde med fiolett
+  for(int i = 0; i < NUM_LEDS; i++) {
+    strip.setPixelColor(i, strip.Color(148, 0, 211));
+    strip.show();
+    delay(2);
+  }
+  strip.clear();
+  strip.show();
+
+  // Fargerike lys
+  for(int t = 0; t < 15; t++) {
+    for(int i = 0; i < NUM_LEDS; i++) {
+    strip.setPixelColor(i, strip.Color(random(255),random(255),random(255)));
+    }
+    strip.show();
+    delay(2);
+  }
+  strip.show();
+  delay(200);
+  
+}
 
   // Tips: plan[index].startMinutt og plan[index].varighet forteller når friminuttet startet/slutter
   // Tips: Bruk map() for å regne om et tidspunkt til en LED-posisjon (0 til NUM_LEDS)
-}
 
 
 //==================================================================================================================================
