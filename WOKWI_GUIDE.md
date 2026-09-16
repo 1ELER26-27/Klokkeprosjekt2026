@@ -19,6 +19,10 @@ Med Wokwi og Arduino CLI kan dere kompilere koden og kjøre en full interaktiv s
 
 ## 2. Engangskonfigurasjon av Arduino CLI
 
+> [!WARNING]
+> **Får du feilmeldingen `An Application Control policy has blocked this file`?**
+> Da er det **Smart appkontroll** i Windows 11 som blokkerer `arduino-cli.exe`. Løsning: slå av Smart appkontroll (Windows-innstillinger → Personvern og sikkerhet → Smart appkontroll).
+
 Åpne en terminal i VS Code (`Ctrl+Shift+\``) og kjør følgende tre kommandoer:
 - NB: Hvis den første kommandoen ikke virker så må du kanskje restarte VS Code
 - Hvis det fortsatt ikke virker så har ikke arduino-cli havnet i PATH
