@@ -355,27 +355,35 @@ void sjekkSerialMeny() {
 //==================================================================================================================================
 
 uint32_t fagFarge(Fag fag) {
-  // Laget av: 
-  // TODO: Returner en unik LED-farge for hvert fag i enum Fag
+  // Laget av: Erik
+  // TODO: Returner e n unik LED-farge for hvert fag i enum Fag
   // Tips: strip.Color(r, g, b) tar verdier fra 0-255 for hver fargekanal
   // Tips: Bruk switch/case eller if-else, én farge per fag
     switch (fag) {
-        case matte:
-            return strip.Color(198, 27, 108)
+        case MATTE:
+            return strip.Color(198, 27, 108) // Rosa farge for MATTE
     
-        case norsk:
-            return strip.Color(239, 168, 123)
+        case NORSK:
+            return strip.Color(239, 168, 123) // Lys oransje farge NORSK
 
-        case engelsk:
-            return strip.Color(66, 20, 54)
+        case ENGLSK:
+            return strip.Color(66, 20, 54) // Svart farge for ENGELSK
 
-        case naturfag:
-            return strip.Color(180, 16, 199)
+        case NATURFAG:
+            return strip.Color(180, 16, 199) // Lilla farge for NATURFAG
 
-        case gym:
-            return strip.Color(180, 16, 199)
+        case GYM:
+            return strip.Color(40, 241, 101) // Grønn farge for GYM
 
-        case 
+        case ELKRETSER:
+            return strip.Color(255, 0, 0) // Rød farge for ELKRETSER
+
+        case ENOGSTYR:
+            return strip.Color(0,0, 255) // Blå farge for ENOGSTYR
+
+        case FRIMINUTT:
+            return strip.Color(255, 255, 255) // Skal bestemmes av animasjon
+
     }
 }
 
