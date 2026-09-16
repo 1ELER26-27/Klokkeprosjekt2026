@@ -496,7 +496,17 @@ void spillMelodi(int melodiNr) {
 //==================================================================================================================================
 
 void ferdigForDagenAnimasjon() {
-  // Laget av: 
+  // Laget av:Tobias og Vrishab
+   #define DELAYVAL 500
+   
+   for (int i=0;i<NUM_LEDS;i++) {
+    pixels.setPixelColor(i,pixels.color(250,0,175));
+    pixels.setPixelColor(NUM_LEDS-1-i,pixels.color(250,175,0));
+    pixels.show();
+    delay(DELAYVAL);
+   }
+
+  
   // TODO: Vis en rolig animasjon som markerer at skoledagen er ferdig
   // Tips: F.eks. en myk fade inn/ut med strip.fill() og strip.show()
   // Tips: strip.Color(r, g, b) lager fargen, delay() styrer hastigheten
