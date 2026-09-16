@@ -361,28 +361,28 @@ uint32_t fagFarge(Fag fag) {
   // Tips: Bruk switch/case eller if-else, én farge per fag
     switch (fag) {
         case MATTE:
-            return strip.Color(198, 27, 108) // Rosa farge for MATTE
+            return strip.Color(198, 27, 108); // Rosa farge for MATTE
     
         case NORSK:
-            return strip.Color(239, 168, 123) // Lys oransje farge NORSK
+            return strip.Color(239, 168, 123); // Lys oransje farge NORSK
 
-        case ENGLSK:
-            return strip.Color(66, 20, 54) // Svart farge for ENGELSK
+        case ENGELSK:
+            return strip.Color(66, 20, 54); // Svart farge for ENGELSK
 
         case NATURFAG:
-            return strip.Color(180, 16, 199) // Lilla farge for NATURFAG
+            return strip.Color(180, 16, 199); // Lilla farge for NATURFAG
 
         case GYM:
-            return strip.Color(40, 241, 101) // Grønn farge for GYM
+            return strip.Color(40, 241, 101); // Grønn farge for GYM
 
         case ELKRETSER:
-            return strip.Color(255, 0, 0) // Rød farge for ELKRETSER
+            return strip.Color(255, 0, 0); // Rød farge for ELKRETSER
 
         case ENOGSTYR:
-            return strip.Color(0,0, 255) // Blå farge for ENOGSTYR
+            return strip.Color(0,0, 255); // Blå farge for ENOGSTYR
 
         case FRIMINUTT:
-            return strip.Color(255, 255, 255) // Skal bestemmes av animasjon
+            return strip.Color(255, 255, 255); // Skal bestemmes av animasjon
 
     }
 }
