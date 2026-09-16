@@ -372,6 +372,9 @@ uint32_t fagFarge(Fag fag) {
         case naturfag:
             return strip.Color(180, 16, 199)
 
+        case gym:
+            return strip.Color(180, 16, 199)
+
         case 
     }
 }
