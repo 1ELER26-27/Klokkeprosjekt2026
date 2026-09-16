@@ -415,8 +415,21 @@ void friminuttAnimasjon(int minutt, int index){
 
 
 //==================================================================================================================================
+// visklokkevisere
 
-// Hjelpefunksjoner for klokkevisere (disse er ferdig laget og kan brukes direkte i visKlokkevisere):
+
+Adafruit_NeoPixel pixels(NUM_LEDS, PIN, NEO_GRB + NEO_KHZ800);
+
+  int timeLED;
+  int minuttLED;
+  int antallLED;
+  int sekundLED;
+  int sekund;
+  int minutt;
+  int time; 
+
+
+ // 36000 sekund i time 
 int time_viser(int time, int minutt) {
   int t_min = (time % 12) * 60;
   int time_pix = ((t_min + minutt) * NUM_LEDS) / 720;
@@ -433,9 +446,40 @@ int sekund_viser(int sekund) {
   int sek_pix = (int)((total * NUM_LEDS) / 60);
   return sek_pix % NUM_LEDS;
 }
+void setup(){
+
+  pixels.begin();
+  pixels.clear();
+  pixels.show();
+}
+
+void loop(){
+unsigned long totalSekunder = millis() / 1000;  
+
+sekund = totalSekunder % 60; 
+minutt = (totalSekunder / 60) % 60;
+time = (totalSekunder / 3600) % 24; 
+
+int timeLED = time_viser(time, minutt);
+int minuttLED = minutt_viser(minutt, sekund);
+int sekundLED = sekund_viser(sekund);
+
+
+pixls.clear();
+  //Rød
+  pixels.setPixelColor(timeLED, pixels.Color(150, 0, 0));
+  //Blå
+  pixels.setPixelcolor(sekundLED, pixels.color(0, 150, 0));
+  //Grønn 
+  pixels.setPixelColor(minuttLED, pixels.color(0, 0, 150));
+  
+pixels.show();
+delay (50);
+}
+
 
 void visKlokkevisere(int time, int minutt, int sec) {
-  // Laget av: 
+  // Laget av: Alexander og Johan
   // TODO: Tegn time-, minutt- og sekundviseren på ringen
   // Input: time (0-23), minutt (0-59), sec (0-59)
   // NB: strip.clear() og strip.show() håndteres automatisk i loop() - ikke kall dem her!
@@ -449,7 +493,7 @@ void visKlokkevisere(int time, int minutt, int sec) {
 //==================================================================================================================================
 
 void nedtellingBar(int index, int sekunderIgjen, uint32_t fagfarge) {
-  // Laget av: 
+  // Laget av: Alexnader og Johan
   // TODO: Tegn en "bue" av LEDs som viser hvor mye tid som er igjen av gjeldende aktivitet
   // Input: index er raden i plan[], sekunderIgjen er tid igjen, fagfarge er fargen som skal brukes
   // NB: strip.clear() og strip.show() håndteres automatisk i loop() - ikke kall dem her!
