@@ -135,7 +135,19 @@ int: returnerer hvor mye tid som er igjen av timen i sekunder.
 Hintene var til god hjelp, men vi forsto fort hva vi måtte gjøre. Vi testet det med å lage en dummy plan, siden timeplanen ikke var laget enda. Bruker max(0, SluttSek - naSek), slik at man får 0 hvis timen er ferdig, ikke negative verdier.
 
 ### `hentGjeldendeFag`
-_(ikke dokumentert ennå)_
+**Laget av:** Marcel
+
+**Hva gjør den?**
+Funksjonen tar inn index (i planen), og returnerer en verdi fra enum Fag { INGENTING (0), FRIMINUTT (1), ELKRETSER (2), ENOGSTYR (3), NORSK (4), ENGELSK (5), MATTE (6), NATURFAG (7), GYM (8)}. Hvis index = -1, blir INGENTING (0) returnert.
+
+**Parametere:**
+index (int) - hvor vi er i timePlan plan[].
+
+**Returverdi:**
+Fag (enum) - tall fra 0 - 8, hvor hvert tall står for et forskjellig fag.
+
+**Refleksjon:**
+Det var ikke en særlig vanskelig funksjon å lage.
 
 ### `hentInternetTid`
 **Laget av:** Marcel & Luka
