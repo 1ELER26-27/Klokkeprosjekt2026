@@ -541,10 +541,13 @@ void fyllPlan() {
 //==================================================================================================================================
 
 Fag hentGjeldendeFag(int index) {
-  // Laget av: 
-  // TODO: Returner faget som står i plan[index]
-  // Tips: Husk å sjekke om index er -1 (ingen time nå) og returner INGENTING i så fall
-  return INGENTING; // Placeholder
+  // Laget av: Marcel
+  if(index == -1) {
+    return INGENTING;
+  }
+  else {
+    return plan[index].fag;
+  }
 }
 
 //==================================================================================================================================
