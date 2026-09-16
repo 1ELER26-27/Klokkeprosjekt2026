@@ -30,31 +30,31 @@ Bruk malen i [dokumentasjon/README.md](dokumentasjon/README.md) på **alle** fun
 
 ## Funksjonsoversikt / Booking
 
-Skriv navnet ditt (eller gruppa) i `Hvem`-kolonnen når du tar en oppgave, og oppdater `Status` etter hvert som du jobber. Gyldige statuser: **Ledig** (default, ikke tatt) → **Underveis** → **Ferdig**. `Dokumentasjon`-kolonnen lenker til fila i [dokumentasjon/funksjoner/](dokumentasjon/funksjoner/) der du skal fylle ut malen for funksjonen din.
+Skriv navnet ditt (eller gruppa) i `Hvem`-kolonnen når du tar en oppgave, og oppdater `Status` etter hvert som du jobber. Gyldige statuser: **Ledig** (default, ikke tatt) → **⚠️ Påbegynt** → **✅ Ferdig**. `Dokumentasjon`-kolonnen lenker til fila i [dokumentasjon/funksjoner/](dokumentasjon/funksjoner/) der du skal fylle ut malen for funksjonen din.
 
 | Vanskelighetsgrad | Funksjon | Hvem | Status | Dokumentasjon |
 |---|---|---|---|---|
 | Enkel | `sjekkHelg` | | Ledig | [sjekkHelg.md](dokumentasjon/funksjoner/sjekkHelg.md) |
-| Enkel | `fagFarge` | | Ledig | [fagFarge.md](dokumentasjon/funksjoner/fagFarge.md) |
+| Enkel | `fagFarge` | Erik | ⚠️ Påbegynt | [fagFarge.md](dokumentasjon/funksjoner/fagFarge.md) |
 | Enkel | `fagNavn` | | Ledig | [fagNavn.md](dokumentasjon/funksjoner/fagNavn.md) |
-| Enkel | `blinkLED` | | Ledig | [blinkLED.md](dokumentasjon/funksjoner/blinkLED.md) |
+| Enkel | `blinkLED` | Bjørn | ⚠️ Påbegynt | [blinkLED.md](dokumentasjon/funksjoner/blinkLED.md) |
 | Enkel | `timeStartAnimasjon` | | Ledig | [timeStartAnimasjon.md](dokumentasjon/funksjoner/timeStartAnimasjon.md) |
-| Enkel | `friminuttAnimasjon` | | Ledig | [friminuttAnimasjon.md](dokumentasjon/funksjoner/friminuttAnimasjon.md) |
-| Enkel | `visMeny` | | Ledig | [visMeny.md](dokumentasjon/funksjoner/visMeny.md) |
+| Enkel | `friminuttAnimasjon` | Vilde | ✅ Ferdig | [friminuttAnimasjon.md](dokumentasjon/funksjoner/friminuttAnimasjon.md) |
+| Enkel | `visMeny` | Endre | ⚠️ Påbegynt | [visMeny.md](dokumentasjon/funksjoner/visMeny.md) |
 | Enkel | `sjekkSerialMeny` | | Ledig | [sjekkSerialMeny.md](dokumentasjon/funksjoner/sjekkSerialMeny.md) |
-| Middels | `visKlokkevisere` | | Ledig | [visKlokkevisere.md](dokumentasjon/funksjoner/visKlokkevisere.md) |
-| Middels | `nedtellingBar` | | Ledig | [nedtellingBar.md](dokumentasjon/funksjoner/nedtellingBar.md) |
-| Middels | `melodiSpiller` | | Ledig | [melodiSpiller.md](dokumentasjon/funksjoner/melodiSpiller.md) |
+| Middels | `visKlokkevisere` | Alexander og Johan | ⚠️ Påbegynt | [visKlokkevisere.md](dokumentasjon/funksjoner/visKlokkevisere.md) |
+| Middels | `nedtellingBar` | Alexander og Johan | ⚠️ Påbegynt | [nedtellingBar.md](dokumentasjon/funksjoner/nedtellingBar.md) |
+| Middels | `melodiSpiller` | Viggo | ⚠️ Påbegynt | [melodiSpiller.md](dokumentasjon/funksjoner/melodiSpiller.md) |
 | Middels | `spillMelodi` | | Ledig | [spillMelodi.md](dokumentasjon/funksjoner/spillMelodi.md) |
 | Middels | `visGjeldendeStatus` | | Ledig | [visGjeldendeStatus.md](dokumentasjon/funksjoner/visGjeldendeStatus.md) |
-| Middels | `ferdigForDagenAnimasjon` | | Ledig | [ferdigForDagenAnimasjon.md](dokumentasjon/funksjoner/ferdigForDagenAnimasjon.md) |
-| Middels | `helgeSluttAnimasjon` | | Ledig | [helgeSluttAnimasjon.md](dokumentasjon/funksjoner/helgeSluttAnimasjon.md) |
+| Middels | `ferdigForDagenAnimasjon` | Tobias og Vrishab | ⚠️ Påbegynt | [ferdigForDagenAnimasjon.md](dokumentasjon/funksjoner/ferdigForDagenAnimasjon.md) |
+| Middels | `helgeSluttAnimasjon` | Joachim | ⚠️ Påbegynt | [helgeSluttAnimasjon.md](dokumentasjon/funksjoner/helgeSluttAnimasjon.md) |
 | Middels | `handterHelg` | | Ledig | [handterHelg.md](dokumentasjon/funksjoner/handterHelg.md) |
-| Avansert | `fyllPlan` | | Ledig | [fyllPlan.md](dokumentasjon/funksjoner/fyllPlan.md) |
-| Avansert | `beregnTidIgjen` | | Ledig | [beregnTidIgjen.md](dokumentasjon/funksjoner/beregnTidIgjen.md) |
-| Avansert | `hentGjeldendeFag` | | Ledig | [hentGjeldendeFag.md](dokumentasjon/funksjoner/hentGjeldendeFag.md) |
-| Avansert | `hentInternetTid` | Marcel & Luka | Ferdig | [hentInternetTid.md](dokumentasjon/funksjoner/hentInternetTid.md) |
-| Avansert | `helgAnimasjon` | | Ledig | [helgAnimasjon.md](dokumentasjon/funksjoner/helgAnimasjon.md) |
+| Avansert | `fyllPlan` | Nicholas & Marcel | ⚠️ Påbegynt | [fyllPlan.md](dokumentasjon/funksjoner/fyllPlan.md) |
+| Avansert | `beregnTidIgjen` | Luka & Marcel | ✅ Ferdig | [beregnTidIgjen.md](dokumentasjon/funksjoner/beregnTidIgjen.md) |
+| Avansert | `hentGjeldendeFag` | Marcel | ✅ Ferdig | [hentGjeldendeFag.md](dokumentasjon/funksjoner/hentGjeldendeFag.md) |
+| Avansert | `hentInternetTid` | Marcel & Luka | ✅ Ferdig | [hentInternetTid.md](dokumentasjon/funksjoner/hentInternetTid.md) |
+| Avansert | `helgAnimasjon` | Franklin | ⚠️ Påbegynt | [helgAnimasjon.md](dokumentasjon/funksjoner/helgAnimasjon.md) |
 | Avansert | `planIndex` | | Ledig | [planIndex.md](dokumentasjon/funksjoner/planIndex.md) |
 | Avansert | `handterAktivitetsbytte` | | Ledig | [handterAktivitetsbytte.md](dokumentasjon/funksjoner/handterAktivitetsbytte.md) |
 | Ekstra (valgfritt) | `startNedtelling` | | Ledig | [startNedtelling.md](dokumentasjon/funksjoner/startNedtelling.md) |
@@ -64,7 +64,7 @@ Skriv navnet ditt (eller gruppa) i `Hvem`-kolonnen når du tar en oppgave, og op
 | Ekstra (valgfritt) | `spillRTTTL` | | Ledig | [spillRTTTL.md](dokumentasjon/funksjoner/spillRTTTL.md) |
 | Ekstra stort (samarbeid) | Web-grensesnitt (`settOppWebserver`, `handterWebKlient`, `genererMenyHTML`) | | Ledig | [web-grensesnitt.md](dokumentasjon/funksjoner/web-grensesnitt.md) |
 | Hardware (samarbeid, ikke koding) | Kabling og lodding | | Ledig |
-| Hardware (samarbeid, ikke koding) | 3D-printet ramme/kabinett | | Ledig |
+| Hardware (samarbeid, ikke koding) | 3D-printet ramme/kabinett | Leo | ⚠️ Påbegynt |
 
 ---
 
