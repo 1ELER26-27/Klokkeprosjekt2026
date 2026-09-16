@@ -359,12 +359,21 @@ uint32_t fagFarge(Fag fag) {
   // TODO: Returner en unik LED-farge for hvert fag i enum Fag
   // Tips: strip.Color(r, g, b) tar verdier fra 0-255 for hver fargekanal
   // Tips: Bruk switch/case eller if-else, én farge per fag
-  switch (fag) {
-    case INGENTING:
-      return strip.Color(0, 0, 0); // Eksempel: svart/av
-    default:
-      return strip.Color(0, 0, 0); // Placeholder - bytt ut med egne farger!
-  }
+    switch (fag) {
+        case matte:
+            return strip.Color(198, 27, 108)
+    
+        case norsk:
+            return strip.Color(239, 168, 123)
+
+        case engelsk:
+            return strip.Color(66, 20, 54)
+
+        case naturfag:
+            return strip.Color(180, 16, 199)
+
+        case 
+    }
 }
 
 //==================================================================================================================================
