@@ -6,7 +6,7 @@ Dere skal sammen bygge ferdig en smart skole-timeplan-klokke med en NeoPixel LED
 
 1. Velg en funksjon fra listen under som ingen andre i klassen har tatt.
 2. Skriv navnet ditt i `// Laget av: <Fornavn>` inne i funksjonen.
-3. Fyll ut dokumentasjonen for funksjonen din i [DOKUMENTASJON.md](DOKUMENTASJON.md) — ikke i sketch.ino, se hvorfor under.
+3. Fyll ut dokumentasjonen for funksjonen din i din egen fil under [dokumentasjon/funksjoner/](dokumentasjon/funksjoner/) — ikke i sketch.ino, se hvorfor under.
 4. Ikke endre funksjonens navn, parametere eller returtype — resten av koden er avhengig av at signaturen er uendret.
 5. **Test funksjonen din før du leverer!** Du kan teste den via Serial-monitoren, eller legge til en midlertidig testlinje nederst i `setup()` for å se at den virker (husk å fjerne testlinjen før du committer):
    - For `sjekkHelg`: `Serial.println(sjekkHelg(LORDAG) ? "OK: Helg!" : "Feil");`
@@ -18,26 +18,53 @@ Dere skal sammen bygge ferdig en smart skole-timeplan-klokke med en NeoPixel LED
 
 ## Dokumentasjonsstandard
 
-`sketch/sketch.ino` er en C++-fil og egner seg dårlig til lange forklaringer — derfor skrives dokumentasjonen i en egen fil, [DOKUMENTASJON.md](DOKUMENTASJON.md), i stedet for som kommentarblokker i koden. Inne i selve funksjonen holder det med den korte `// Laget av: <Fornavn>`-kommentaren.
+`sketch/sketch.ino` er en C++-fil og egner seg dårlig til lange forklaringer — derfor skrives dokumentasjonen i en egen fil per funksjon, i mappa [dokumentasjon/funksjoner/](dokumentasjon/funksjoner/), i stedet for som kommentarblokker i koden. Inne i selve funksjonen holder det med den korte `// Laget av: <Fornavn>`-kommentaren.
 
-Se [DOKUMENTASJON.md](DOKUMENTASJON.md) for malen du skal fylle ut (og et utfylt eksempel for `fagFarge`) — finn overskriften for din funksjon der, og fyll inn under den.
+Se [dokumentasjon/README.md](dokumentasjon/README.md) for malen du skal fylle ut (og et utfylt eksempel for `fagFarge`) — finn fila for din funksjon i [dokumentasjon/funksjoner/](dokumentasjon/funksjoner/) (samme navn som funksjonen), og fyll inn der.
 
 Poenget med dokumentasjonen er todelt: den skal gjøre det lett for andre (og deg selv) å forstå hva funksjonen gjør uten å lese hele koden, **og** den skal tvinge deg til å reflektere over løsningen din i stedet for bare å skrive kode og gå videre.
 
-Bruk malen i [DOKUMENTASJON.md](DOKUMENTASJON.md) på **alle** funksjonene dere implementerer.
+Bruk malen i [dokumentasjon/README.md](dokumentasjon/README.md) på **alle** funksjonene dere implementerer.
 
 ---
 
-## Funksjonsoversikt
+## Funksjonsoversikt / Booking
 
-| Vanskelighetsgrad | Funksjon |
-|---|---|
-| Enkel | `sjekkHelg`, `fagFarge`, `fagNavn`, `blinkLED`, `timeStartAnimasjon`, `friminuttAnimasjon`, `visMeny`, `sjekkSerialMeny` |
-| Middels | `visKlokkevisere`, `nedtellingBar`, `melodiSpiller`, `spillMelodi`, `visGjeldendeStatus`, `ferdigForDagenAnimasjon`, `helgeSluttAnimasjon`, `handterHelg` |
-| Avansert | `fyllPlan`, `beregnTidIgjen`, `hentGjeldendeFag`, `hentInternetTid` *(ferdig – Marcel & Luka)*, `helgAnimasjon`, `planIndex`, `handterAktivitetsbytte` |
-| Ekstra (valgfritt) | `startNedtelling`, `spillAnimasjon`, `startStoppeklokke`, `knappTrykket` (krever kabling), `spillRTTTL` — se [Ekstra / valgfrie funksjoner](#ekstra--valgfrie-funksjoner) |
-| Ekstra stort (avansert, samarbeid) | Web-grensesnitt — se [Web-grensesnitt](#-web-grensesnitt-ekstra-stor-oppgave-krever-samarbeid) nederst |
-| Hardware (samarbeid, ikke koding) | Kabling og lodding, 3D-printet ramme — se [Hardware-oppgaver](#hardware-oppgaver-krever-samarbeid) nederst |
+Skriv navnet ditt (eller gruppa) i `Hvem`-kolonnen når du tar en oppgave, og oppdater `Status` etter hvert som du jobber. Gyldige statuser: **Ledig** (default, ikke tatt) → **Underveis** → **Ferdig**. `Dokumentasjon`-kolonnen lenker til fila i [dokumentasjon/funksjoner/](dokumentasjon/funksjoner/) der du skal fylle ut malen for funksjonen din.
+
+| Vanskelighetsgrad | Funksjon | Hvem | Status | Dokumentasjon |
+|---|---|---|---|---|
+| Enkel | `sjekkHelg` | | Ledig | [sjekkHelg.md](dokumentasjon/funksjoner/sjekkHelg.md) |
+| Enkel | `fagFarge` | | Ledig | [fagFarge.md](dokumentasjon/funksjoner/fagFarge.md) |
+| Enkel | `fagNavn` | | Ledig | [fagNavn.md](dokumentasjon/funksjoner/fagNavn.md) |
+| Enkel | `blinkLED` | | Ledig | [blinkLED.md](dokumentasjon/funksjoner/blinkLED.md) |
+| Enkel | `timeStartAnimasjon` | | Ledig | [timeStartAnimasjon.md](dokumentasjon/funksjoner/timeStartAnimasjon.md) |
+| Enkel | `friminuttAnimasjon` | | Ledig | [friminuttAnimasjon.md](dokumentasjon/funksjoner/friminuttAnimasjon.md) |
+| Enkel | `visMeny` | | Ledig | [visMeny.md](dokumentasjon/funksjoner/visMeny.md) |
+| Enkel | `sjekkSerialMeny` | | Ledig | [sjekkSerialMeny.md](dokumentasjon/funksjoner/sjekkSerialMeny.md) |
+| Middels | `visKlokkevisere` | | Ledig | [visKlokkevisere.md](dokumentasjon/funksjoner/visKlokkevisere.md) |
+| Middels | `nedtellingBar` | | Ledig | [nedtellingBar.md](dokumentasjon/funksjoner/nedtellingBar.md) |
+| Middels | `melodiSpiller` | | Ledig | [melodiSpiller.md](dokumentasjon/funksjoner/melodiSpiller.md) |
+| Middels | `spillMelodi` | | Ledig | [spillMelodi.md](dokumentasjon/funksjoner/spillMelodi.md) |
+| Middels | `visGjeldendeStatus` | | Ledig | [visGjeldendeStatus.md](dokumentasjon/funksjoner/visGjeldendeStatus.md) |
+| Middels | `ferdigForDagenAnimasjon` | | Ledig | [ferdigForDagenAnimasjon.md](dokumentasjon/funksjoner/ferdigForDagenAnimasjon.md) |
+| Middels | `helgeSluttAnimasjon` | | Ledig | [helgeSluttAnimasjon.md](dokumentasjon/funksjoner/helgeSluttAnimasjon.md) |
+| Middels | `handterHelg` | | Ledig | [handterHelg.md](dokumentasjon/funksjoner/handterHelg.md) |
+| Avansert | `fyllPlan` | | Ledig | [fyllPlan.md](dokumentasjon/funksjoner/fyllPlan.md) |
+| Avansert | `beregnTidIgjen` | | Ledig | [beregnTidIgjen.md](dokumentasjon/funksjoner/beregnTidIgjen.md) |
+| Avansert | `hentGjeldendeFag` | | Ledig | [hentGjeldendeFag.md](dokumentasjon/funksjoner/hentGjeldendeFag.md) |
+| Avansert | `hentInternetTid` | Marcel & Luka | Ferdig | [hentInternetTid.md](dokumentasjon/funksjoner/hentInternetTid.md) |
+| Avansert | `helgAnimasjon` | | Ledig | [helgAnimasjon.md](dokumentasjon/funksjoner/helgAnimasjon.md) |
+| Avansert | `planIndex` | | Ledig | [planIndex.md](dokumentasjon/funksjoner/planIndex.md) |
+| Avansert | `handterAktivitetsbytte` | | Ledig | [handterAktivitetsbytte.md](dokumentasjon/funksjoner/handterAktivitetsbytte.md) |
+| Ekstra (valgfritt) | `startNedtelling` | | Ledig | [startNedtelling.md](dokumentasjon/funksjoner/startNedtelling.md) |
+| Ekstra (valgfritt) | `spillAnimasjon` | | Ledig | [spillAnimasjon.md](dokumentasjon/funksjoner/spillAnimasjon.md) |
+| Ekstra (valgfritt) | `startStoppeklokke` | | Ledig | [startStoppeklokke.md](dokumentasjon/funksjoner/startStoppeklokke.md) |
+| Ekstra (valgfritt) | `knappTrykket` (krever kabling) | | Ledig | [knappTrykket.md](dokumentasjon/funksjoner/knappTrykket.md) |
+| Ekstra (valgfritt) | `spillRTTTL` | | Ledig | [spillRTTTL.md](dokumentasjon/funksjoner/spillRTTTL.md) |
+| Ekstra stort (samarbeid) | Web-grensesnitt (`settOppWebserver`, `handterWebKlient`, `genererMenyHTML`) | | Ledig | [web-grensesnitt.md](dokumentasjon/funksjoner/web-grensesnitt.md) |
+| Hardware (samarbeid, ikke koding) | Kabling og lodding | | Ledig |
+| Hardware (samarbeid, ikke koding) | 3D-printet ramme/kabinett | | Ledig |
 
 ---
 
@@ -173,7 +200,7 @@ Slår opp hvilket fag som pågår, ut fra en indeks i `plan[]`.
 ### `bool hentInternetTid()` *(Ferdig implementert – Marcel & Luka)*
 Kobler til WiFi og henter riktig klokkeslett fra internett (NTP).
 
-> ℹ️ **Denne funksjonen er allerede ferdig implementert og dokumentert av Marcel & Luka som et referanseeksempel.** Se koden i `sketch/sketch.ino` og dokumentasjonen i `DOKUMENTASJON.md`.
+> ℹ️ **Denne funksjonen er allerede ferdig implementert og dokumentert av Marcel & Luka som et referanseeksempel.** Se koden i `sketch/sketch.ino` og dokumentasjonen i [dokumentasjon/funksjoner/hentInternetTid.md](dokumentasjon/funksjoner/hentInternetTid.md).
 - **Parametere:** Ingen.
 - **Returverdi:** `bool` – `true` hvis tiden ble hentet, `false` ved feil.
 - **Hint:** WiFi bruker 2-5 sekunder på å koble til, så du må vente i en `while (WiFi.status() != WL_CONNECTED)`-løkke med timeout (f.eks. maks 20 forsøk med `delay(500)`). For norsk tidssone (GMT+1 og 1 time sommertid), bruk `configTime(3600, 3600, "pool.ntp.org")` eller `configTzTime()`. Sjekk deretter om tiden er gyldig med `getLocalTime(&timeinfo)`.

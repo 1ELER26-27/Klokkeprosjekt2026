@@ -16,6 +16,6 @@
 - [ ] Kun min(e) egen(e) funksjon(er) er endret – ikke `loop()`/`setup()` eller andres funksjoner
 - [ ] Funksjonssignatur (navn/parametere/returtype) er uendret
 - [ ] `// Laget av: <Fornavn>` er fylt inn
-- [ ] Dokumentasjonen er fylt ut i [DOKUMENTASJON.md](../DOKUMENTASJON.md) for funksjonen din
+- [ ] Dokumentasjonen er fylt ut i din egen fil under [dokumentasjon/funksjoner/](../dokumentasjon/funksjoner/) for funksjonen din
 
 Closes #<!-- issue-nummeret der du claimet funksjonen -->
