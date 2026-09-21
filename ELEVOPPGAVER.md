@@ -42,8 +42,8 @@ Skriv navnet ditt (eller gruppa) i `Hvem`-kolonnen når du tar en oppgave, og op
 | Enkel | `sjekkSerialMeny` | Endre | ✅ Ferdig | [sjekkSerialMeny.md](dokumentasjon/funksjoner/sjekkSerialMeny.md) | |
 | Middels | `visKlokkevisere` | Alexander og Johan | ⚠️ Påbegynt | [visKlokkevisere.md](dokumentasjon/funksjoner/visKlokkevisere.md) | [#11](https://github.com/1ELER26-27/Klokkeprosjekt2026/issues/11) |
 | Middels | `nedtellingBar` | Alexander og Johan | ⚠️ Påbegynt | [nedtellingBar.md](dokumentasjon/funksjoner/nedtellingBar.md) | [#11](https://github.com/1ELER26-27/Klokkeprosjekt2026/issues/11) |
-| Middels | `fanfareKort` | | Ledig | [fanfareKort.md](dokumentasjon/funksjoner/fanfareKort.md) | |
-| Middels | `fanfareKortere` | | Ledig | [fanfareKortere.md](dokumentasjon/funksjoner/fanfareKortere.md) | |
+| Middels | `fanfareKort` | Nicholas | ⚠️ Påbegynt | [fanfareKort.md](dokumentasjon/funksjoner/fanfareKort.md) | |
+| Middels | `fanfareKortere` | Viggo | ⚠️ Påbegynt | [fanfareKortere.md](dokumentasjon/funksjoner/fanfareKortere.md) | |
 | Middels | `visGjeldendeStatus` | | Ledig | [visGjeldendeStatus.md](dokumentasjon/funksjoner/visGjeldendeStatus.md) | |
 | Middels | `ferdigForDagenAnimasjon` | Tobias og Vrishab | ⚠️ Påbegynt | [ferdigForDagenAnimasjon.md](dokumentasjon/funksjoner/ferdigForDagenAnimasjon.md) | [#5](https://github.com/1ELER26-27/Klokkeprosjekt2026/issues/5) |
 | Middels | `helgeSluttAnimasjon` | Joachim | ⚠️ Påbegynt | [helgeSluttAnimasjon.md](dokumentasjon/funksjoner/helgeSluttAnimasjon.md) | [#6](https://github.com/1ELER26-27/Klokkeprosjekt2026/issues/6) |
