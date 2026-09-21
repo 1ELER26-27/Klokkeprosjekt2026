@@ -141,7 +141,7 @@ void setup() {
     Serial.println("⚠️ WiFi/NTP ikke tilkoblet (eller ikke ferdig implementert).");
     Serial.println("🕒 Setter dummytid: Onsdag kl. 09:30:00 (for at klokken skal tikke og kunne testes)");
     settDummyTid(ONSDAG, 9, 30, 0);
-    blinkLED(strip.Color(255, 150, 0), 2); // Oransje/gul = dummytid aktiv
+    blinkLED(strip.Color(255, 150, 0), 4); // Oransje/gul = dummytid aktiv
   }
   
   // Lag timeplan
@@ -149,6 +149,7 @@ void setup() {
   Serial.println("📅 Timeplan lastet!");
   
   Serial.println("🚀 Klokke klar!");
+  blinkLED(strip.Color(255, 150, 0), 2);
 }
 
 // ========== HOVEDLOOP ==========
@@ -280,13 +281,13 @@ void blinkLED(uint32_t farge, int antallBlink) {
   // Laget av: Bjørn
   // TODO: Blink hele ringen "antallBlink" ganger med fargen "farge"
   for (int i = 0; i < antallBlink; i++) {
-    strip.fill(farge)
-    strip.show()
-    delay(300)
+    strip.fill(farge);
+    strip.show();
+    delay(300);
 
-    strip.clear()
-    strip.show()
-    delay(300)
+    strip.clear();
+    strip.show();
+    delay(300);
     
   }
   // Tips: strip.fill(farge) fyller alle LEDs, strip.clear() slår dem av
