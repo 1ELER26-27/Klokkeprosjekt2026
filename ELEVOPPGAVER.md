@@ -50,7 +50,7 @@ Skriv navnet ditt (eller gruppa) i `Hvem`-kolonnen når du tar en oppgave, og op
 | Middels | `ferdigForDagenAnimasjon` | Tobias og Vrishab | ⚠️ Påbegynt | [ferdigForDagenAnimasjon.md](dokumentasjon/funksjoner/ferdigForDagenAnimasjon.md) |
 | Middels | `helgeSluttAnimasjon` | Joachim | ⚠️ Påbegynt | [helgeSluttAnimasjon.md](dokumentasjon/funksjoner/helgeSluttAnimasjon.md) |
 | Middels | `handterHelg` | | Ledig | [handterHelg.md](dokumentasjon/funksjoner/handterHelg.md) |
-| Avansert | `fyllPlan` | Nicholas & Marcel | ⚠️ Påbegynt | [fyllPlan.md](dokumentasjon/funksjoner/fyllPlan.md) |
+| Avansert | `fyllPlan` | Nicholas & Marcel | ✅ Ferdig | [fyllPlan.md](dokumentasjon/funksjoner/fyllPlan.md) |
 | Avansert | `beregnTidIgjen` | Luka & Marcel | ✅ Ferdig | [beregnTidIgjen.md](dokumentasjon/funksjoner/beregnTidIgjen.md) |
 | Avansert | `hentGjeldendeFag` | Marcel | ✅ Ferdig | [hentGjeldendeFag.md](dokumentasjon/funksjoner/hentGjeldendeFag.md) |
 | Avansert | `hentInternetTid` | Marcel & Luka | ✅ Ferdig | [hentInternetTid.md](dokumentasjon/funksjoner/hentInternetTid.md) |
