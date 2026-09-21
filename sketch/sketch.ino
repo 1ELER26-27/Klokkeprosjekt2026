@@ -58,7 +58,7 @@ struct timePlan {
 
 // ========== GLOBALE VARIABLER ==========
 timePlan plan[61];     // Array for hele ukens timeplan (Ikke laget enda)
-int antallTimer = 61+1;   // TODO: Oppdater til HØYESTE INDEX + 1 når fyllPlan() er ferdig utfylt (satt til 2 for test-eksempler)
+int antallTimer = 60+1;   // TODO: Oppdater til HØYESTE INDEX + 1 når fyllPlan() er ferdig utfylt (satt til 2 for test-eksempler)
 
 Fag gjeldendeFag = INGENTING; // Hvilket fag vi har nå (bruker enum)
 Fag forrigeFag = INGENTING;   // Hvilket fag vi hadde før
