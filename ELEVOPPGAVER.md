@@ -35,7 +35,7 @@ Skriv navnet ditt (eller gruppa) i `Hvem`-kolonnen når du tar en oppgave, og op
 | Vanskelighetsgrad | Funksjon | Hvem | Status | Dokumentasjon |
 |---|---|---|---|---|
 | Enkel | `sjekkHelg` | | Ledig | [sjekkHelg.md](dokumentasjon/funksjoner/sjekkHelg.md) |
-| Enkel | `fagFarge` | Erik | ⚠️ Påbegynt | [fagFarge.md](dokumentasjon/funksjoner/fagFarge.md) |
+| Enkel | `fagFarge` | Erik | ✅ Ferdig | [fagFarge.md](dokumentasjon/funksjoner/fagFarge.md) |
 | Enkel | `fagNavn` | | Ledig | [fagNavn.md](dokumentasjon/funksjoner/fagNavn.md) |
 | Enkel | `blinkLED` | Bjørn | ⚠️ Påbegynt | [blinkLED.md](dokumentasjon/funksjoner/blinkLED.md) |
 | Enkel | `timeStartAnimasjon` | | Ledig | [timeStartAnimasjon.md](dokumentasjon/funksjoner/timeStartAnimasjon.md) |
