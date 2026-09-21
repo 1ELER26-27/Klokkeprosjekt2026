@@ -555,6 +555,7 @@ int minutt_viser(int minutt, int sekund) {
 int sekund_viser(int sekund) {
   float total = (sekund % 60) + (millis() % 1000) / 1000.0;
   int sek_pix = (int)((total * NUM_LEDS) / 60);
+  Serial.print(sek_pix);
   return sek_pix % NUM_LEDS;
 }
 
