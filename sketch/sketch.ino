@@ -52,12 +52,12 @@ struct timePlan {
   Ukedag dag;       // Se enum Ukedag
   byte startTime;   // 0-23
   byte startMinutt; // 0-59
-  byte varighet;    // Minutter
+  unsigned int varighet;    // Minutter
   Fag fag;          // Se enum for fag
 };
 
 // ========== GLOBALE VARIABLER ==========
-timePlan plan[50];     // Array for hele ukens timeplan (Ikke laget enda)
+timePlan plan[60];     // Array for hele ukens timeplan
 int antallTimer = 2;   // TODO: Oppdater til HØYESTE INDEX + 1 når fyllPlan() er ferdig utfylt (satt til 2 for test-eksempler)
 
 Fag gjeldendeFag = INGENTING; // Hvilket fag vi har nå (bruker enum)
@@ -529,11 +529,64 @@ void fyllPlan() {
   // Tips: Bruk egne indeks-serier per dag, f.eks. mandag = 0-9, tirsdag = 10-19, osv.
   // Tips: Det er OK å ha hull i listen! Ikke alle indekser trenger å brukes.
 
-  // Eksempel (mandag, første time kl. 08:00 i 45 minutter, i faget MATTE):
-  plan[0] = {MANDAG, 8, 0, 45, MATTE};
 
-  // Eksempel (onsdag kl. 09:15 i 60 minutter, i faget ELKRETSER - aktiv under dummytid kl. 09:30):
-  plan[1] = {ONSDAG, 9, 15, 60, ELKRETSER};
+  
+ 
+  //  Ukedag    Time    Minutt   Varighet   Fag
+
+  //Mandag 0 - 9
+  plan[0] = {   MANDAG,   8,      55,      45,        ELKRETSER};
+  plan[1] = {   MANDAG,   9,      40,      15,        FRIMINUTT};
+  plan[2] = {   MANDAG,   9,      55,      45,        ELKRETSER};
+  plan[3] = {   MANDAG,   10,     40,      45,        ENOGSTYR};
+  plan[4] = {   MANDAG,   11,     25,      30,        FRIMINUTT};
+  plan[5] = {   MANDAG,   11,     55,      90,        ENOGSTYR};
+  plan[6] = {   MANDAG,   13,     40,      90,        NORSK};
+  plan[7] = {   MANDAG,   15,     10,      17*60,         INGENTING};
+ 
+  //Tirsdag 10 - 19
+  plan[10] = {   TIRSDAG,  8,      10,      90,        ENGELSK};
+  plan[11] = {   TIRSDAG,  9,      40,      15,        FRIMINUTT};
+  plan[12] = {   TIRSDAG,  9,      55,      45,        ENGELSK};
+  plan[13] = {   TIRSDAG,  10,     40,      45,        MATTE};
+  plan[14] = {   TIRSDAG,  11,     25,      30,        FRIMINUTT};
+  plan[15] = {   TIRSDAG,  11,     55,      90,        MATTE};
+  plan[16] = {   TIRSDAG,  13,     25,      15,        FRIMINUTT};
+  plan[17] = {   TIRSDAG,  13,     40,      90,        ENOGSTYR};
+  plan[18] = {   TIRSDAG,  15,     10,      17*60,         INGENTING};
+  
+  //Onsdag 20 - 29
+  plan[20] = {   ONSDAG,   8,      10,      90,        ELKRETSER};
+  plan[21] = {   ONSDAG,   9,      40,      15,        FRIMINUTT};
+  plan[22] = {   ONSDAG,   9,      55,      90,        ELKRETSER};
+  plan[23] = {   ONSDAG,   11,     25,      (23*60)-15,         INGENTING};
+   
+  //Torsdag 30 - 39
+  plan[30] = {   TORSDAG,  8,      10,      90,        GYM};
+  plan[31] = {   TORSDAG,  9,      40,      15,        FRIMINUTT};
+  plan[32] = {   TORSDAG,  9,      55,      90,        ENOGSTYR};
+  plan[33] = {   TORSDAG,  11,     25,      30,        FRIMINUTT};
+  plan[34] = {   TORSDAG,  11,     55,      90,        NORSK};
+  plan[35] = {   TORSDAG,  13,     25,      15,        FRIMINUTT};
+  plan[36] = {   TORSDAG,  13,     40,      90,        NATURFAG};
+  plan[37] = {   TORSDAG,  15,     10,      17*60,         INGENTING};
+
+  //Fredag 40 - 49
+  plan[40] = {   FREDAG,   8,      10,      90,        MATTE};
+  plan[41] = {   FREDAG,   9,      40,      15,        FRIMINUTT};
+  plan[42] = {   FREDAG,   9,      55,      45,        ELKRETSER};
+  plan[43] = {   FREDAG,   10,     40,      45,        ENOGSTYR};
+  plan[44] = {   FREDAG,   11,     25,      30,        FRIMINUTT};
+  plan[45] = {   FREDAG,   11,     55,      90,        ENOGSTYR};
+  plan[46] = {   FREDAG,   13,     25,      15,        FRIMINUTT};
+  plan[47] = {   FREDAG,   13,     40,      90,        ENGELSK};
+  plan[48] = {   FREDAG,   15,     10,      (8*60)+50,         INGENTING};
+
+  plan[50] = {   LORDAG,   0,      0,       24*60,        INGENTING};
+  plan[60] = {   SONDAG,   0,      0,       (24*60)+(8*60)+55,        INGENTING};
+ 
+
+
 
   // TODO: Legg til resten av timeplanen for hele uken her...
 }
