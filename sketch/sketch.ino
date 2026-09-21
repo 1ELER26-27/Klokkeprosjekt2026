@@ -58,8 +58,8 @@ struct timePlan {
 };
 
 // ========== GLOBALE VARIABLER ==========
-timePlan plan[60];     // Array for hele ukens timeplan (Ikke laget enda)
-int antallTimer = 2;   // TODO: Oppdater til HØYESTE INDEX + 1 når fyllPlan() er ferdig utfylt (satt til 2 for test-eksempler)
+timePlan plan[61];     // Array for hele ukens timeplan (Ikke laget enda)
+int antallTimer = 60+1;   // TODO: Oppdater til HØYESTE INDEX + 1 når fyllPlan() er ferdig utfylt (satt til 2 for test-eksempler)
 
 Fag gjeldendeFag = INGENTING; // Hvilket fag vi har nå (bruker enum)
 Fag forrigeFag = INGENTING;   // Hvilket fag vi hadde før
@@ -731,16 +731,19 @@ int beregnTidIgjen(int index, int time, int minutt, int sekund) {
 //==================================================================================================================================
 
 int planIndex(int ukedag, int time, int minutt) {
-  // Laget av: 
-  // TODO: Finn og returner indeksen i plan[] som matcher gjeldende ukedag/time/minutt
-  // Input: ukedag (se enum Ukedag), time (0-23), minutt (0-59)
-  // Output: Indeksen (0-49) til riktig rad i plan[], eller -1 hvis ingen time pågår nå
-  // Tips: Gjør om klokkeslettet til minutter fra midnatt: int naMin = time * 60 + minutt;
-  // Tips: Løp gjennom plan[] (fra 0 til antallTimer - 1). For hver rad der plan[i].dag == ukedag og plan[i].fag != INGENTING:
-  //       int startMin = plan[i].startTime * 60 + plan[i].startMinutt;
-  //       int sluttMin = startMin + plan[i].varighet;
-  //       Sjekk om naMin er fra og med startMin og mindre enn sluttMin. Returner da i!
-  return -1; // Placeholder - "ingen time akkurat nå"
+  // Laget av: Marcel
+  
+  int naMin = time * 60 + minutt;
+  for(int i = 0; i < antallTimer; i++) {
+    if(plan[i].dag == ukedag && plan[i].fag != INGENTING) {
+      int startMin = plan[i].startTime * 60 + plan[i].startMinutt;
+      int sluttMin = startMin + plan[i].varighet;
+      if(naMin >= startMin && naMin < sluttMin) {
+        return i;
+      }
+    }
+  }
+  return -1; // Returnerer -1 hvis det ikke er noen aktivitet (INGENTING)
 }
 
 //==================================================================================================================================
