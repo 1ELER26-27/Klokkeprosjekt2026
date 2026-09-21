@@ -236,6 +236,8 @@ void setup() {
   Serial.println("📅 Timeplan lastet!");
   
   Serial.println("🚀 Klokke klar!");
+ 
+  
 }
 
 // ========== HOVEDLOOP ==========
@@ -423,10 +425,21 @@ void blinkLED(uint32_t farge, int antallBlink) {
 //==================================================================================================================================
 
 void timeStartAnimasjon(uint32_t fagfarge) {
-  // Laget av: 
-  // TODO: Vis en kort animasjon når en ny time starter, i fagets farge
-  // Input: fagfarge er fargen til faget som nettopp startet
-  // Tips: F.eks. la fargen "vokse" ut fra ett punkt, eller fyll ringen gradvis
+  // Laget av: Vilde 
+
+  int senter = 0; //LED på toppen 
+
+  for(int i = 0; i < NUM_LEDS / 2; i++){
+    strip.setPixelColor((senter + i) % NUM_LEDS,fagfarge);
+    strip.setPixelColor((senter - i + NUM_LEDS) % NUM_LEDS, fagfarge);
+    
+    strip.show();
+    delay(20);
+  }
+  delay(500);
+
+  strip.clear();
+  strip.show();
 }
 
 //==================================================================================================================================
