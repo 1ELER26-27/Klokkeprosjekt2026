@@ -63,7 +63,7 @@ ukjent fag.
 dokumentasjon/
 ├── README.md              <- denne fila (mal + instruksjoner)
 ├── funksjoner/             <- én fil per funksjon
-│   ├── sjekkHelg.md
+│   ├── fagNavn.md
 │   ├── fagFarge.md
 │   ├── ...
 └── hardware/               <- bilder/skjema fra hardware-gruppene (se HARDWARE.md)

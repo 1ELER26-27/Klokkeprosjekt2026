@@ -69,16 +69,12 @@ int sekunderIgjen = 0;        // Sekunder igjen av gjeldende aktivitet
 bool nyTime = false;          // True når en ny time starter
 bool nyttFriminutt = false;   // True når et nytt friminutt starter
 bool ferdigForDagen = false;  // True når skoledagen er ferdig
-bool erHelg = false;          // True når det er helg
-
-int melodi[3] = {1, 2, 3};             // Eksempel-toner til melodiSpiller()
-int melodi_varighet[3] = {100, 100, 100}; // Eksempel-varigheter (ms) til melodiSpiller()
+bool erHelg = false;          // True når fredagens skoledag er ferdig (signal for helgeSluttAnimasjon, nullstilles etterpå)
 
 // ========== FUNKSJONSERKLÆRINGER ==========
 // Disse funksjonene må elevene implementere:
 
 // ENKLE FUNKSJONER:
-bool sjekkHelg(int ukedag); // Returnerer true hvis ukedag er lørdag/søndag
 uint32_t fagFarge(Fag fag); // Returnerer LED-fargen som hører til faget
 String fagNavn(Fag fag); // Returnerer navnet på faget som tekst (til Serial Monitor)
 void blinkLED(uint32_t farge, int antallBlink); // Blinker hele ringen i en farge et gitt antall ganger
@@ -90,12 +86,11 @@ void sjekkSerialMeny(); // Sjekker Serial-input og åpner menyen hvis brukeren s
 // MIDDELS FUNKSJONER:
 void visKlokkevisere(int time, int minutt, int sec); // Tegner time-, minutt- og sekundviser på ringen
 void nedtellingBar(int index, int sekunderIgjen, uint32_t fagfarge); // Tegner en nedtellingsbue for gjenværende tid av aktiviteten
-void melodiSpiller(int note[], int varighet[], int antallToner); // Spiller av en liste med toner og varigheter på buzzeren
-void spillMelodi(int melodiNr); // Spiller lyd/blink for gitt melodi-nummer
+void fanfareKort(); // Spiller en kort fanfare på buzzeren (maks ca. 3 sekunder), f.eks. ved timestart
+void fanfareKortere(); // Spiller en enda kortere fanfare på buzzeren (maks ca. 1 sekund), f.eks. ved friminutt
 void visGjeldendeStatus(int index, int minutt); // Viser animasjon ved hendelser basert på status-flaggene
 void ferdigForDagenAnimasjon(); // Viser animasjon når skoledagen er ferdig
 void helgeSluttAnimasjon(); // Viser feiringsanimasjon etter siste time på fredag
-void handterHelg(int ukedag); // Sjekker om det er helg og oppdaterer flagg/animasjon
 
 // AVANSERTE FUNKSJONER:
 void fyllPlan(); // Fyller plan[] med ukens timeplan
@@ -262,7 +257,6 @@ void loop() {
   sjekkSerialMeny();
   if (knappTrykket()) { visMeny(); } // Valgfri fysisk knapp åpner menyen (se ELEVOPPGAVER.md)
   handterWebKlient(); // (Ekstra stor oppgave) Håndterer nettleser-forespørsler, hvis implementert
-  handterHelg(timeinfo.tm_wday);
 
   // Beregn gjeldende fag og tid igjen
   int index_plan = planIndex(timeinfo.tm_wday, timeinfo.tm_hour, timeinfo.tm_min);
@@ -316,23 +310,6 @@ void debugInfo() {
 
 // ========== FUNKSJONSIMPLEMENTASJONER ==========
 // ELEVENE MÅ IMPLEMENTERE DISSE FUNKSJONENE:
-
-bool sjekkHelg(int ukedag) {
-  // Laget av: 
-  // TODO: Returner true hvis det er helg (lørdag eller søndag), ellers false
-  // Input: ukedag er et tall der SONDAG=0 ... LORDAG=6 (se enum Ukedag)
-  // Tips: Sammenlign ukedag med enum-verdiene SONDAG og LORDAG
-  return false; // Placeholder - alltid "ikke helg"
-}
-
-//==================================================================================================================================
-
-void handterHelg(int ukedag) {
-  // Laget av: 
-  // TODO: Bruk sjekkHelg(ukedag) til å avgjøre om det er helg akkurat nå
-  // TODO: Oppdater den globale variabelen erHelg, og kall helgAnimasjon() når det er helg
-  // Tips: Skriv gjerne ut en Serial-melding kun første gang det blir helg (bruk erHelg til å huske status)
-}
 
 //==================================================================================================================================
 
@@ -586,34 +563,19 @@ void nedtellingBar(int index, int sekunderIgjen, uint32_t fagfarge) {
 
 //==================================================================================================================================
 
-void melodiSpiller(int note[], int varighet[], int antallToner) {
+void fanfareKort() {
   // Laget av: 
-  // TODO: Spill av "antallToner" toner fra "note" med tilhørende varighet fra "varighet"
-  // Input: note[] er frekvenser (Hz), varighet[] er hvor lenge hver tone skal spilles (ms)
-  // Tips: Bruk tone(soundpin, note[i], varighet[i]) for hver tone i en for-løkke (i fra 0 til antallToner-1)
-  // Tips: Legg gjerne inn en kort delay() mellom tonene også, slik at de ikke flyter sammen
-  // Tips: IKKE bruk sizeof(note) her - arrays som sendes til funksjoner "råtner" til pekere, så det gir feil svar
+  // TODO: Spill en kort fanfare på buzzeren (maks ca. 3 sekunder), f.eks. ved timestart
+  // Tips: Bruk NOTE_-konstantene fra pitches.h (f.eks. NOTE_C4, NOTE_G4, NOTE_C5) sammen med tone(soundpin, frekvens, varighet)
+  // Tips: Legg inn en kort delay() mellom hver tone, og pass på at summen av varighetene ikke blir for lang
 }
 
+//==================================================================================================================================
 
-void spillMelodi(int melodiNr) {
+void fanfareKortere() {
   // Laget av: 
-  // TODO: Implementer denne funksjonen
-  // Input: melodiNr er melodinummer (1=friminutt, 2=time, etc.)
-  // Spill en melodi (kan være tom implementasjon hvis ingen buzzer)
-  
-  // TIPS til implementering - ALTERNATIV 1 (med buzzer):
-  // - Bruk tone(soundpin, frekvens, varighet) eller kall melodiSpiller(melodi, melodi_varighet, 3)
-  // - Friminutt: Glad melodi (høye toner)
-  // - Time: Nøytral tone (middels toner)
-  //
-  // TIPS til implementering - ALTERNATIV 2 (uten buzzer):
-  // - Bruk LED-signaler i stedet for lyd
-  // - Friminutt: blinkLED(strip.Color(0, 255, 0), 3) // Grønn
-  // - Time: blinkLED(strip.Color(255, 0, 0), 2) // Rød
-  // - Lag forskjellige blinkmønstre for hvert melodiNr
-  
-  // Placeholder - velg alternativ og implementer!
+  // TODO: Spill en enda kortere fanfare på buzzeren (maks ca. 1 sekund), f.eks. ved friminutt
+  // Tips: Bruk NOTE_-konstantene fra pitches.h sammen med tone(soundpin, frekvens, varighet) - færre/kortere toner enn fanfareKort()
 }
 
 
@@ -800,12 +762,12 @@ void helgAnimasjon() {
 void handterAktivitetsbytte(Fag nyttFag, int ukedag) {
   // Laget av: 
   // TODO: Sjekk om nyttFag er forskjellig fra den globale variabelen forrigeFag (da har vi byttet aktivitet)
-  // TODO: Sett riktig status-flagg (ferdigForDagen, nyttFriminutt eller nyTime) og spill riktig melodi med spillMelodi()
+  // TODO: Sett riktig status-flagg (ferdigForDagen, nyttFriminutt eller nyTime) og spill riktig fanfare
   // Tips: Hvis nyttFag == INGENTING og forrigeFag != INGENTING: skoledagen er slutt!
-  //       - Hvis ukedag == FREDAG: kall helgeSluttAnimasjon()
+  //       - Hvis ukedag == FREDAG: sett erHelg = true (signalet om at helgen starter)
   //       - Ellers: sett ferdigForDagen = true
-  // Tips: Hvis nyttFag == FRIMINUTT: sett nyttFriminutt = true og kall spillMelodi(1)
-  // Tips: Hvis nyttFag != INGENTING og nyttFag != FRIMINUTT: sett nyTime = true og kall spillMelodi(2)
+  // Tips: Hvis nyttFag == FRIMINUTT: sett nyttFriminutt = true og kall fanfareKortere()
+  // Tips: Hvis nyttFag != INGENTING og nyttFag != FRIMINUTT: sett nyTime = true og kall fanfareKort()
   // TODO: Husk å oppdatere forrigeFag = nyttFag til slutt!
 }
 
@@ -813,8 +775,9 @@ void handterAktivitetsbytte(Fag nyttFag, int ukedag) {
 
 void visGjeldendeStatus(int index, int minutt) {
   // Laget av: 
-  // TODO: Sjekk status-flaggene (ferdigForDagen, nyttFriminutt, nyTime) og vis riktig animasjon
+  // TODO: Sjekk status-flaggene (erHelg, ferdigForDagen, nyttFriminutt, nyTime) og vis riktig animasjon
   // Tips: Sjekk flaggene i rekkefølge med if / else if:
+  //       - Hvis erHelg:         kall helgeSluttAnimasjon() og nullstill flagget (erHelg = false;) - sjekk denne FØR ferdigForDagen
   //       - Hvis ferdigForDagen: kall ferdigForDagenAnimasjon() og nullstill flagget (ferdigForDagen = false;)
   //       - Hvis nyttFriminutt:  kall friminuttAnimasjon(minutt, index) og nullstill flagget (nyttFriminutt = false;)
   //       - Hvis nyTime:         kall timeStartAnimasjon(fagFarge(gjeldendeFag)) og nullstill flagget (nyTime = false;)
