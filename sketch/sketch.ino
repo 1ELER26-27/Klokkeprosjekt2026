@@ -401,7 +401,7 @@ uint32_t fagFarge(Fag fag) {
 //==================================================================================================================================
 
 String fagNavn(Fag fag) {
-  // Laget av: 
+  // Laget av: Vilde og Leo 
   // TODO: Returner navnet på faget som lesbar tekst til Serial Monitor
   // Tips: Bruk switch/case akkurat som i fagFarge(), med en tekststreng per fag:
   //       case MATTE: return "Matematikk";
@@ -410,8 +410,17 @@ String fagNavn(Fag fag) {
   switch (fag) {
     case INGENTING: return "Fri / Ingen time";
     case FRIMINUTT: return "Friminutt";
+    case MATTE: return  "Matematikk";
+    case NORSK: return "Norsk";
+    case ENGELSK: return "Engelsk";
+    case NATURFAG: return "Naturfag";
+    case GYM: return "Gym";
+    case ELKRETSER: return"Elkrets og nettverk";
+    case ENOGSTYR: return "Energi og styresystem";
+
     default:        return "Fag-id " + String(fag); // Placeholder - fyll inn fagnavn her!
   }
+  Serial.println(fag);
 }
 
 //==================================================================================================================================
