@@ -13,6 +13,7 @@
 #include <time.h> // Bibliotek for tidsfunksjoner, inkludert i Arduino IDE
 #include <sys/time.h> // Bibliotek for timeval og settimeofday (brukes til dummytid/testing)
 #include <Adafruit_NeoPixel.h> // Bibliotek for NeoPixel LED-ring, må lastes ned via Library Manager i Arduino IDE
+#include "pitches.h" // Bibliotek med tonefrekvenser for buzzer (må lastes ned via Library Manager i Arduino IDE)
 
 // Hent lokale nettverkshemmeligheter hvis secrets.h finnes (ignorert av Git):
 #if __has_include("secrets.h")
