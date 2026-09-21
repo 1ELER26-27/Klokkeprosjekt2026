@@ -55,7 +55,7 @@ Skriv navnet ditt (eller gruppa) i `Hvem`-kolonnen når du tar en oppgave, og op
 | Avansert | `hentGjeldendeFag` | Marcel | ✅ Ferdig | [hentGjeldendeFag.md](dokumentasjon/funksjoner/hentGjeldendeFag.md) | [#20](https://github.com/1ELER26-27/Klokkeprosjekt2026/issues/20) |
 | Avansert | `hentInternetTid` | Marcel & Luka | ✅ Ferdig | [hentInternetTid.md](dokumentasjon/funksjoner/hentInternetTid.md) | [#3](https://github.com/1ELER26-27/Klokkeprosjekt2026/issues/3) |
 | Avansert | `helgAnimasjon` | Franklin | ⚠️ Påbegynt | [helgAnimasjon.md](dokumentasjon/funksjoner/helgAnimasjon.md) | [#9](https://github.com/1ELER26-27/Klokkeprosjekt2026/issues/9) |
-| Avansert | `planIndex` | Marcel | ⚠️ Påbegynt | [planIndex.md](dokumentasjon/funksjoner/planIndex.md) | [#28](https://github.com/1ELER26-27/Klokkeprosjekt2026/issues/28) |
+| Avansert | `planIndex` | Marcel | ✅ Ferdig | [planIndex.md](dokumentasjon/funksjoner/planIndex.md) | [#28](https://github.com/1ELER26-27/Klokkeprosjekt2026/issues/28) |
 | Avansert | `handterAktivitetsbytte` | | Ledig | [handterAktivitetsbytte.md](dokumentasjon/funksjoner/handterAktivitetsbytte.md) | |
 | Ekstra (valgfritt) | `startNedtelling` | | Ledig | [startNedtelling.md](dokumentasjon/funksjoner/startNedtelling.md) | |
 | Ekstra (valgfritt) | `spillAnimasjon` | | Ledig | [spillAnimasjon.md](dokumentasjon/funksjoner/spillAnimasjon.md) | |
