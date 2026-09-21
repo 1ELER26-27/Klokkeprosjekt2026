@@ -40,8 +40,8 @@ Skriv navnet ditt (eller gruppa) i `Hvem`-kolonnen når du tar en oppgave, og op
 | Enkel | `blinkLED` | Bjørn | ⚠️ Påbegynt | [blinkLED.md](dokumentasjon/funksjoner/blinkLED.md) |
 | Enkel | `timeStartAnimasjon` | | Ledig | [timeStartAnimasjon.md](dokumentasjon/funksjoner/timeStartAnimasjon.md) |
 | Enkel | `friminuttAnimasjon` | Vilde | ✅ Ferdig | [friminuttAnimasjon.md](dokumentasjon/funksjoner/friminuttAnimasjon.md) |
-| Enkel | `visMeny` | Endre | ⚠️ Påbegynt | [visMeny.md](dokumentasjon/funksjoner/visMeny.md) |
-| Enkel | `sjekkSerialMeny` | | Ledig | [sjekkSerialMeny.md](dokumentasjon/funksjoner/sjekkSerialMeny.md) |
+| Enkel | `visMeny` | | Ledig | [visMeny.md](dokumentasjon/funksjoner/visMeny.md) |
+| Enkel | `sjekkSerialMeny` | Endre | ✅ Ferdig | [sjekkSerialMeny.md](dokumentasjon/funksjoner/sjekkSerialMeny.md) |
 | Middels | `visKlokkevisere` | Alexander og Johan | ⚠️ Påbegynt | [visKlokkevisere.md](dokumentasjon/funksjoner/visKlokkevisere.md) |
 | Middels | `nedtellingBar` | Alexander og Johan | ⚠️ Påbegynt | [nedtellingBar.md](dokumentasjon/funksjoner/nedtellingBar.md) |
 | Middels | `melodiSpiller` | Viggo | ⚠️ Påbegynt | [melodiSpiller.md](dokumentasjon/funksjoner/melodiSpiller.md) |
