@@ -346,10 +346,18 @@ void visMeny() {
 //==================================================================================================================================
 
 void sjekkSerialMeny() {
-  // Laget av: 
-  // TODO: Sjekk om brukeren har skrevet noe i Serial-monitoren, og åpne menyen med visMeny() hvis teksten er "meny"
-  // Tips: Serial.available() forteller om det finnes tekst å lese
-  // Tips: Serial.readStringUntil('\n') leser inn teksten, input.trim() fjerner mellomrom/linjeskift
+  // Laget av: Endre
+  if(Serial.available()){
+      String svar = Serial.readStringUntil('\n');
+    svar.trim();
+    if(svar == "meny"){
+      Serial.println("Vis MENY");
+      visMeny();
+    }
+    else{
+        Serial.println("UGYLDIG KOMMANDO");
+    }
+  }  
 }
 
 //==================================================================================================================================
