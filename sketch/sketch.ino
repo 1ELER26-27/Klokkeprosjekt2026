@@ -277,8 +277,18 @@ String fagNavn(Fag fag) {
 //==================================================================================================================================
 
 void blinkLED(uint32_t farge, int antallBlink) {
-  // Laget av: 
+  // Laget av: Bjørn
   // TODO: Blink hele ringen "antallBlink" ganger med fargen "farge"
+  for (int i = 0; i < antallBlink; i++) {
+    strip.fill(farge)
+    strip.show()
+    delay(300)
+
+    strip.clear()
+    strip.show()
+    delay(300)
+    
+  }
   // Tips: strip.fill(farge) fyller alle LEDs, strip.clear() slår dem av
   // Tips: Husk strip.show() etter hver endring, og en kort delay() mellom av/på
 }
