@@ -524,13 +524,7 @@ void helgeSluttAnimasjon() {
 //==================================================================================================================================
 
 void fyllPlan() {
-  // Laget av: 
-  // TODO: Fyll inn hele ukeplanen med plan[indeks] = {dag, startTime, startMinutt, varighet, fag};
-  // Tips: Bruk egne indeks-serier per dag, f.eks. mandag = 0-9, tirsdag = 10-19, osv.
-  // Tips: Det er OK å ha hull i listen! Ikke alle indekser trenger å brukes.
-
-
-  
+  // Laget av: Nicholas og Marcel
  
   //  Ukedag    Time    Minutt   Varighet   Fag
 
@@ -585,10 +579,6 @@ void fyllPlan() {
   plan[50] = {   LORDAG,   0,      0,       24*60,        INGENTING};
   plan[60] = {   SONDAG,   0,      0,       (24*60)+(8*60)+55,        INGENTING};
  
-
-
-
-  // TODO: Legg til resten av timeplanen for hele uken her...
 }
 
 //==================================================================================================================================
