@@ -13,6 +13,7 @@
 #include <time.h> // Bibliotek for tidsfunksjoner, inkludert i Arduino IDE
 #include <sys/time.h> // Bibliotek for timeval og settimeofday (brukes til dummytid/testing)
 #include <Adafruit_NeoPixel.h> // Bibliotek for NeoPixel LED-ring, må lastes ned via Library Manager i Arduino IDE
+#include "pitches.h" // Bibliotek med tonefrekvenser for buzzer (må lastes ned via Library Manager i Arduino IDE)
 
 // Hent lokale nettverkshemmeligheter hvis secrets.h finnes (ignorert av Git):
 #if __has_include("secrets.h")
@@ -236,6 +237,8 @@ void setup() {
   Serial.println("📅 Timeplan lastet!");
   
   Serial.println("🚀 Klokke klar!");
+ 
+  
 }
 
 // ========== HOVEDLOOP ==========
@@ -398,7 +401,7 @@ uint32_t fagFarge(Fag fag) {
 //==================================================================================================================================
 
 String fagNavn(Fag fag) {
-  // Laget av: 
+  // Laget av: Vilde og Leo 
   // TODO: Returner navnet på faget som lesbar tekst til Serial Monitor
   // Tips: Bruk switch/case akkurat som i fagFarge(), med en tekststreng per fag:
   //       case MATTE: return "Matematikk";
@@ -407,8 +410,17 @@ String fagNavn(Fag fag) {
   switch (fag) {
     case INGENTING: return "Fri / Ingen time";
     case FRIMINUTT: return "Friminutt";
+    case MATTE: return  "Matematikk";
+    case NORSK: return "Norsk";
+    case ENGELSK: return "Engelsk";
+    case NATURFAG: return "Naturfag";
+    case GYM: return "Gym";
+    case ELKRETSER: return"Elkrets og nettverk";
+    case ENOGSTYR: return "Energi og styresystem";
+
     default:        return "Fag-id " + String(fag); // Placeholder - fyll inn fagnavn her!
   }
+  Serial.println(fag);
 }
 
 //==================================================================================================================================
@@ -423,10 +435,21 @@ void blinkLED(uint32_t farge, int antallBlink) {
 //==================================================================================================================================
 
 void timeStartAnimasjon(uint32_t fagfarge) {
-  // Laget av: 
-  // TODO: Vis en kort animasjon når en ny time starter, i fagets farge
-  // Input: fagfarge er fargen til faget som nettopp startet
-  // Tips: F.eks. la fargen "vokse" ut fra ett punkt, eller fyll ringen gradvis
+  // Laget av: Vilde 
+
+  int senter = 0; //LED på toppen 
+
+  for(int i = 0; i < NUM_LEDS / 2; i++){
+    strip.setPixelColor((senter + i) % NUM_LEDS,fagfarge);
+    strip.setPixelColor((senter - i + NUM_LEDS) % NUM_LEDS, fagfarge);
+    
+    strip.show();
+    delay(20);
+  }
+  delay(500);
+
+  strip.clear();
+  strip.show();
 }
 
 //==================================================================================================================================

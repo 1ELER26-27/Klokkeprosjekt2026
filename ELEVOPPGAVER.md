@@ -32,39 +32,39 @@ Bruk malen i [dokumentasjon/README.md](dokumentasjon/README.md) på **alle** fun
 
 Skriv navnet ditt (eller gruppa) i `Hvem`-kolonnen når du tar en oppgave, og oppdater `Status` etter hvert som du jobber. Gyldige statuser: **Ledig** (default, ikke tatt) → **⚠️ Påbegynt** → **✅ Ferdig**. `Dokumentasjon`-kolonnen lenker til fila i [dokumentasjon/funksjoner/](dokumentasjon/funksjoner/) der du skal fylle ut malen for funksjonen din.
 
-| Vanskelighetsgrad | Funksjon | Hvem | Status | Dokumentasjon |
-|---|---|---|---|---|
-| Enkel | `sjekkHelg` | | Ledig | [sjekkHelg.md](dokumentasjon/funksjoner/sjekkHelg.md) |
-| Enkel | `fagFarge` | Erik | ✅ Ferdig | [fagFarge.md](dokumentasjon/funksjoner/fagFarge.md) |
-| Enkel | `fagNavn` | | Ledig | [fagNavn.md](dokumentasjon/funksjoner/fagNavn.md) |
-| Enkel | `blinkLED` | Bjørn | ⚠️ Påbegynt | [blinkLED.md](dokumentasjon/funksjoner/blinkLED.md) |
-| Enkel | `timeStartAnimasjon` | | Ledig | [timeStartAnimasjon.md](dokumentasjon/funksjoner/timeStartAnimasjon.md) |
-| Enkel | `friminuttAnimasjon` | Vilde | ✅ Ferdig | [friminuttAnimasjon.md](dokumentasjon/funksjoner/friminuttAnimasjon.md) |
-| Enkel | `visMeny` | | Ledig | [visMeny.md](dokumentasjon/funksjoner/visMeny.md) |
-| Enkel | `sjekkSerialMeny` | Endre | ✅ Ferdig | [sjekkSerialMeny.md](dokumentasjon/funksjoner/sjekkSerialMeny.md) |
-| Middels | `visKlokkevisere` | Alexander og Johan | ⚠️ Påbegynt | [visKlokkevisere.md](dokumentasjon/funksjoner/visKlokkevisere.md) |
-| Middels | `nedtellingBar` | Alexander og Johan | ⚠️ Påbegynt | [nedtellingBar.md](dokumentasjon/funksjoner/nedtellingBar.md) |
-| Middels | `melodiSpiller` | Viggo | ⚠️ Påbegynt | [melodiSpiller.md](dokumentasjon/funksjoner/melodiSpiller.md) |
-| Middels | `spillMelodi` | | Ledig | [spillMelodi.md](dokumentasjon/funksjoner/spillMelodi.md) |
-| Middels | `visGjeldendeStatus` | | Ledig | [visGjeldendeStatus.md](dokumentasjon/funksjoner/visGjeldendeStatus.md) |
-| Middels | `ferdigForDagenAnimasjon` | Tobias og Vrishab | ⚠️ Påbegynt | [ferdigForDagenAnimasjon.md](dokumentasjon/funksjoner/ferdigForDagenAnimasjon.md) |
-| Middels | `helgeSluttAnimasjon` | Joachim | ⚠️ Påbegynt | [helgeSluttAnimasjon.md](dokumentasjon/funksjoner/helgeSluttAnimasjon.md) |
-| Middels | `handterHelg` | | Ledig | [handterHelg.md](dokumentasjon/funksjoner/handterHelg.md) |
-| Avansert | `fyllPlan` | Nicholas & Marcel | ⚠️ Påbegynt | [fyllPlan.md](dokumentasjon/funksjoner/fyllPlan.md) |
-| Avansert | `beregnTidIgjen` | Luka & Marcel | ✅ Ferdig | [beregnTidIgjen.md](dokumentasjon/funksjoner/beregnTidIgjen.md) |
-| Avansert | `hentGjeldendeFag` | Marcel | ✅ Ferdig | [hentGjeldendeFag.md](dokumentasjon/funksjoner/hentGjeldendeFag.md) |
-| Avansert | `hentInternetTid` | Marcel & Luka | ✅ Ferdig | [hentInternetTid.md](dokumentasjon/funksjoner/hentInternetTid.md) |
-| Avansert | `helgAnimasjon` | Franklin | ⚠️ Påbegynt | [helgAnimasjon.md](dokumentasjon/funksjoner/helgAnimasjon.md) |
-| Avansert | `planIndex` | | Ledig | [planIndex.md](dokumentasjon/funksjoner/planIndex.md) |
-| Avansert | `handterAktivitetsbytte` | | Ledig | [handterAktivitetsbytte.md](dokumentasjon/funksjoner/handterAktivitetsbytte.md) |
-| Ekstra (valgfritt) | `startNedtelling` | | Ledig | [startNedtelling.md](dokumentasjon/funksjoner/startNedtelling.md) |
-| Ekstra (valgfritt) | `spillAnimasjon` | | Ledig | [spillAnimasjon.md](dokumentasjon/funksjoner/spillAnimasjon.md) |
-| Ekstra (valgfritt) | `startStoppeklokke` | | Ledig | [startStoppeklokke.md](dokumentasjon/funksjoner/startStoppeklokke.md) |
-| Ekstra (valgfritt) | `knappTrykket` (krever kabling) | | Ledig | [knappTrykket.md](dokumentasjon/funksjoner/knappTrykket.md) |
-| Ekstra (valgfritt) | `spillRTTTL` | | Ledig | [spillRTTTL.md](dokumentasjon/funksjoner/spillRTTTL.md) |
-| Ekstra stort (samarbeid) | Web-grensesnitt (`settOppWebserver`, `handterWebKlient`, `genererMenyHTML`) | | Ledig | [web-grensesnitt.md](dokumentasjon/funksjoner/web-grensesnitt.md) |
-| Hardware (samarbeid, ikke koding) | Kabling og lodding | | Ledig |
-| Hardware (samarbeid, ikke koding) | 3D-printet ramme/kabinett | Leo | ⚠️ Påbegynt |
+| Vanskelighetsgrad | Funksjon | Hvem | Status | Dokumentasjon | Issue |
+|---|---|---|---|---|---|
+| Enkel | `sjekkHelg` | | Ledig | [sjekkHelg.md](dokumentasjon/funksjoner/sjekkHelg.md) | |
+| Enkel | `fagFarge` | Erik | ✅ Ferdig | [fagFarge.md](dokumentasjon/funksjoner/fagFarge.md) | [#2](https://github.com/1ELER26-27/Klokkeprosjekt2026/issues/2) |
+| Enkel | `fagNavn` | Vilde og Leo | ⚠️ Påbegynt | [fagNavn.md](dokumentasjon/funksjoner/fagNavn.md) | [#31](https://github.com/1ELER26-27/Klokkeprosjekt2026/issues/31) |
+| Enkel | `blinkLED` | Bjørn | ⚠️ Påbegynt | [blinkLED.md](dokumentasjon/funksjoner/blinkLED.md) | [#8](https://github.com/1ELER26-27/Klokkeprosjekt2026/issues/8) |
+| Enkel | `timeStartAnimasjon` | Vilde | ✅ Ferdig | [timeStartAnimasjon.md](dokumentasjon/funksjoner/timeStartAnimasjon.md) | [#24](https://github.com/1ELER26-27/Klokkeprosjekt2026/issues/24) |
+| Enkel | `friminuttAnimasjon` | Vilde | ✅ Ferdig | [friminuttAnimasjon.md](dokumentasjon/funksjoner/friminuttAnimasjon.md) | [#4](https://github.com/1ELER26-27/Klokkeprosjekt2026/issues/4) |
+| Enkel | `visMeny` | Endre | ⚠️ Påbegynt | [visMeny.md](dokumentasjon/funksjoner/visMeny.md) | [#27](https://github.com/1ELER26-27/Klokkeprosjekt2026/issues/27) |
+| Enkel | `sjekkSerialMeny` | Endre | ✅ Ferdig | [sjekkSerialMeny.md](dokumentasjon/funksjoner/sjekkSerialMeny.md) | |
+| Middels | `visKlokkevisere` | Alexander og Johan | ⚠️ Påbegynt | [visKlokkevisere.md](dokumentasjon/funksjoner/visKlokkevisere.md) | [#11](https://github.com/1ELER26-27/Klokkeprosjekt2026/issues/11) |
+| Middels | `nedtellingBar` | Alexander og Johan | ⚠️ Påbegynt | [nedtellingBar.md](dokumentasjon/funksjoner/nedtellingBar.md) | [#11](https://github.com/1ELER26-27/Klokkeprosjekt2026/issues/11) |
+| Middels | `melodiSpiller` | Viggo | ⚠️ Påbegynt | [melodiSpiller.md](dokumentasjon/funksjoner/melodiSpiller.md) | [#18](https://github.com/1ELER26-27/Klokkeprosjekt2026/issues/18) |
+| Middels | `spillMelodi` | Nicholas | ⚠️ Påbegynt | [spillMelodi.md](dokumentasjon/funksjoner/spillMelodi.md) | [#29](https://github.com/1ELER26-27/Klokkeprosjekt2026/issues/29) |
+| Middels | `visGjeldendeStatus` | | Ledig | [visGjeldendeStatus.md](dokumentasjon/funksjoner/visGjeldendeStatus.md) | |
+| Middels | `ferdigForDagenAnimasjon` | Tobias og Vrishab | ⚠️ Påbegynt | [ferdigForDagenAnimasjon.md](dokumentasjon/funksjoner/ferdigForDagenAnimasjon.md) | [#5](https://github.com/1ELER26-27/Klokkeprosjekt2026/issues/5) |
+| Middels | `helgeSluttAnimasjon` | Joachim | ⚠️ Påbegynt | [helgeSluttAnimasjon.md](dokumentasjon/funksjoner/helgeSluttAnimasjon.md) | [#6](https://github.com/1ELER26-27/Klokkeprosjekt2026/issues/6) |
+| Middels | `handterHelg` | | Ledig | [handterHelg.md](dokumentasjon/funksjoner/handterHelg.md) | |
+| Avansert | `fyllPlan` | Nicholas & Marcel | ✅ Ferdig | [fyllPlan.md](dokumentasjon/funksjoner/fyllPlan.md) | [#7](https://github.com/1ELER26-27/Klokkeprosjekt2026/issues/7) |
+| Avansert | `beregnTidIgjen` | Luka & Marcel | ✅ Ferdig | [beregnTidIgjen.md](dokumentasjon/funksjoner/beregnTidIgjen.md) | [#14](https://github.com/1ELER26-27/Klokkeprosjekt2026/issues/14) |
+| Avansert | `hentGjeldendeFag` | Marcel | ✅ Ferdig | [hentGjeldendeFag.md](dokumentasjon/funksjoner/hentGjeldendeFag.md) | [#20](https://github.com/1ELER26-27/Klokkeprosjekt2026/issues/20) |
+| Avansert | `hentInternetTid` | Marcel & Luka | ✅ Ferdig | [hentInternetTid.md](dokumentasjon/funksjoner/hentInternetTid.md) | [#3](https://github.com/1ELER26-27/Klokkeprosjekt2026/issues/3) |
+| Avansert | `helgAnimasjon` | Franklin | ⚠️ Påbegynt | [helgAnimasjon.md](dokumentasjon/funksjoner/helgAnimasjon.md) | [#9](https://github.com/1ELER26-27/Klokkeprosjekt2026/issues/9) |
+| Avansert | `planIndex` | Marcel | ⚠️ Påbegynt | [planIndex.md](dokumentasjon/funksjoner/planIndex.md) | [#28](https://github.com/1ELER26-27/Klokkeprosjekt2026/issues/28) |
+| Avansert | `handterAktivitetsbytte` | | Ledig | [handterAktivitetsbytte.md](dokumentasjon/funksjoner/handterAktivitetsbytte.md) | |
+| Ekstra (valgfritt) | `startNedtelling` | | Ledig | [startNedtelling.md](dokumentasjon/funksjoner/startNedtelling.md) | |
+| Ekstra (valgfritt) | `spillAnimasjon` | | Ledig | [spillAnimasjon.md](dokumentasjon/funksjoner/spillAnimasjon.md) | |
+| Ekstra (valgfritt) | `startStoppeklokke` | | Ledig | [startStoppeklokke.md](dokumentasjon/funksjoner/startStoppeklokke.md) | |
+| Ekstra (valgfritt) | `knappTrykket` (krever kabling) | | Ledig | [knappTrykket.md](dokumentasjon/funksjoner/knappTrykket.md) | |
+| Ekstra (valgfritt) | `spillRTTTL` | | Ledig | [spillRTTTL.md](dokumentasjon/funksjoner/spillRTTTL.md) | |
+| Ekstra stort (samarbeid) | Web-grensesnitt (`settOppWebserver`, `handterWebKlient`, `genererMenyHTML`) | | Ledig | [web-grensesnitt.md](dokumentasjon/funksjoner/web-grensesnitt.md) | |
+| Hardware (samarbeid, ikke koding) | Kabling og lodding | | Ledig | | |
+| Hardware (samarbeid, ikke koding) | 3D-printet ramme/kabinett | Leo | ⚠️ Påbegynt | | [#1](https://github.com/1ELER26-27/Klokkeprosjekt2026/issues/1) |
 
 ---
 
