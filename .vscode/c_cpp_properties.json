@@ -4,6 +4,11 @@
       "name": "ESP32",
       "includePath": [
         "${workspaceFolder}/**",
+        "${userHome}/.arduino15/packages/esp32/hardware/esp32/**/cores/esp32",
+        "${userHome}/.arduino15/packages/esp32/hardware/esp32/**/variants/esp32",
+        "${userHome}/.arduino15/packages/esp32/hardware/esp32/**/libraries/**",
+        "${userHome}/.arduino15/packages/esp32/tools/**/include/**",
+        "${userHome}/Arduino/libraries/**",
         "${userHome}/AppData/Local/Arduino15/packages/esp32/hardware/esp32/**/cores/esp32",
         "${userHome}/AppData/Local/Arduino15/packages/esp32/hardware/esp32/**/variants/esp32",
         "${userHome}/AppData/Local/Arduino15/packages/esp32/hardware/esp32/**/libraries/**",
