@@ -760,15 +760,36 @@ void helgAnimasjon() {
 //==================================================================================================================================
 
 void handterAktivitetsbytte(Fag nyttFag, int ukedag) {
-  // Laget av: 
-  // TODO: Sjekk om nyttFag er forskjellig fra den globale variabelen forrigeFag (da har vi byttet aktivitet)
-  // TODO: Sett riktig status-flagg (ferdigForDagen, nyttFriminutt eller nyTime) og spill riktig fanfare
-  // Tips: Hvis nyttFag == INGENTING og forrigeFag != INGENTING: skoledagen er slutt!
-  //       - Hvis ukedag == FREDAG: sett erHelg = true (signalet om at helgen starter)
-  //       - Ellers: sett ferdigForDagen = true
-  // Tips: Hvis nyttFag == FRIMINUTT: sett nyttFriminutt = true og kall fanfareKortere()
-  // Tips: Hvis nyttFag != INGENTING og nyttFag != FRIMINUTT: sett nyTime = true og kall fanfareKort()
-  // TODO: Husk å oppdatere forrigeFag = nyttFag til slutt!
+  // Laget av: Marcel
+  if(nyttFag != forrigeFag) {
+    erHelg = false;
+    ferdigForDagen = false;
+    nyttFriminutt = false;
+    nyTime = false;
+    if(nyttFag == INGENTING && forrigeFag != INGENTING) {
+      if(ukedag == FREDAG) {
+        erHelg = true;
+        Serial.println("HELG");
+      }
+      else {
+        ferdigForDagen = true;
+        Serial.println("FERDIG FOR DAGEN");
+      }
+    }
+    else {
+      if(nyttFag == FRIMINUTT) {
+          nyttFriminutt = true;
+          Serial.println("FRIMINUTT");
+          fanfareKortere();
+        }
+        else if(nyttFag != FRIMINUTT && nyttFag != INGENTING) {
+          nyTime = true;
+          Serial.println("TIME");
+          fanfareKort();
+        }
+      }
+    }
+  forrigeFag = nyttFag;
 }
 
 //==================================================================================================================================
