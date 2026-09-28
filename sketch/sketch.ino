@@ -232,7 +232,6 @@ void setup() {
   Serial.println("📅 Timeplan lastet!");
   
   Serial.println("🚀 Klokke klar!");
- 
   
 }
 
@@ -517,7 +516,7 @@ void friminuttAnimasjon(int minutt, int index){
 
 //==================================================================================================================================
 
-// Hjelpefunksjoner for klokkevisere (disse er ferdig laget og kan brukes direkte i visKlokkevisere):
+
 int time_viser(int time, int minutt) {
   int t_min = (time % 12) * 60;
   int time_pix = ((t_min + minutt) * NUM_LEDS) / 720;
@@ -529,36 +528,50 @@ int minutt_viser(int minutt, int sekund) {
   return min_pix % NUM_LEDS;
 }
 
+
 int sekund_viser(int sekund) {
   float total = (sekund % 60) + (millis() % 1000) / 1000.0;
   int sek_pix = (int)((total * NUM_LEDS) / 60);
-  Serial.print(sek_pix);
+  if(sek_pix >= NUM_LEDS) {
+    sek_pix = NUM_LEDS - 1;
+  }
   return sek_pix % NUM_LEDS;
+
 }
 
+
 void visKlokkevisere(int time, int minutt, int sec) {
-  // Laget av: 
-  // TODO: Tegn time-, minutt- og sekundviseren på ringen
-  // Input: time (0-23), minutt (0-59), sec (0-59)
-  // NB: strip.clear() og strip.show() håndteres automatisk i loop() - ikke kall dem her!
-  // Tips: Du kan bruke de ferdige hjelpefunksjonene over for å finne LED-indeksene:
-  //       int pTime = time_viser(time, minutt);
-  //       int pMin  = minutt_viser(minutt, sec);
-  //       int pSek  = sekund_viser(sec);
-  // Tips: strip.setPixelColor(pixel, farge) tegner én piksel om gangen (f.eks. rød timeviser, blå minuttviser, hvit sekundviser)
+ 
+
+  strip.setPixelColor(time_viser(time, minutt), strip.Color(148, 0, 211));
+  strip.setPixelColor(minutt_viser(minutt, sec), strip.Color(0, 255, 0)); 
+  strip.setPixelColor(sekund_viser(sec), strip.Color(0, 255, 255));
+  
+
+
+
 }
 
 //==================================================================================================================================
 
 void nedtellingBar(int index, int sekunderIgjen, uint32_t fagfarge) {
-  // Laget av: 
-  // TODO: Tegn en "bue" av LEDs som viser hvor mye tid som er igjen av gjeldende aktivitet
-  // Input: index er raden i plan[], sekunderIgjen er tid igjen, fagfarge er fargen som skal brukes
-  // NB: strip.clear() og strip.show() håndteres automatisk i loop() - ikke kall dem her!
-  if(index == -1){return;}
+  
 
-  // Tips: Bruk plan[index].varighet * 60 for å finne total varighet i sekunder
-  // Tips: map() kan regne om sekunderIgjen til en LED-posisjon (0 til NUM_LEDS)
+  if(index == -1) {
+    return; 
+  }
+
+  int totalSekunder = plan[index].varighet * 60;
+
+  int antallLEDs = map(sekunderIgjen, 0, totalSekunder, 0, NUM_LEDS);
+
+  
+  
+  for(int i = 0; i < antallLEDs; i++) {
+    strip.setPixelColor(i, fagfarge);
+    strip.setPixelColor(NUM_LEDS - 1 - i, fagfarge);
+  
+  }
 }
 
 //==================================================================================================================================
@@ -902,6 +915,5 @@ String genererMenyHTML() {
   // Tips: Gjenbruk gjerne samme tekster/valg som du skrev i visMeny()
   return "<html><body><h1>TODO: Lag menyen din her!</h1></body></html>"; // Placeholder
 }
-
 
 
