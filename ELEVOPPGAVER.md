@@ -6,10 +6,9 @@ Dere skal sammen bygge ferdig en smart skole-timeplan-klokke med en NeoPixel LED
 
 1. Velg en funksjon fra listen under som ingen andre i klassen har tatt.
 2. Skriv navnet ditt i `// Laget av: <Fornavn>` inne i funksjonen.
-3. Fyll ut dokumentasjonen for funksjonen din i [DOKUMENTASJON.md](DOKUMENTASJON.md) — ikke i sketch.ino, se hvorfor under.
+3. Fyll ut dokumentasjonen for funksjonen din i din egen fil under [dokumentasjon/funksjoner/](dokumentasjon/funksjoner/) — ikke i sketch.ino, se hvorfor under.
 4. Ikke endre funksjonens navn, parametere eller returtype — resten av koden er avhengig av at signaturen er uendret.
 5. **Test funksjonen din før du leverer!** Du kan teste den via Serial-monitoren, eller legge til en midlertidig testlinje nederst i `setup()` for å se at den virker (husk å fjerne testlinjen før du committer):
-   - For `sjekkHelg`: `Serial.println(sjekkHelg(LORDAG) ? "OK: Helg!" : "Feil");`
    - For `fagNavn`: `Serial.println("Test fagNavn: " + fagNavn(MATTE));`
    - For `fagFarge`: `strip.fill(fagFarge(MATTE)); strip.show();`
    - For animasjoner/visere: kall funksjonen din direkte nederst i `setup()` og se resultatet på ringen!
@@ -18,36 +17,55 @@ Dere skal sammen bygge ferdig en smart skole-timeplan-klokke med en NeoPixel LED
 
 ## Dokumentasjonsstandard
 
-`sketch/sketch.ino` er en C++-fil og egner seg dårlig til lange forklaringer — derfor skrives dokumentasjonen i en egen fil, [DOKUMENTASJON.md](DOKUMENTASJON.md), i stedet for som kommentarblokker i koden. Inne i selve funksjonen holder det med den korte `// Laget av: <Fornavn>`-kommentaren.
+`sketch/sketch.ino` er en C++-fil og egner seg dårlig til lange forklaringer — derfor skrives dokumentasjonen i en egen fil per funksjon, i mappa [dokumentasjon/funksjoner/](dokumentasjon/funksjoner/), i stedet for som kommentarblokker i koden. Inne i selve funksjonen holder det med den korte `// Laget av: <Fornavn>`-kommentaren.
 
-Se [DOKUMENTASJON.md](DOKUMENTASJON.md) for malen du skal fylle ut (og et utfylt eksempel for `fagFarge`) — finn overskriften for din funksjon der, og fyll inn under den.
+Se [dokumentasjon/README.md](dokumentasjon/README.md) for malen du skal fylle ut (og et utfylt eksempel for `fagFarge`) — finn fila for din funksjon i [dokumentasjon/funksjoner/](dokumentasjon/funksjoner/) (samme navn som funksjonen), og fyll inn der.
 
 Poenget med dokumentasjonen er todelt: den skal gjøre det lett for andre (og deg selv) å forstå hva funksjonen gjør uten å lese hele koden, **og** den skal tvinge deg til å reflektere over løsningen din i stedet for bare å skrive kode og gå videre.
 
-Bruk malen i [DOKUMENTASJON.md](DOKUMENTASJON.md) på **alle** funksjonene dere implementerer.
+Bruk malen i [dokumentasjon/README.md](dokumentasjon/README.md) på **alle** funksjonene dere implementerer.
 
 ---
 
-## Funksjonsoversikt
+## Funksjonsoversikt / Booking
 
-| Vanskelighetsgrad | Funksjon |
-|---|---|
-| Enkel | `sjekkHelg`, `fagFarge`, `fagNavn`, `blinkLED`, `timeStartAnimasjon`, `friminuttAnimasjon`, `visMeny`, `sjekkSerialMeny` |
-| Middels | `visKlokkevisere`, `nedtellingBar`, `melodiSpiller`, `spillMelodi`, `visGjeldendeStatus`, `ferdigForDagenAnimasjon`, `helgeSluttAnimasjon`, `handterHelg` |
-| Avansert | `fyllPlan`, `beregnTidIgjen`, `hentGjeldendeFag`, `hentInternetTid` *(ferdig – Marcel & Luka)*, `helgAnimasjon`, `planIndex`, `handterAktivitetsbytte` |
-| Ekstra (valgfritt) | `startNedtelling`, `spillAnimasjon`, `startStoppeklokke`, `knappTrykket` (krever kabling), `spillRTTTL` — se [Ekstra / valgfrie funksjoner](#ekstra--valgfrie-funksjoner) |
-| Ekstra stort (avansert, samarbeid) | Web-grensesnitt — se [Web-grensesnitt](#-web-grensesnitt-ekstra-stor-oppgave-krever-samarbeid) nederst |
-| Hardware (samarbeid, ikke koding) | Kabling og lodding, 3D-printet ramme — se [Hardware-oppgaver](#hardware-oppgaver-krever-samarbeid) nederst |
+Skriv navnet ditt (eller gruppa) i `Hvem`-kolonnen når du tar en oppgave, og oppdater `Status` etter hvert som du jobber. Gyldige statuser: **Ledig** (default, ikke tatt) → **⚠️ Påbegynt** → **✅ Ferdig**. `Dokumentasjon`-kolonnen lenker til fila i [dokumentasjon/funksjoner/](dokumentasjon/funksjoner/) der du skal fylle ut malen for funksjonen din.
+
+| Vanskelighetsgrad | Funksjon | Hvem | Status | Dokumentasjon | Issue |
+|---|---|---|---|---|---|
+| Enkel | `fagFarge` | Erik | ✅ Ferdig | [fagFarge.md](dokumentasjon/funksjoner/fagFarge.md) | [#2](https://github.com/1ELER26-27/Klokkeprosjekt2026/issues/2) |
+| Enkel | `fagNavn` | Vilde og Leo | ⚠️ Påbegynt | [fagNavn.md](dokumentasjon/funksjoner/fagNavn.md) | [#31](https://github.com/1ELER26-27/Klokkeprosjekt2026/issues/31) |
+| Enkel | `blinkLED` | Bjørn | ⚠️ Påbegynt | [blinkLED.md](dokumentasjon/funksjoner/blinkLED.md) | [#8](https://github.com/1ELER26-27/Klokkeprosjekt2026/issues/8) |
+| Enkel | `timeStartAnimasjon` | Vilde | ✅ Ferdig | [timeStartAnimasjon.md](dokumentasjon/funksjoner/timeStartAnimasjon.md) | [#24](https://github.com/1ELER26-27/Klokkeprosjekt2026/issues/24) |
+| Enkel | `friminuttAnimasjon` | Vilde | ✅ Ferdig | [friminuttAnimasjon.md](dokumentasjon/funksjoner/friminuttAnimasjon.md) | [#4](https://github.com/1ELER26-27/Klokkeprosjekt2026/issues/4) |
+| Enkel | `visMeny` | Endre | ⚠️ Påbegynt | [visMeny.md](dokumentasjon/funksjoner/visMeny.md) | [#27](https://github.com/1ELER26-27/Klokkeprosjekt2026/issues/27) |
+| Enkel | `sjekkSerialMeny` | Endre | ✅ Ferdig | [sjekkSerialMeny.md](dokumentasjon/funksjoner/sjekkSerialMeny.md) | |
+| Middels | `visKlokkevisere` | Alexander og Johan | ⚠️ Påbegynt | [visKlokkevisere.md](dokumentasjon/funksjoner/visKlokkevisere.md) | [#11](https://github.com/1ELER26-27/Klokkeprosjekt2026/issues/11) |
+| Middels | `nedtellingBar` | Alexander og Johan | ⚠️ Påbegynt | [nedtellingBar.md](dokumentasjon/funksjoner/nedtellingBar.md) | [#11](https://github.com/1ELER26-27/Klokkeprosjekt2026/issues/11) |
+| Middels | `fanfareKort` | Nicholas | ⚠️ Påbegynt | [fanfareKort.md](dokumentasjon/funksjoner/fanfareKort.md) | |
+| Middels | `fanfareKortere` | Viggo | ⚠️ Påbegynt | [fanfareKortere.md](dokumentasjon/funksjoner/fanfareKortere.md) | |
+| Middels | `visGjeldendeStatus` | | Ledig | [visGjeldendeStatus.md](dokumentasjon/funksjoner/visGjeldendeStatus.md) | |
+| Middels | `ferdigForDagenAnimasjon` | Tobias og Vrishab | ⚠️ Påbegynt | [ferdigForDagenAnimasjon.md](dokumentasjon/funksjoner/ferdigForDagenAnimasjon.md) | [#5](https://github.com/1ELER26-27/Klokkeprosjekt2026/issues/5) |
+| Middels | `helgeSluttAnimasjon` | Joachim | ⚠️ Påbegynt | [helgeSluttAnimasjon.md](dokumentasjon/funksjoner/helgeSluttAnimasjon.md) | [#6](https://github.com/1ELER26-27/Klokkeprosjekt2026/issues/6) |
+| Avansert | `fyllPlan` | Nicholas & Marcel | ✅ Ferdig | [fyllPlan.md](dokumentasjon/funksjoner/fyllPlan.md) | [#7](https://github.com/1ELER26-27/Klokkeprosjekt2026/issues/7) |
+| Avansert | `beregnTidIgjen` | Luka & Marcel | ✅ Ferdig | [beregnTidIgjen.md](dokumentasjon/funksjoner/beregnTidIgjen.md) | [#14](https://github.com/1ELER26-27/Klokkeprosjekt2026/issues/14) |
+| Avansert | `hentGjeldendeFag` | Marcel | ✅ Ferdig | [hentGjeldendeFag.md](dokumentasjon/funksjoner/hentGjeldendeFag.md) | [#20](https://github.com/1ELER26-27/Klokkeprosjekt2026/issues/20) |
+| Avansert | `hentInternetTid` | Marcel & Luka | ✅ Ferdig | [hentInternetTid.md](dokumentasjon/funksjoner/hentInternetTid.md) | [#3](https://github.com/1ELER26-27/Klokkeprosjekt2026/issues/3) |
+| Avansert | `helgAnimasjon` | Franklin | ⚠️ Påbegynt | [helgAnimasjon.md](dokumentasjon/funksjoner/helgAnimasjon.md) | [#9](https://github.com/1ELER26-27/Klokkeprosjekt2026/issues/9) |
+| Avansert | `planIndex` | Marcel | ✅ Ferdig | [planIndex.md](dokumentasjon/funksjoner/planIndex.md) | [#28](https://github.com/1ELER26-27/Klokkeprosjekt2026/issues/28) |
+| Avansert | `handterAktivitetsbytte` | | Ledig | [handterAktivitetsbytte.md](dokumentasjon/funksjoner/handterAktivitetsbytte.md) | |
+| Ekstra (valgfritt) | `startNedtelling` | | Ledig | [startNedtelling.md](dokumentasjon/funksjoner/startNedtelling.md) | |
+| Ekstra (valgfritt) | `spillAnimasjon` | | Ledig | [spillAnimasjon.md](dokumentasjon/funksjoner/spillAnimasjon.md) | |
+| Ekstra (valgfritt) | `startStoppeklokke` | | Ledig | [startStoppeklokke.md](dokumentasjon/funksjoner/startStoppeklokke.md) | |
+| Ekstra (valgfritt) | `knappTrykket` (krever kabling) | | Ledig | [knappTrykket.md](dokumentasjon/funksjoner/knappTrykket.md) | |
+| Ekstra (valgfritt) | `spillRTTTL` | | Ledig | [spillRTTTL.md](dokumentasjon/funksjoner/spillRTTTL.md) | |
+| Ekstra stort (samarbeid) | Web-grensesnitt (`settOppWebserver`, `handterWebKlient`, `genererMenyHTML`) | | Ledig | [web-grensesnitt.md](dokumentasjon/funksjoner/web-grensesnitt.md) | |
+| Hardware (samarbeid, ikke koding) | Kabling og lodding | | Ledig | | |
+| Hardware (samarbeid, ikke koding) | 3D-printet ramme/kabinett | Leo | ⚠️ Påbegynt | | [#1](https://github.com/1ELER26-27/Klokkeprosjekt2026/issues/1) |
 
 ---
 
 ## Enkle funksjoner
-
-### `bool sjekkHelg(int ukedag)`
-Avgjør om en gitt ukedag er en helgedag.
-- **Parameter:** `ukedag` (int) – tallverdi for ukedagen, se `enum Ukedag` (SONDAG=0 ... LORDAG=6).
-- **Returverdi:** `bool` – `true` hvis det er lørdag eller søndag, ellers `false`.
-- **Hint:** Sammenlign `ukedag` med enum-verdiene `SONDAG` og `LORDAG` i stedet for tallene 0/6 direkte — det gjør koden lettere å lese.
 
 ### `uint32_t fagFarge(Fag fag)`
 Se det utfylte eksempelet over. Returnerer LED-fargen som hører til et gitt fag.
@@ -109,23 +127,26 @@ Tegner en "bue" av LED-er som viser hvor mye tid som er igjen av den aktiviteten
 - **Viktig:** `strip.clear()` og `strip.show()` håndteres automatisk i `loop()`. Du skal **ikke** kalle `strip.clear()` eller `strip.show()` inne i funksjonen din!
 - **Hint:** Bruk `plan[index].varighet * 60` til å finne total varighet i sekunder, og `map()` for å regne om `sekunderIgjen` til LED-posisjon (0 til `NUM_LEDS`). Husk å håndtere `index == -1`.
 
-### `void melodiSpiller(int note[], int varighet[], int antallToner)`
-Spiller av en liste med toner (frekvenser) og tilhørende varigheter på buzzeren.
-- **Parametere:** `note[]` – frekvenser i Hz, `varighet[]` – varighet per tone i ms, `antallToner` (int) – hvor mange toner arrayene inneholder.
+### `void fanfareKort()`
+Spiller en kort fanfare på buzzeren, f.eks. når en ny time starter.
+- **Parametere:** Ingen.
 - **Returverdi:** Ingen (void).
-- **Hint:** Bruk `tone(soundpin, note[i], varighet[i])` i en for-løkke fra `0` til `antallToner - 1`. **Ikke** bruk `sizeof(note)` — arrays som sendes til funksjoner "råtner" til pekere, så det gir feil svar. Det er derfor `antallToner` sendes med som egen parameter.
+- **Viktig:** Skal vare maks ca. 3 sekunder.
+- **Hint:** `#include "pitches.h"` gir deg `NOTE_`-konstanter (f.eks. `NOTE_C4`, `NOTE_G4`, `NOTE_C5`) du kan bruke direkte som frekvens i `tone(soundpin, NOTE_C4, varighet)`. Legg inn en kort `delay()` mellom hver tone.
 
-### `void spillMelodi(int melodiNr)`
-Spiller riktig melodi/varsel basert på et melodi-nummer (1 = friminutt, 2 = time-start, osv.).
-- **Parameter:** `melodiNr` (int) – melodinummer (f.eks. 1 = friminutt, 2 = time-start).
+### `void fanfareKortere()`
+Spiller en enda kortere fanfare på buzzeren, f.eks. når friminuttet starter.
+- **Parametere:** Ingen.
 - **Returverdi:** Ingen (void).
-- **Hint:** Har dere buzzer? Bruk `tone(soundpin, frekvens, varighet)` eller spill av eksempel-tonene med `melodiSpiller(melodi, melodi_varighet, 3)`. Ingen buzzer? Bruk LED-blink i stedet, f.eks. `blinkLED(strip.Color(0,255,0), 3)`.
+- **Viktig:** Skal vare maks ca. 1 sekund — kortere enn `fanfareKort()`, siden friminutt skjer mye oftere enn timestart.
+- **Hint:** Samme fremgangsmåte som `fanfareKort()`, men med færre og/eller kortere toner.
 
 ### `void visGjeldendeStatus(int index, int minutt)`
-Sjekker statusflaggene og starter riktig animasjon dersom det har skjedd en hendelse (skoledag over, friminutt eller ny time).
+Sjekker statusflaggene og starter riktig animasjon dersom det har skjedd en hendelse (skoledag over, helg, friminutt eller ny time).
 - **Parametere:** `index` (int) – raden i `plan[]` for aktiviteten, `minutt` (int) – gjeldende minutt.
 - **Returverdi:** Ingen (void).
 - **Hint:** Sjekk de globale statusflaggene i rekkefølge med `if` / `else if`:
+  - Hvis `erHelg`: vis `helgeSluttAnimasjon()` og nullstill flagget (`erHelg = false;`). Sjekk denne før `ferdigForDagen`, siden en fredag som er over både er "ferdig for dagen" og starten på helgen — vi vil bare vise helgesluttanimasjonen, ikke begge.
   - Hvis `ferdigForDagen`: vis `ferdigForDagenAnimasjon()` og nullstill flagget (`ferdigForDagen = false;`).
   - Hvis `nyttFriminutt`: vis `friminuttAnimasjon(minutt, index)` og nullstill flagget (`nyttFriminutt = false;`).
   - Hvis `nyTime`: vis `timeStartAnimasjon(fagFarge(gjeldendeFag))` og nullstill flagget (`nyTime = false;`).
@@ -141,12 +162,6 @@ Viser en spektakulær feiringsanimasjon etter siste time på fredag (maks 30 sek
 - **Parametere:** Ingen.
 - **Returverdi:** Ingen (void).
 - **Hint:** Vær kreativ! Kombiner flere effekter (fyrverkeri, regnbue, puls, rotasjon). `sin()`/`cos()` er nyttige for myke overganger. Ikke bruk for lange `delay()`-kall om gangen.
-
-### `void handterHelg(int ukedag)`
-Sjekker om det er helg akkurat nå, og håndterer statusflagget og animasjonen for det.
-- **Parameter:** `ukedag` (int).
-- **Returverdi:** Ingen (void).
-- **Hint:** Bruk `sjekkHelg(ukedag)`, oppdater den globale variabelen `erHelg`, og kall `helgAnimasjon()` når det er helg. Vurder å bare skrive en Serial-melding *første* gang det blir helg, ikke hver eneste loop.
 
 ---
 
@@ -173,7 +188,7 @@ Slår opp hvilket fag som pågår, ut fra en indeks i `plan[]`.
 ### `bool hentInternetTid()` *(Ferdig implementert – Marcel & Luka)*
 Kobler til WiFi og henter riktig klokkeslett fra internett (NTP).
 
-> ℹ️ **Denne funksjonen er allerede ferdig implementert og dokumentert av Marcel & Luka som et referanseeksempel.** Se koden i `sketch/sketch.ino` og dokumentasjonen i `DOKUMENTASJON.md`.
+> ℹ️ **Denne funksjonen er allerede ferdig implementert og dokumentert av Marcel & Luka som et referanseeksempel.** Se koden i `sketch/sketch.ino` og dokumentasjonen i [dokumentasjon/funksjoner/hentInternetTid.md](dokumentasjon/funksjoner/hentInternetTid.md).
 - **Parametere:** Ingen.
 - **Returverdi:** `bool` – `true` hvis tiden ble hentet, `false` ved feil.
 - **Hint:** WiFi bruker 2-5 sekunder på å koble til, så du må vente i en `while (WiFi.status() != WL_CONNECTED)`-løkke med timeout (f.eks. maks 20 forsøk med `delay(500)`). For norsk tidssone (GMT+1 og 1 time sommertid), bruk `configTime(3600, 3600, "pool.ntp.org")` eller `configTzTime()`. Sjekk deretter om tiden er gyldig med `getLocalTime(&timeinfo)`.
@@ -195,9 +210,9 @@ Oppdager om faget/aktiviteten har endret seg siden forrige gang, og setter rikti
 - **Parametere:** `nyttFag` (Fag) – faget som gjelder nå, `ukedag` (int).
 - **Returverdi:** Ingen (void).
 - **Hint:** Sammenlign `nyttFag` med den globale `forrigeFag`.
-  - Hvis `nyttFag == INGENTING` og `forrigeFag != INGENTING`, er skoledagen over! Hvis det er fredag (`ukedag == FREDAG`), kall `helgeSluttAnimasjon()`, ellers sett `ferdigForDagen = true`.
-  - Hvis `nyttFag == FRIMINUTT`, sett `nyttFriminutt = true` og kall `spillMelodi(1)`.
-  - Hvis `nyttFag != INGENTING` og `nyttFag != FRIMINUTT`, sett `nyTime = true` og kall `spillMelodi(2)`.
+  - Hvis `nyttFag == INGENTING` og `forrigeFag != INGENTING`, er skoledagen over! Hvis det er fredag (`ukedag == FREDAG`), sett `erHelg = true` (dette er signalet om at helgen starter — `visGjeldendeStatus` viser da `helgeSluttAnimasjon()` i stedet for den vanlige "ferdig for dagen"-animasjonen). Ellers sett `ferdigForDagen = true`.
+  - Hvis `nyttFag == FRIMINUTT`, sett `nyttFriminutt = true` og kall `fanfareKortere()`.
+  - Hvis `nyttFag != INGENTING` og `nyttFag != FRIMINUTT`, sett `nyTime = true` og kall `fanfareKort()`.
   - Husk å oppdatere `forrigeFag = nyttFag` til slutt!
 
 ---

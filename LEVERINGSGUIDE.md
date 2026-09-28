@@ -16,7 +16,7 @@ flowchart TD
             FØR du koder!"]
     C --> D["4️⃣ Skriv koden i din funksjon"]
     D --> E["5️⃣ Skriv dokumentasjon i
-            DOKUMENTASJON.md"]
+            dokumentasjon/funksjoner/"]
     E --> F["6️⃣ Test koden lokalt"]
     F --> G["7️⃣ Commit & Push i
             GitHub Desktop"]
@@ -95,11 +95,11 @@ Nå kan du åpne koden i **Arduino IDE** eller **VS Code**.
 
 ## 📝 Steg 5: Fyll ut dokumentasjonen
 
-All forklaring og refleksjon skal ligge i **DOKUMENTASJON.md** (ikke i koden).
+All forklaring og refleksjon skal ligge i **din egen fil under `dokumentasjon/funksjoner/`** (ikke i koden).
 
-1. Åpne filen `DOKUMENTASJON.md`.
-2. Scroll ned til du finner overskriften for din funksjon.
-3. Fyll inn de 5 punktene under overskriften:
+1. Åpne fila som har samme navn som funksjonen din i mappa `dokumentasjon/funksjoner/` (f.eks. `dokumentasjon/funksjoner/fagFarge.md`).
+2. Kopiér malen fra `dokumentasjon/README.md` inn i fila hvis den ikke allerede ligger der.
+3. Fyll inn de 5 punktene:
    - **Laget av:** Ditt navn
    - **Hva gjør den?** (1–3 setninger med egne ord)
    - **Parametere:** Forklar hva variablene som sendes inn betyr
@@ -133,7 +133,7 @@ Nå skal du lagre et "øyeblikksbilde" (commit) og laste det opp til GitHub (pus
 1. Bytt tilbake til vinduet **GitHub Desktop**.
 2. Til venstre under **Changes** skal du nå se to endrede filer:
    - `sketch/sketch.ino`
-   - `DOKUMENTASJON.md`
+   - `dokumentasjon/funksjoner/<din-funksjon>.md`
    *(Hvis du ser andre filer du ikke har ment å endre, sjekk hva som har skjedd før du går videre!)*
 3. Klikk på filene og se over endringene (grønt = nytt, rødt = fjernet).
 4. Nederst til venstre: Skriv en kort, beskrivende **commit-melding**, f.eks.:
