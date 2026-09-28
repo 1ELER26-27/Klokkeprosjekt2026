@@ -529,26 +529,25 @@ int minutt_viser(int minutt, int sekund) {
 }
 
 
-int sekund_viser(int sekund) {
-  float total = (sekund % 60) + (millis() % 1000) / 1000.0;
-  int sek_pix = (int)((total * NUM_LEDS) / 60);
+int sekund_viser(int millisekunder) {
+  // Generisk: gjør om et løp på 0-60000 ms til en LED-posisjon, uavhengig av kilde (klokke, nedtelling, osv.)
+  int sek_pix = (int)(((long)millisekunder * NUM_LEDS) / 60000);
   if(sek_pix >= NUM_LEDS) {
     sek_pix = NUM_LEDS - 1;
   }
   return sek_pix % NUM_LEDS;
-
 }
 
 
 void visKlokkevisere(int time, int minutt, int sec) {
- 
+  // Henter hele og delvise sekunder fra samme kall, slik at de alltid er i fase
+  struct timeval tv;
+  gettimeofday(&tv, NULL);
+  int millisekunder = (tv.tv_sec % 60) * 1000 + tv.tv_usec / 1000;
 
   strip.setPixelColor(time_viser(time, minutt), strip.Color(148, 0, 211));
   strip.setPixelColor(minutt_viser(minutt, sec), strip.Color(0, 255, 0)); 
-  strip.setPixelColor(sekund_viser(sec), strip.Color(0, 255, 255));
-  
-
-
+  strip.setPixelColor(sekund_viser(millisekunder), strip.Color(0, 255, 255));
 
 }
 
