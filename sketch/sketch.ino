@@ -67,9 +67,9 @@ int sekunderIgjen = 0;        // Sekunder igjen av gjeldende aktivitet
 // Status-flagg for animasjoner
 bool nyTime = false;          // True når en ny time starter
 bool nyttFriminutt = false;   // True når et nytt friminutt starter
-bool ferdigForDagen = false;  // True når skoledagen er ferdig
+bool ferdigForDagen = true;  // True når skoledagen er ferdig
 bool erHelg = false;          // True når det er helg
-
+ 
 int melodi[3] = {1, 2, 3};             // Eksempel-toner til melodiSpiller()
 int melodi_varighet[3] = {100, 100, 100}; // Eksempel-varigheter (ms) til melodiSpiller()
 
@@ -236,6 +236,8 @@ void setup() {
   Serial.println("📅 Timeplan lastet!");
   
   Serial.println("🚀 Klokke klar!");
+
+  ferdigForDagenAnimasjon();
 }
 
 // ========== HOVEDLOOP ==========
@@ -495,17 +497,37 @@ void spillMelodi(int melodiNr) {
 
 //==================================================================================================================================
 
-void ferdigForDagenAnimasjon() {
-  // Laget av:Tobias og Vrishab
-   #define DELAYVAL 500
-   
-   for (int i=0;i<NUM_LEDS;i++) {
-    pixels.setPixelColor(i,pixels.color(250,0,175));
-    pixels.setPixelColor(NUM_LEDS-1-i,pixels.color(250,175,0));
-    pixels.show();
-    delay(DELAYVAL);
-   }
+void ferdigForDagenAnimasjon() 
+// Laget av:Tobias og Vrishab
+{
 
+struct Snake {
+  int pos;
+  int HUGH;
+  bool Direction;
+  bool Step;
+  int length;
+  bool Flat_Color;
+  bool Color_Change;
+  int Color;
+  int saturation;
+  int brightness;
+}; 
+Snake snake1 (0,0,true,true, NUM_LEDS/2,true,false,45000,255,175)  
+void Draw_Snake(Snake)
+}
+
+  #define DELAYVAL 50
+  for (int j=0 ;j<3; j++){
+    for (int i=0;i<NUM_LEDS;i++) {
+      strip.setPixelColor(NUM_LEDS+i,strip.Color(250,0,175));
+      strip.setPixelColor(NUM_LEDS-1-i,strip.Color(250,175,0));
+      strip.show();
+      delay(DELAYVAL);
+      
+       strip.clear();
+    }
+} 
   
   // TODO: Vis en rolig animasjon som markerer at skoledagen er ferdig
   // Tips: F.eks. en myk fade inn/ut med strip.fill() og strip.show()
