@@ -751,22 +751,216 @@ bool hentInternetTid() {
 //==================================================================================================================================
 
 void helgAnimasjon() {
-  // Laget av: 
-  // TODO: Implementer denne funksjonen
-  // Lag en kul animasjon som vises i helgene
-  
-  // TIPS til implementering - Vær kreativ! Dette er din sjanse til å skinne:
-  // - Regnbue-effekter: Bruk forskjellige farger som roterer
-  // - Bouncing balls: Simuler en ball som spretter
-  // - Fade-effekter: Fade inn/ut med forskjellige farger
-  // - Roterende mønstre: Roter et mønster rundt ringen
-  // - Stjernehimmel: Tilfeldige LEDs som blinker som stjerner
-  // - Fyrverk-effekt: Eksplosjoner av farger
-  // - Bruk math-funksjoner som sin(), cos() for smooth animasjoner
-  // - Kombiner forskjellige effekter!
-  // - Husk: ikke bruk for lange delays (animasjonen kalles hver loop)
-  
-  // Placeholder - vær kreativ og implementer din egen kule animasjon!
+  // Laget av: Franklin
+//Snake Function!
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  //Snake Parameters
+  //{Start position, Start color, Direction(true=Forward/false=Backward), Move?, Length, Flat color?, Change color?, Color?, Saturation, Brightness}
+  struct Snake {
+    int pos;
+    int HUGH;
+    bool Direction;
+    bool Step;
+    int length;
+    bool Flat_Color;
+    bool Color_Change;
+    int Color;
+    int saturation;
+    int brightness;
+  };
+
+  //Snake Drawing
+  auto Draw_Snake = [&](Snake &s) {
+
+    if (s.pos > NUM_LEDS-2 && s.Direction) {
+    s.pos = 0;
+    }
+    else if (s.pos < 0 && !s.Direction) {
+      s.pos = NUM_LEDS;
+    }
+    
+    else if (s.Direction && s.Step) {
+      s.pos++;
+    }
+    else if (!s.Direction && s.Step) {
+      s.pos--;
+    }
+    
+    for (int i = 0; i < s.length; i++) {
+
+      if (!s.Flat_Color && s.Color_Change) {
+        s.HUGH += i * s.Color;
+      }
+      else if (s.Flat_Color && !s.Color_Change) {
+        s.HUGH = s.Color;
+      }
+      else {
+        s.HUGH += s.Color;
+      }
+      
+      if (s.pos < s.length) {
+        strip.setPixelColor(NUM_LEDS + s.pos - i, strip.ColorHSV(s.HUGH, s.saturation, s.brightness));
+      }
+      
+      strip.setPixelColor(s.pos - i, strip.ColorHSV(s.HUGH, s.saturation, s.brightness));
+
+    }
+  };
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//Snake Function
+
+
+
+//Animasjon Start
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  strip.clear();
+
+
+
+//Gamble!
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    Snake Snake1= {2*NUM_LEDS/3, 0, true, false, 3, false, true, random(85000), 255, 100};
+    Snake Snake2= {0*NUM_LEDS/3, 0, true, false, 3, false, true, random(85000), 255, 100};
+    Snake Snake3= {NUM_LEDS/3, 0, true, false, 3, false, true, random(85000), 255, 100};
+
+    for (int i = 0; i < 30; i++) {
+
+      if (i == 19 && Snake1.Color < 85000) {
+        Snake1.Color = 85000;
+        Snake1.Color_Change = false;
+        Snake1.Flat_Color = true;
+      }
+      else if (i == 29 && Snake2.Color < 85000) {
+        Snake2.Color = 85000;
+        Snake2.Color_Change = false;
+        Snake2.Flat_Color = true;
+      }
+      else if (i == 9 && Snake3.Color < 85000) {
+        Snake3.Color = 85000;
+        Snake3.Color_Change = false;
+        Snake3.Flat_Color = true;
+      }
+
+      Draw_Snake(Snake1);
+      Draw_Snake(Snake2);
+      Draw_Snake(Snake3);
+      strip.show();
+      delay(100);
+    }
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//Gamble!
+
+
+
+    delay(500);
+    strip.clear();
+
+
+
+//Eight Handled Sword, Divergent Sila, Divine General, Mahoraga!
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    Snake1= {0, 0, true, false, 4, true, false, 70000, 255, 255};
+    int Wheel [] = {3, 13, 22, 32, 41, 51, 60, 70};
+
+    for (int i = 0; i < 8; i++) {
+      Snake1.pos = Wheel[i];
+      Draw_Snake(Snake1);
+      strip.show();
+      delay(500);
+    }
+
+    delay(500);
+
+    for (int r = 1; r < 4; r++) {
+      for (int i = 0; i < NUM_LEDS/2; i++) {
+        strip.clear();
+
+        for (int w = 0; w < 8; w++) {
+          if (Wheel[w] > NUM_LEDS-3) {
+            Wheel[w] = 0;
+          }
+          else {
+            Wheel[w]++;
+          }
+        }
+
+        for (int a = 0; a < 8; a++) {
+          Snake1.pos = Wheel[a];
+          Draw_Snake(Snake1);
+        }
+
+        strip.show();
+        delay(100/r);
+      }
+      
+      delay(500);
+    }
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//Eight Handled Sword, Divergent Sila, Divine General, Mahoraga!
+
+
+
+    delay(500);
+    strip.clear();
+
+
+
+//Pollow Hurple!
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    Snake1= {0, 0, true, true, 1, true, false, 45000, 255, 255};
+    Snake2= {NUM_LEDS, 0, false, true, 1, false, false, 0, 255, 255};
+
+    for (int i = 0; i < NUM_LEDS/2; i++) {
+      strip.clear();
+
+      Draw_Snake(Snake1);
+      Draw_Snake(Snake2);
+
+      strip.show();
+      delay(100);
+    }
+
+    Snake1= {NUM_LEDS/2-1, 0, true, true, 1, true, false, 55000, 255, 255};
+    Snake2= {NUM_LEDS/2+1, 0, false, true, 1, true, false, 55000, 255, 255};
+
+    strip.clear();
+
+    for (int i = 0; i < NUM_LEDS/2+1; i++) {
+
+      Draw_Snake(Snake1);
+      Draw_Snake(Snake2);
+
+      strip.show();
+      delay(50);
+    }
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//Pollow Hurple!
+
+
+
+    delay(100);
+
+
+
+//GAY!
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    Snake1= Snake1= {0, 0, true, false, NUM_LEDS, true, true, 1000, 255, 255};
+
+    for (int i = 0; i < 100; i++) {
+      Draw_Snake(Snake1);
+      strip.show();
+      delay(100);
+    }
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//GAY!
+
+
+
+    strip.clear();
+    strip.show();
+
+
 }
 
 //==================================================================================================================================
