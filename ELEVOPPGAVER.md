@@ -29,38 +29,38 @@ Bruk malen i [dokumentasjon/README.md](dokumentasjon/README.md) på **alle** fun
 
 ## Funksjonsoversikt / Booking
 
-Skriv navnet ditt (eller gruppa) i `Hvem`-kolonnen når du tar en oppgave, og oppdater `Status` etter hvert som du jobber. Gyldige statuser: **Ledig** (default, ikke tatt) → **⚠️ Påbegynt** → **✅ Ferdig**. `Dokumentasjon`-kolonnen lenker til fila i [dokumentasjon/funksjoner/](dokumentasjon/funksjoner/) der du skal fylle ut malen for funksjonen din.
+Skriv navnet ditt (eller gruppa) i `Hvem`-kolonnen når du tar en oppgave, og oppdater `Status` etter hvert som du jobber. Gyldige statuser: **Ledig** (default, ikke tatt) → **⚠️ Påbegynt** → **✅ Ferdig**. Status viser om implementasjonen er ferdig; dokumentasjonskolonnen viser separat om dokumentasjonen også er på plass. En funksjon med manglende dokumentasjon er ikke helt ferdig levert. **Mangler** betyr at dokumentasjonsfila er tom; **ufullstendig** betyr at den fortsatt inneholder maltekst. `Dokumentasjon`-kolonnen lenker til fila i [dokumentasjon/funksjoner/](dokumentasjon/funksjoner/) der du skal fylle ut malen for funksjonen din.
 
 | Vanskelighetsgrad | Funksjon | Hvem | Status | Dokumentasjon | Issue |
 |---|---|---|---|---|---|
-| Enkel | `fagFarge` | Erik | ✅ Ferdig | [fagFarge.md](dokumentasjon/funksjoner/fagFarge.md) | [#2](https://github.com/1ELER26-27/Klokkeprosjekt2026/issues/2) |
-| Enkel | `fagNavn` | Vilde og Leo | ⚠️ Påbegynt | [fagNavn.md](dokumentasjon/funksjoner/fagNavn.md) | [#31](https://github.com/1ELER26-27/Klokkeprosjekt2026/issues/31) |
+| Enkel | `fagFarge` | Erik | ✅ Ferdig | [fagFarge.md](dokumentasjon/funksjoner/fagFarge.md) (ufullstendig) | [#2](https://github.com/1ELER26-27/Klokkeprosjekt2026/issues/2) |
+| Enkel | `fagNavn` | Vilde og Leo | ✅ Ferdig | [fagNavn.md](dokumentasjon/funksjoner/fagNavn.md) (ufullstendig) | [#31](https://github.com/1ELER26-27/Klokkeprosjekt2026/issues/31) |
 | Enkel | `blinkLED` | Bjørn | ⚠️ Påbegynt | [blinkLED.md](dokumentasjon/funksjoner/blinkLED.md) | [#8](https://github.com/1ELER26-27/Klokkeprosjekt2026/issues/8) |
-| Enkel | `timeStartAnimasjon` | Vilde | ✅ Ferdig | [timeStartAnimasjon.md](dokumentasjon/funksjoner/timeStartAnimasjon.md) | [#24](https://github.com/1ELER26-27/Klokkeprosjekt2026/issues/24) |
-| Enkel | `friminuttAnimasjon` | Vilde | ✅ Ferdig | [friminuttAnimasjon.md](dokumentasjon/funksjoner/friminuttAnimasjon.md) | [#4](https://github.com/1ELER26-27/Klokkeprosjekt2026/issues/4) |
+| Enkel | `timeStartAnimasjon` | Vilde | ✅ Ferdig | [timeStartAnimasjon.md](dokumentasjon/funksjoner/timeStartAnimasjon.md) (ufullstendig) | [#24](https://github.com/1ELER26-27/Klokkeprosjekt2026/issues/24) |
+| Enkel | `friminuttAnimasjon` | Vilde | ✅ Ferdig | [friminuttAnimasjon.md](dokumentasjon/funksjoner/friminuttAnimasjon.md) (ufullstendig) | [#4](https://github.com/1ELER26-27/Klokkeprosjekt2026/issues/4) |
 | Enkel | `visMeny` | Endre | ⚠️ Påbegynt | [visMeny.md](dokumentasjon/funksjoner/visMeny.md) | [#27](https://github.com/1ELER26-27/Klokkeprosjekt2026/issues/27) |
-| Enkel | `sjekkSerialMeny` | Endre | ✅ Ferdig | [sjekkSerialMeny.md](dokumentasjon/funksjoner/sjekkSerialMeny.md) | |
-| Middels | `visKlokkevisere` | Alexander og Johan | ⚠️ Påbegynt | [visKlokkevisere.md](dokumentasjon/funksjoner/visKlokkevisere.md) | [#11](https://github.com/1ELER26-27/Klokkeprosjekt2026/issues/11) |
-| Middels | `nedtellingBar` | Alexander og Johan | ⚠️ Påbegynt | [nedtellingBar.md](dokumentasjon/funksjoner/nedtellingBar.md) | [#11](https://github.com/1ELER26-27/Klokkeprosjekt2026/issues/11) |
+| Enkel | `sjekkSerialMeny` | Endre | ✅ Ferdig | [sjekkSerialMeny.md](dokumentasjon/funksjoner/sjekkSerialMeny.md) (ufullstendig) | |
+| Middels | `visKlokkevisere` | Alexander og Johan | ✅ Ferdig | [visKlokkevisere.md](dokumentasjon/funksjoner/visKlokkevisere.md) (mangler) | [#11](https://github.com/1ELER26-27/Klokkeprosjekt2026/issues/11) |
+| Middels | `nedtellingBar` | Alexander og Johan | ✅ Ferdig | [nedtellingBar.md](dokumentasjon/funksjoner/nedtellingBar.md) (mangler) | [#11](https://github.com/1ELER26-27/Klokkeprosjekt2026/issues/11) |
 | Middels | `fanfareKort` | Nicholas | ⚠️ Påbegynt | [fanfareKort.md](dokumentasjon/funksjoner/fanfareKort.md) | |
 | Middels | `fanfareKortere` | Viggo | ⚠️ Påbegynt | [fanfareKortere.md](dokumentasjon/funksjoner/fanfareKortere.md) | |
-| Middels | `visGjeldendeStatus` | | Ledig | [visGjeldendeStatus.md](dokumentasjon/funksjoner/visGjeldendeStatus.md) | |
+| Middels | `visGjeldendeStatus` | Erik | ⚠️ Påbegynt | [visGjeldendeStatus.md](dokumentasjon/funksjoner/visGjeldendeStatus.md) | [#40](https://github.com/1ELER26-27/Klokkeprosjekt2026/issues/40) |
 | Middels | `ferdigForDagenAnimasjon` | Tobias og Vrishab | ⚠️ Påbegynt | [ferdigForDagenAnimasjon.md](dokumentasjon/funksjoner/ferdigForDagenAnimasjon.md) | [#5](https://github.com/1ELER26-27/Klokkeprosjekt2026/issues/5) |
 | Middels | `helgeSluttAnimasjon` | Joachim | ⚠️ Påbegynt | [helgeSluttAnimasjon.md](dokumentasjon/funksjoner/helgeSluttAnimasjon.md) | [#6](https://github.com/1ELER26-27/Klokkeprosjekt2026/issues/6) |
 | Avansert | `fyllPlan` | Nicholas & Marcel | ✅ Ferdig | [fyllPlan.md](dokumentasjon/funksjoner/fyllPlan.md) | [#7](https://github.com/1ELER26-27/Klokkeprosjekt2026/issues/7) |
 | Avansert | `beregnTidIgjen` | Luka & Marcel | ✅ Ferdig | [beregnTidIgjen.md](dokumentasjon/funksjoner/beregnTidIgjen.md) | [#14](https://github.com/1ELER26-27/Klokkeprosjekt2026/issues/14) |
 | Avansert | `hentGjeldendeFag` | Marcel | ✅ Ferdig | [hentGjeldendeFag.md](dokumentasjon/funksjoner/hentGjeldendeFag.md) | [#20](https://github.com/1ELER26-27/Klokkeprosjekt2026/issues/20) |
 | Avansert | `hentInternetTid` | Marcel & Luka | ✅ Ferdig | [hentInternetTid.md](dokumentasjon/funksjoner/hentInternetTid.md) | [#3](https://github.com/1ELER26-27/Klokkeprosjekt2026/issues/3) |
-| Avansert | `helgAnimasjon` | Franklin | ⚠️ Påbegynt | [helgAnimasjon.md](dokumentasjon/funksjoner/helgAnimasjon.md) | [#9](https://github.com/1ELER26-27/Klokkeprosjekt2026/issues/9) |
-| Avansert | `planIndex` | Marcel | ✅ Ferdig | [planIndex.md](dokumentasjon/funksjoner/planIndex.md) | [#28](https://github.com/1ELER26-27/Klokkeprosjekt2026/issues/28) |
-| Avansert | `handterAktivitetsbytte` | | Ledig | [handterAktivitetsbytte.md](dokumentasjon/funksjoner/handterAktivitetsbytte.md) | |
-| Ekstra (valgfritt) | `startNedtelling` | | Ledig | [startNedtelling.md](dokumentasjon/funksjoner/startNedtelling.md) | |
+| Avansert | `helgAnimasjon` | Franklin | ✅ Ferdig | [helgAnimasjon.md](dokumentasjon/funksjoner/helgAnimasjon.md) | [#9](https://github.com/1ELER26-27/Klokkeprosjekt2026/issues/9) |
+| Avansert | `planIndex` | Marcel | ✅ Ferdig | [planIndex.md](dokumentasjon/funksjoner/planIndex.md) (ufullstendig) | [#28](https://github.com/1ELER26-27/Klokkeprosjekt2026/issues/28) |
+| Avansert | `handterAktivitetsbytte` | Marcel | ✅ Ferdig | [handterAktivitetsbytte.md](dokumentasjon/funksjoner/handterAktivitetsbytte.md) | [#34](https://github.com/1ELER26-27/Klokkeprosjekt2026/issues/34) |
+| Ekstra (valgfritt) | `startNedtelling` | Alexander og Jhan | ⚠️ Påbegynt | [startNedtelling.md](dokumentasjon/funksjoner/startNedtelling.md) | [#38](https://github.com/1ELER26-27/Klokkeprosjekt2026/issues/38) |
 | Ekstra (valgfritt) | `spillAnimasjon` | | Ledig | [spillAnimasjon.md](dokumentasjon/funksjoner/spillAnimasjon.md) | |
 | Ekstra (valgfritt) | `startStoppeklokke` | | Ledig | [startStoppeklokke.md](dokumentasjon/funksjoner/startStoppeklokke.md) | |
 | Ekstra (valgfritt) | `knappTrykket` (krever kabling) | | Ledig | [knappTrykket.md](dokumentasjon/funksjoner/knappTrykket.md) | |
 | Ekstra (valgfritt) | `spillRTTTL` | | Ledig | [spillRTTTL.md](dokumentasjon/funksjoner/spillRTTTL.md) | |
 | Ekstra stort (samarbeid) | Web-grensesnitt (`settOppWebserver`, `handterWebKlient`, `genererMenyHTML`) | | Ledig | [web-grensesnitt.md](dokumentasjon/funksjoner/web-grensesnitt.md) | |
-| Hardware (samarbeid, ikke koding) | Kabling og lodding | | Ledig | | |
+| Hardware (samarbeid, ikke koding) | Kabling og lodding | Alexander og Johan | ✅ Ferdig | [HARDWARE.md](HARDWARE.md) (dokumentasjon mangler) | [#36](https://github.com/1ELER26-27/Klokkeprosjekt2026/issues/36) |
 | Hardware (samarbeid, ikke koding) | 3D-printet ramme/kabinett | Leo | ⚠️ Påbegynt | | [#1](https://github.com/1ELER26-27/Klokkeprosjekt2026/issues/1) |
 
 ---
