@@ -66,10 +66,10 @@ Fag forrigeFag = INGENTING;   // Hvilket fag vi hadde før
 int sekunderIgjen = 0;        // Sekunder igjen av gjeldende aktivitet
 
 // Status-flagg for animasjoner
-bool nyTime = false;          // True når en ny time starter
-bool nyttFriminutt = false;   // True når et nytt friminutt starter
-bool ferdigForDagen = false;  // True når skoledagen er ferdig
-bool erHelg = false;          // True når fredagens skoledag er ferdig (signal for helgeSluttAnimasjon, nullstilles etterpå)
+bool nyTime = true;          // True når en ny time starter
+bool nyttFriminutt = true;   // True når et nytt friminutt starter
+bool ferdigForDagen = true;  // True når skoledagen er ferdig
+bool erHelg = true;          // True når fredagens skoledag er ferdig (signal for helgeSluttAnimasjon, nullstilles etterpå)
 
 // ========== FUNKSJONSERKLÆRINGER ==========
 // Disse funksjonene må elevene implementere:
@@ -1001,14 +1001,30 @@ void handterAktivitetsbytte(Fag nyttFag, int ukedag) {
 //==================================================================================================================================
 
 void visGjeldendeStatus(int index, int minutt) {
-  // Laget av: 
+  // Closes #40
+  // Laget av: Erik
+
+if (erHelg) {
+    helgeSluttAnimasjon();
+    erHelg = false;
+  } else if (ferdigForDagen) {
+    ferdigForDagenAnimasjon();
+    ferdigForDagen = false;
+  } else if (nyttFriminutt) {
+    friminuttAnimasjon(minutt, index);
+    nyttFriminutt = false;
+  } else if (nyTime) {
+    timeStartAnimasjon(fagFarge(gjeldendeFag));
+    nyTime = false;
+  } 
+} 
   // TODO: Sjekk status-flaggene (erHelg, ferdigForDagen, nyttFriminutt, nyTime) og vis riktig animasjon
   // Tips: Sjekk flaggene i rekkefølge med if / else if:
   //       - Hvis erHelg:         kall helgeSluttAnimasjon() og nullstill flagget (erHelg = false;) - sjekk denne FØR ferdigForDagen
   //       - Hvis ferdigForDagen: kall ferdigForDagenAnimasjon() og nullstill flagget (ferdigForDagen = false;)
   //       - Hvis nyttFriminutt:  kall friminuttAnimasjon(minutt, index) og nullstill flagget (nyttFriminutt = false;)
   //       - Hvis nyTime:         kall timeStartAnimasjon(fagFarge(gjeldendeFag)) og nullstill flagget (nyTime = false;)
-}
+
 
 //==================================================================================================================================
 // ========== EKSTRA / VALGFRIE FUNKSJONER ==========
