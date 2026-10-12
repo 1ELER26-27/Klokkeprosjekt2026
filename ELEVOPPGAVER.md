@@ -54,7 +54,7 @@ Skriv navnet ditt (eller gruppa) i `Hvem`-kolonnen når du tar en oppgave, og op
 | Avansert | `helgAnimasjon` | Franklin | ⚠️ Påbegynt | [helgAnimasjon.md](dokumentasjon/funksjoner/helgAnimasjon.md) | [#9](https://github.com/1ELER26-27/Klokkeprosjekt2026/issues/9) |
 | Avansert | `planIndex` | Marcel | ✅ Ferdig | [planIndex.md](dokumentasjon/funksjoner/planIndex.md) | [#28](https://github.com/1ELER26-27/Klokkeprosjekt2026/issues/28) |
 | Avansert | `handterAktivitetsbytte` | | Ledig | [handterAktivitetsbytte.md](dokumentasjon/funksjoner/handterAktivitetsbytte.md) | |
-| Ekstra (valgfritt) | `startNedtelling` | | Ledig | [startNedtelling.md](dokumentasjon/funksjoner/startNedtelling.md) | |
+| Ekstra (valgfritt) | `startNedtelling` | Alexander | ✅ Ferdig | [startNedtelling.md](dokumentasjon/funksjoner/startNedtelling.md) | |
 | Ekstra (valgfritt) | `spillAnimasjon` | | Ledig | [spillAnimasjon.md](dokumentasjon/funksjoner/spillAnimasjon.md) | |
 | Ekstra (valgfritt) | `startStoppeklokke` | | Ledig | [startStoppeklokke.md](dokumentasjon/funksjoner/startStoppeklokke.md) | |
 | Ekstra (valgfritt) | `knappTrykket` (krever kabling) | | Ledig | [knappTrykket.md](dokumentasjon/funksjoner/knappTrykket.md) | |

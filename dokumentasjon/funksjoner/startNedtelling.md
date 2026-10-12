@@ -8,6 +8,7 @@ Det er en timer som teller ned fra den verdien den teller får.
 **Parametere:**
 - <navn> (<type>): <hva parameteren betyr / brukes til>
 (skriv "Ingen" hvis funksjonen ikke tar imot noen parametere)
+Det får inn hvilken farge den skal bruke og hvor lenge den skal telle ned fra. 
 
 **Returverdi:**
 - <type>: <hva som returneres og hva det betyr>
@@ -17,3 +18,4 @@ void
 **Refleksjon:**
 <Hvorfor løste du det på denne måten? Var det noe som var vanskelig eller lurt
 å tenke på? Er det noe du ville gjort annerledes?> 
+Jeg løste det på denne måten fordi jeg synes det var en kul løsning. Det er ikke noe jeg ville gjort annerledes. 
