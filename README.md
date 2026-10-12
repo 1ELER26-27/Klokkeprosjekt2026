@@ -10,20 +10,11 @@ En smart skole-timeplan-klokke bygget med ESP32 og en NeoPixel LED-ring. Prosjek
 2. Installer nødvendig bibliotek: søk på **"Adafruit NeoPixel"** i Library Manager (Ctrl+Shift+I) og installer det.
 3. Sørg for at ESP32-kortpakken er installert (Tools → Board → Boards Manager → søk "esp32" av Espressif Systems), og velg riktig ESP32-kort under Tools → Board. Vi bruker den som heter "DOIT ESP32 DEVKIT V1"
 4. `WiFi.h`, `time.h` og `<sys/time.h>` følger automatisk med og trenger ingen installasjon.
+5. **WiFi-oppsett for fysisk ESP32 (valgfritt):** Koden fungerer rett ut av boksen i Wokwi-simulatoren. Hvis du skal teste på en fysisk ESP32 i klasserommet: kopier `sketch/secrets.example.h` til `sketch/secrets.h` og fyll inn nettverksnavn og passord. Filen ignoreres av Git og lastes aldri opp til GitHub.
 
 ## Hardware-tilkobling
 
-Koble ESP32 til NeoPixel-ringen og eventuell buzzer slik:
-
-| Signal | NeoPixel / Buzzer Pin | ESP32 Pin | Kommentar |
-|---|---|---|---|
-| **Spenning** | 5V / VCC | **5V / VIN** | Strømforsyning til LED-ene |
-| **Jord** | GND | **GND** | Felles jord |
-| **LED-data** | DIN (Data In) | **GPIO 25** | Styresignal til ringen (`LED_PIN`) |
-| **Buzzer (+)** | Pluss (+) | **GPIO 26** | *(Valgfritt)* Lydsignal (`soundpin`) |
-| **Buzzer (-)** | Minus (-) | **GND** | Felles jord |
-
-> **Tips:** Har dere ikke buzzer koblet til? Ingen fare — funksjonen `spillMelodi` kan fint blinke LED-ringen med farger i stedet for å spille lyd!
+Se **[HARDWARE.md](HARDWARE.md)** for koblingstabell, koblingsskjema (draw.io) og lenke til 3D-modellen av rammen (Autodesk Fusion 360).
 
 ## Simulering med Wokwi & VS Code (Valgfritt)
 
@@ -36,6 +27,8 @@ Se **[ELEVOPPGAVER.md](ELEVOPPGAVER.md)** for:
 - Hvilken dokumentasjonsmal du skal bruke over funksjonen din
 - Beskrivelse, parametere, returverdi og hint for hver funksjon
 
+Selve dokumentasjonen av funksjonen din skriver du i din egen fil under **[dokumentasjon/funksjoner/](dokumentasjon/funksjoner/)** (ikke som kommentarer i sketch.ino).
+
 Velg én funksjon som ingen andre har tatt, og opprett et **issue** for den på GitHub (**Issues → New issue → Velg en funksjon**) — det er slik hele klassen holder oversikt over hvem som har tatt hva.
 
 > **Lærer:** se [LARERPROSEDYRE.md](LARERPROSEDYRE.md) for hvordan pull requests skal gjennomgås og merges, og [GITHUB_OPPSETT.md](GITHUB_OPPSETT.md) for engangs-oppsettet av organisasjonen.
@@ -43,6 +36,8 @@ Velg én funksjon som ingen andre har tatt, og opprett et **issue** for den på 
 ---
 
 ## Slik leverer du: GitHub Desktop + Arduino IDE
+
+> 💡 **Trenger du en trinn-for-trinn-guide for levering?** Se **[LEVERINGSGUIDE.md](LEVERINGSGUIDE.md)** for en fullstendig sjekkliste fra valg av oppgave til godkjent Pull Request!
 
 Du trenger [GitHub Desktop](https://desktop.github.com/) installert og en GitHub-konto. Du skal **ikke** jobbe direkte i `main` (hovedversjonen av koden — den som til slutt skal fungere for alle) — alt du gjør skjer i din egen **branch** (en løsrevet kopi av koden der du trygt kan gjøre endringer uten å påvirke andre), og læreren godkjenner og slår sammen (**merger** — kombinerer endringene dine inn i `main`) arbeidet ditt etterpå.
 
@@ -71,7 +66,7 @@ Hver gang du starter en ny økt: åpne GitHub Desktop, sjekk at du står på bra
 - Åpne `sketch/sketch.ino` fra mappen du klonet, i Arduino IDE.
 - Endre **kun** koden inni funksjonen(e) du har tatt ansvar for.
 - Ikke endre navn, parametere eller returtype på funksjonen.
-- Legg til `// Laget av: <Fornavn>` og dokumentasjonskommentaren beskrevet i [ELEVOPPGAVER.md](ELEVOPPGAVER.md).
+- Legg til `// Laget av: <Fornavn>` i koden, og fyll ut dokumentasjonen for funksjonen din i din egen fil under [dokumentasjon/funksjoner/](dokumentasjon/funksjoner/).
 - Lagre filen (Ctrl+S), og test gjerne at koden kompilerer/laster opp riktig.
 
 ### 5. Commit endringene dine i GitHub Desktop
@@ -114,7 +109,7 @@ Når PR-en er merget: bytt til `main` i GitHub Desktop og trykk **Fetch origin**
 
 - ✅ Én PR per funksjon (eller en liten, avgrenset gruppe funksjoner du jobber med samtidig).
 - ✅ Koden må kompilere før du åpner PR-en (den automatiske CI-sjekken må også bli grønn før læreren kan merge).
-- ✅ Dokumentasjonskommentaren (se [ELEVOPPGAVER.md](ELEVOPPGAVER.md)) skal være med.
+- ✅ Dokumentasjonen i din egen fil under [dokumentasjon/funksjoner/](dokumentasjon/funksjoner/) (se malen i [dokumentasjon/README.md](dokumentasjon/README.md)) skal være fylt ut for funksjonen din.
 - ❌ Ikke rør andre sine funksjoner eller `loop()`/`setup()` med mindre dere har avtalt det.
 - ❌ Ikke jobb direkte i `main`.
 - ❌ Ikke merge din egen PR — det gjør læreren.

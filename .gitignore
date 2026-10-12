@@ -10,3 +10,7 @@ build/
 # Lokale OS-filer
 .DS_Store
 Thumbs.db
+
+# Hemmelige filer og nettverkspassord (ikke last opp til GitHub)
+*secrets.h
+!*secrets.example.h

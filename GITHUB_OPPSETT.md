@@ -20,6 +20,13 @@ Denne filen dekker det som er spesifikt for at klassen jobber i en **GitHub Orga
 
 Alle filene som beskriver opplegget (README, ELEVOPPGAVER, LARERPROSEDYRE, denne filen, issue- og PR-malene og CI-sjekken i `.github/`) følger automatisk med kopien, og fungerer med det samme i din egen organisasjon.
 
+### Konfigurer nettverk for fysisk klokke (secrets.h)
+
+Koden støtter både Wokwi-simulatoren og fysiske ESP32-er automatisk ved hjelp av `WiFiMulti`.
+1. I prosjektmappen: kopier `sketch/secrets.example.h` og gi kopien navnet `sketch/secrets.h`.
+2. Fyll inn ditt lokale nettverksnavn (SSID) og passord for det fysiske nettverket i labben.
+3. `secrets.h` er registrert i `.gitignore` og blir aldri lastet opp til GitHub, slik at nettverkspassord holdes trygge.
+
 ## 1. Legg elevene inn i organisasjonen
 
 1. Gå til organisasjonens side på github.com → **People** → **Invite member**.
@@ -47,9 +54,7 @@ Repoet → **Settings → Branches → Add branch ruleset/rule** for `main`:
 
 ## 4. Automatisk kompilerings-sjekk (GitHub Actions)
 
-Repoet har allerede en ferdig workflow: [.github/workflows/build.yml](.github/workflows/build.yml). Den kjører automatisk `arduino-cli compile` på hver PR og på push til `main`, og viser ✅/❌ direkte på PR-siden — ingen ekstra oppsett nødvendig utover å velge den som required status check i steg 3. Dette gjør sjekklistepunktet "Kompilerer koden?" i [LARERPROSEDYRE.md](LARERPROSEDYRE.md) automatisk, i tillegg til den manuelle testen på egen maskin.
-
-> **OBS ved `paths-ignore`:** Workflowen hopper over rene `.md`-endringer for å spare byggetid. Hvis du har satt `compile` som required status check og en PR *kun* endrer `.md`-filer, kan GitHub vise sjekken som "venter" for alltid siden den aldri kjøres — merge blokkeres da til du enten legger til en ikke-.md endring i PR-en, eller (i Settings → Branches) skrur på **"Require branches to be up to date"**/bruker en fallback-jobb. I praksis skjer dette sjelden, siden elevene alltid endrer `sketch/sketch.ino`.
+Repoet har allerede en ferdig workflow: [.github/workflows/build.yml](.github/workflows/build.yml). Den kjører automatisk `arduino-cli compile` på hver PR og på push til `main`, og viser ✅/❌ direkte på PR-siden — ingen ekstra oppsett nødvendig utover å velge den som required status check i steg 3. Dette gjør sjekklistepunktet "Kompilerer koden?" i [LARERPROSEDYRE.md](LARERPROSEDYRE.md) automatisk, i tillegg til den manuelle testen på egen maskin. Workflowen kjører på alle PR-er (inkludert hardware- og dokumentasjons-PR-er), slik at ingen PR-er blir blokkert.
 
 ## 5. Sett opp "velg funksjon"-oversikten som Issues
 

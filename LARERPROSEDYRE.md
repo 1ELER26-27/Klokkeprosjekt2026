@@ -8,6 +8,10 @@ Se **[GITHUB_OPPSETT.md](GITHUB_OPPSETT.md)** for full sjekkliste (organisasjon,
 
 1. **Beskytt `main`-branchen**: Require a pull request before merging + require den automatiske CI-sjekken (`compile`) skal være grønn før merge.
 2. **Bruk GitHub Issues til å holde oversikt** over hvem som har tatt hvilken funksjon — elevene bruker den ferdige issue-malen "Velg en funksjon" (label `funksjon`) i stedet for et regneark eller en tavle i klasserommet.
+3. **Nettverksoppsett for fysisk ESP32 (`secrets.h`)**: Prosjektet bruker `WiFiMulti`, slik at samme kode fungerer automatisk både i Wokwi-simulatoren og på det fysiske labnettverket. For å koble en fysisk klokke til labben:
+   - Kopier `sketch/secrets.example.h` til `sketch/secrets.h`.
+   - Fyll inn ditt fysiske nettverksnavn (SSID) og passord (og eventuell fast IP hvis dere bruker det).
+   - `secrets.h` er i `.gitignore` og vil aldri lastes opp til GitHub. Elevene som kun simulerer i Wokwi trenger ikke denne filen.
 
 ---
 
@@ -18,7 +22,7 @@ Sjekkliste for hver PR før du merger:
 1. **Omfang:** Sjekk fanen "Files changed" på GitHub — endrer PR-en kun den/de funksjonen(e) eleven skulle implementere? Rop varsku hvis `loop()`, `setup()` eller andres funksjoner er endret uten avtale.
 2. **Signatur uendret:** Funksjonsnavn, parametere og returtype skal være identiske med det som lå i malen.
 3. **`// Laget av:`** er fylt inn med elevens navn.
-4. **Dokumentasjonskommentar** følger malen i [ELEVOPPGAVER.md](ELEVOPPGAVER.md) (Funksjon / Laget av / Hva gjør den / Parametere / Returverdi / Refleksjon), og refleksjonsdelen er reelt utfylt (ikke bare tomme fraser).
+4. **Dokumentasjonen i elevens fil under [dokumentasjon/funksjoner/](dokumentasjon/funksjoner/)** følger malen (se [dokumentasjon/README.md](dokumentasjon/README.md): Laget av / Hva gjør den / Parametere / Returverdi / Refleksjon), og refleksjonsdelen er reelt utfylt (ikke bare tomme fraser). Husk at all dokumentasjon og refleksjon skal ligge i denne fila, ikke som kommentarblokker i koden.
 5. **Kompilerer koden?** PR-siden viser automatisk en ✅/❌ fra CI-sjekken `compile` (se [GITHUB_OPPSETT.md](GITHUB_OPPSETT.md)) — men test gjerne lokalt også (se under) før du godkjenner, siden CI kun sjekker at koden bygger, ikke at den faktisk fungerer på ringen.
 6. Gi tilbakemelding som PR-kommentarer hvis noe må rettes, eller godkjenn/merge hvis alt er i orden.
 
