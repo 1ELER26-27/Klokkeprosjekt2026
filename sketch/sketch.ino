@@ -810,7 +810,7 @@ void visGjeldendeStatus(int index, int minutt) {
 //==================================================================================================================================
 
 void startNedtelling(uint32_t farge, int minutt, int sekund) {
-  // Laget av: 
+  // Laget av: Alexander 
   // TODO: Lag en blokkerende nedtellingstimer som tar over hele ringen
   // Input: farge er fargen ringen skal telle ned i, minutt/sekund er hvor lang tid som skal telles ned
   // Tips: Regn ut totalt antall sekunder: int totalSek = minutt * 60 + sekund;
@@ -819,6 +819,32 @@ void startNedtelling(uint32_t farge, int minutt, int sekund) {
   // Tips: Sjekk Serial.available() i hver runde av løkken - hvis brukeren skriver "stopp", avbryt løkken tidlig.
   // Tips: Kall f.eks. blinkLED(farge, 5) helt til slutt for å markere at nedtellingen er ferdig (hopp over dette ved avbrytelse).
   // Tips: Husk strip.clear() + strip.show() før funksjonen returnerer.
+  int antallmSek = (minutt * 60 + sekund) * 1000;
+  long starttid = millis();
+  long sluttid = starttid + antallmSek;
+  int possisjon = NUM_LEDS-1; 
+
+  
+
+  while(millis() < sluttid ){
+    strip.clear();
+    Serial.println(sluttid-millis());
+    
+    possisjon = map(millis(), starttid, sluttid, NUM_LEDS-1, 0);
+    for (int i = 0; i < possisjon; i++){
+      strip.setPixelColor(i, farge);
+    }
+
+    strip.show();
+    
+
+    delay(50);
+  }
+
+  startupAnimasjon();
+  strip.clear();
+  strip.show();
+  
 }
 
 //==================================================================================================================================
