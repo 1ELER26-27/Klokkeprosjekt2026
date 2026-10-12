@@ -61,7 +61,7 @@ Skriv navnet ditt (eller gruppa) i `Hvem`-kolonnen når du tar en oppgave, og op
 | Ekstra (valgfritt) | `spillRTTTL` | | Ledig | [spillRTTTL.md](dokumentasjon/funksjoner/spillRTTTL.md) | |
 | Ekstra stort (samarbeid) | Web-grensesnitt (`settOppWebserver`, `handterWebKlient`, `genererMenyHTML`) | | Ledig | [web-grensesnitt.md](dokumentasjon/funksjoner/web-grensesnitt.md) | |
 | Hardware (samarbeid, ikke koding) | Kabling og lodding | Alexander og Johan | ✅ Ferdig | [HARDWARE.md](HARDWARE.md) (dokumentasjon mangler) | [#36](https://github.com/1ELER26-27/Klokkeprosjekt2026/issues/36) |
-| Hardware (samarbeid, ikke koding) | 3D-printet ramme/kabinett | Leo | ⚠️ Påbegynt | | [#1](https://github.com/1ELER26-27/Klokkeprosjekt2026/issues/1) |
+| Hardware (samarbeid, ikke koding) | 3D-printet ramme/kabinett | Leo | ✅ Ferdig |  [web-grensesnitt.md](dokumentasjon/Hardware/Hardware.md) | [#1](https://github.com/1ELER26-27/Klokkeprosjekt2026/issues/1) |
 
 ---
 
