@@ -1,22 +1,17 @@
 # `fagNavn`
 
 _(ikke dokumentert ennå — se [README.md](../README.md) for malen du skal fylle inn her)_
-**Laget av:** <Vilde,Leo>
+
+**Laget av:** Vilde og Leo
 
 **Hva gjør den?**
-<1-3 setninger som forklarer hva funksjonen gjør, med egne ord>
+Denne funksjonen tar inn et fag og finner det tilhørende navnet. Den returnerer navnet som en leselig tekststreng slik at det kan vises på Serial Monitor eller en skjerm.
 
 **Parametere:**
-- <navn> (<type>): <hva parameteren betyr / brukes til>
-(hva fag som fåregår)
-
+fag (Fag fag) - faget som skal gjøres om til leselig tekst.
 
 **Returverdi:**
-- <type>: <hva som returneres og hva det betyr>
-(leselig verskjon av faget som blir printet ut)
+En tekststreng (String) som inneholder navnet på faget, for eksempel "Matematikk" eller "Norsk".
 
 **Refleksjon:**
-<Hvorfor løste du det på denne måten? Var det noe som var vanskelig eller lurt
-å tenke på? Er det noe du ville gjort annerledes?>
-(Veldig enkel oppgave )
-```
+Dette var en oppgave som var ganske enkel å gjennomføre og vi brukte ikke så lang tid på den siden det var egentlig are å skrive ned navnene, og vi bestemte oss for å bare gjøre det på de ekleste måtten som går an. 
