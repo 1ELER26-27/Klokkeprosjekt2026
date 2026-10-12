@@ -14,6 +14,7 @@
 #include <sys/time.h> // Bibliotek for timeval og settimeofday (brukes til dummytid/testing)
 #include <Adafruit_NeoPixel.h> // Bibliotek for NeoPixel LED-ring, må lastes ned via Library Manager i Arduino IDE
 #include "pitches.h" // Bibliotek med tonefrekvenser for buzzer (må lastes ned via Library Manager i Arduino IDE)
+#include "sanger.h"
 
 // Hent lokale nettverkshemmeligheter hvis secrets.h finnes (ignorert av Git):
 #if __has_include("secrets.h")
@@ -86,8 +87,7 @@ void sjekkSerialMeny(); // Sjekker Serial-input og åpner menyen hvis brukeren s
 // MIDDELS FUNKSJONER:
 void visKlokkevisere(int time, int minutt, int sec); // Tegner time-, minutt- og sekundviser på ringen
 void nedtellingBar(int index, int sekunderIgjen, uint32_t fagfarge); // Tegner en nedtellingsbue for gjenværende tid av aktiviteten
-void fanfareKort(); // Spiller en kort fanfare på buzzeren (maks ca. 3 sekunder), f.eks. ved timestart
-void fanfareKortere(); // Spiller en enda kortere fanfare på buzzeren (maks ca. 1 sekund), f.eks. ved friminutt
+void fanfareKort(Fag fag, bool helg); // Spiller en kort fanfare på buzzeren (maks ca. 3 sekunder), f.eks. ved timestart
 void visGjeldendeStatus(int index, int minutt); // Viser animasjon ved hendelser basert på status-flaggene
 void ferdigForDagenAnimasjon(); // Viser animasjon når skoledagen er ferdig
 void helgeSluttAnimasjon(); // Viser feiringsanimasjon etter siste time på fredag
@@ -575,22 +575,129 @@ void nedtellingBar(int index, int sekunderIgjen, uint32_t fagfarge) {
 
 //==================================================================================================================================
 
-void fanfareKort() {
-  // Laget av: 
-  // TODO: Spill en kort fanfare på buzzeren (maks ca. 3 sekunder), f.eks. ved timestart
-  // Tips: Bruk NOTE_-konstantene fra pitches.h (f.eks. NOTE_C4, NOTE_G4, NOTE_C5) sammen med tone(soundpin, frekvens, varighet)
-  // Tips: Legg inn en kort delay() mellom hver tone, og pass på at summen av varighetene ikke blir for lang
+void fanfareKort(Fag fag, bool helg) {
+  // Laget av: Marcel F. Høyland, Nicholas A. Kvalavåg, med hjelp av Viggo S. Jacobsen & Joachim L. Dysvik
+  
+const uint16_t* melody = nullptr;
+
+const duration* varighet = nullptr;
+
+int melodyLength = 0;
+
+  switch (fag)
+  {
+  case INGENTING:
+    if(helg) {
+
+      melody = melodyHelg;
+
+      varighet = varighetHelg;
+
+      melodyLength = sizeof(melodyHelg)/sizeof(melodyHelg[0]);
+    }
+    else {
+      melody = melodySluttdag;
+
+      varighet = varighetSluttdag;
+
+      melodyLength = sizeof(melodySluttdag)/sizeof(melodySluttdag[0]);
+    }
+    break;
+  
+    case FRIMINUTT:
+      melody = melodyFriminutt;
+
+      varighet = varighetFriminutt;
+
+      melodyLength = sizeof(melodyFriminutt)/sizeof(melodyFriminutt[0]);
+    
+    break;
+
+    case ELKRETSER:
+    case ENOGSTYR:
+      melody = melodyElkretser;
+
+      varighet = varighetElkretser;
+
+      melodyLength = sizeof(melodyElkretser)/sizeof(melodyElkretser[0]);
+    break;
+
+    case NORSK:
+      melody = melodyNorsk;
+
+      varighet = varighetNorsk;
+
+      melodyLength = sizeof(melodyNorsk)/sizeof(melodyNorsk[0]);
+    break;
+
+    case ENGELSK:
+      melody = melodyEngelsk;
+
+      varighet = varighetEngelsk;
+
+      melodyLength = sizeof(melodyEngelsk)/sizeof(melodyEngelsk[0]);
+    break;
+
+    case MATTE:
+      melody = melodyMatte;
+
+      varighet = varighetMatte;
+
+      melodyLength = sizeof(melodyMatte)/sizeof(melodyMatte[0]);
+    break; 
+
+    case NATURFAG:
+      melody = melodyNaturfag;
+
+      varighet = varighetNaturfag;
+
+      melodyLength = sizeof(melodyNaturfag)/sizeof(melodyNaturfag[0]);
+
+    break;
+
+    case GYM:
+      melody = melodyGym;
+
+      varighet = varighetGym;
+
+      melodyLength = sizeof(melodyGym)/sizeof(melodyGym[0]);
+    break;
+
+  default:
+
+    break;
+  }
+
+
+  for (int thisNote = 0; thisNote < melodyLength; thisNote++){
+
+  if(varighet[thisNote].nestenote != -1) {
+
+    float okningdelay = varighet[thisNote].notestopp;
+
+    for(int i = 0; i <= varighet[thisNote].gjentakelser; i++) {
+
+    okningdelay = okningdelay + varighet[thisNote].okningduration;
+
+    for (int j = 0; j <= varighet[thisNote].nestenote; j++) {
+
+      int noteduration = 1000/okningdelay;
+      int pauseduration = 1000/varighet[thisNote+j].pausestopp;
+      tone(soundpin, melody[thisNote+j], noteduration);
+      int (pauseBetweenNotes) = noteduration * 1.30;
+      int (pauseAfterNotes) = pauseduration * 1.30;
+      delay(pauseBetweenNotes);
+      noTone(soundpin);
+      delay(pauseAfterNotes);
+      noTone(soundpin);
+
+      }
+    }
+  }
 }
+  noTone(9);
 
-//==================================================================================================================================
-
-void fanfareKortere() {
-  // Laget av: 
-  // TODO: Spill en enda kortere fanfare på buzzeren (maks ca. 1 sekund), f.eks. ved friminutt
-  // Tips: Bruk NOTE_-konstantene fra pitches.h sammen med tone(soundpin, frekvens, varighet) - færre/kortere toner enn fanfareKort()
 }
-
-
 
 //==================================================================================================================================
 
@@ -986,12 +1093,12 @@ void handterAktivitetsbytte(Fag nyttFag, int ukedag) {
       if(nyttFag == FRIMINUTT) {
           nyttFriminutt = true;
           Serial.println("FRIMINUTT");
-          fanfareKortere();
+          fanfareKort(nyttFag, erHelg);
         }
         else if(nyttFag != FRIMINUTT && nyttFag != INGENTING) {
           nyTime = true;
           Serial.println("TIME");
-          fanfareKort();
+          fanfareKort(nyttFag, erHelg);
         }
       }
     }
