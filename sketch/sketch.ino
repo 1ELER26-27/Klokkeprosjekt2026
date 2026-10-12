@@ -71,6 +71,7 @@ bool nyttFriminutt = false;   // True når et nytt friminutt starter
 bool ferdigForDagen = false;  // True når skoledagen er ferdig
 bool erHelg = false;          // True når fredagens skoledag er ferdig (signal for helgeSluttAnimasjon, nullstilles etterpå)
 
+bool knappSist = false;
 // ========== FUNKSJONSERKLÆRINGER ==========
 // Disse funksjonene må elevene implementere:
 
@@ -1051,14 +1052,18 @@ void startStoppeklokke(uint32_t farge) {
 
 //==================================================================================================================================
 
-bool knappTrykket() {
-  // Laget av: 
-  // TODO: Les av den fysiske knappen på BUTTON_PIN og returner true KUN én gang per trykk (ikke hver loop mens den holdes inne)
-  // Krever kabling: se koblingstabellen i HARDWARE.md
-  // Tips: digitalRead(BUTTON_PIN) er LOW når knappen er trykket inn (siden vi bruker INPUT_PULLUP)
-  // Tips: Bruk en static bool for å huske om knappen var nede forrige gang du sjekket, slik at du
-  //       kun returnerer true på selve overgangen fra "ikke trykket" til "trykket" (debouncing)
-  return false; // Placeholder - knappen er "aldri trykket"
+bool knappTrykket()
+{
+  // Laget av: Magnus
+  bool knappNy = not digitalRead(BUTTON_PIN);
+  bool returnVar = false;
+  if (not knappSist && knappNy)
+  {
+    knappSist = knappNy;
+    returnVar = true;
+  }
+  knappSist = knappNy;
+  return returnVar;
 }
 
 //==================================================================================================================================
