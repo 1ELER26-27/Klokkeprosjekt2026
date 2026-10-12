@@ -54,7 +54,7 @@ Skriv navnet ditt (eller gruppa) i `Hvem`-kolonnen når du tar en oppgave, og op
 | Avansert | `helgAnimasjon` | Franklin | ✅ Ferdig | [helgAnimasjon.md](dokumentasjon/funksjoner/helgAnimasjon.md) | [#9](https://github.com/1ELER26-27/Klokkeprosjekt2026/issues/9) |
 | Avansert | `planIndex` | Marcel | ✅ Ferdig | [planIndex.md](dokumentasjon/funksjoner/planIndex.md) (ufullstendig) | [#28](https://github.com/1ELER26-27/Klokkeprosjekt2026/issues/28) |
 | Avansert | `handterAktivitetsbytte` | Marcel | ✅ Ferdig | [handterAktivitetsbytte.md](dokumentasjon/funksjoner/handterAktivitetsbytte.md) | [#34](https://github.com/1ELER26-27/Klokkeprosjekt2026/issues/34) |
-| Ekstra (valgfritt) | `startNedtelling` | Alexander og Jhan | ⚠️ Påbegynt | [startNedtelling.md](dokumentasjon/funksjoner/startNedtelling.md) | [#38](https://github.com/1ELER26-27/Klokkeprosjekt2026/issues/38) |
+| Ekstra (valgfritt) | `startNedtelling` | Alexander og Jhan | ✅ Ferdig | [startNedtelling.md](dokumentasjon/funksjoner/startNedtelling.md) | [#38](https://github.com/1ELER26-27/Klokkeprosjekt2026/issues/38) |
 | Ekstra (valgfritt) | `spillAnimasjon` | | Ledig | [spillAnimasjon.md](dokumentasjon/funksjoner/spillAnimasjon.md) | |
 | Ekstra (valgfritt) | `startStoppeklokke` | | Ledig | [startStoppeklokke.md](dokumentasjon/funksjoner/startStoppeklokke.md) | |
 | Ekstra (valgfritt) | `knappTrykket` (krever kabling) | | Ledig | [knappTrykket.md](dokumentasjon/funksjoner/knappTrykket.md) | |
