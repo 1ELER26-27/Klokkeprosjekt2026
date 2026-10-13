@@ -1059,7 +1059,6 @@ bool knappTrykket()
   bool returnVar = false;
   if (not knappSist && knappNy)
   {
-    knappSist = knappNy;
     returnVar = true;
   }
   knappSist = knappNy;
