@@ -570,7 +570,6 @@ void nedtellingBar(int index, int sekunderIgjen, uint32_t fagfarge) {
   for(int i = 0; i < antallLEDs; i++) {
     strip.setPixelColor(i, fagfarge);
     strip.setPixelColor(NUM_LEDS - 1 - i, fagfarge);
-  
   }
 }
 
