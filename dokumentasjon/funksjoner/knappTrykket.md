@@ -13,3 +13,4 @@ Ingen
 Bool: returnerer True hvis knappen er trykket inn bare en gang per trykk
 
 **Refleksjon:**
+Er relativt fornøyd med koden
