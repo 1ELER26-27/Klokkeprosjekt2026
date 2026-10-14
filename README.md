@@ -20,6 +20,18 @@ Se **[HARDWARE.md](HARDWARE.md)** for koblingstabell, koblingsskjema (draw.io) o
 
 Vil du teste koden direkte i VS Code uten fysisk ESP32/LED-ring? Se **[WOKWI_GUIDE.md](WOKWI_GUIDE.md)** for hvordan du setter opp Wokwi Simulator med Arduino CLI.
 
+## Trådløs oppdatering (OTA)
+
+Første opplasting må gjøres med USB. Deretter kan klokka oppdateres over WiFi (PC og klokke må være på samme nett):
+
+```powershell
+.\ota-upload.ps1 -Compile                 # bygg og last opp til klokke-esp32.local
+.\ota-upload.ps1 -Target 192.168.30.110   # bruk IP hvis klokke-esp32.local ikke virker
+```
+
+I VS Code: `Ctrl+Shift+P` → *Tasks: Run Task* → **OTA: Bygg og last opp til klokka**.
+I Arduino IDE: **Tools → Port → Network ports → klokke-esp32**, deretter Upload.
+
 ## Hva skal jeg gjøre?
 
 Se **[ELEVOPPGAVER.md](ELEVOPPGAVER.md)** for:
