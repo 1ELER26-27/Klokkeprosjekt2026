@@ -71,6 +71,7 @@ bool nyTime = true;          // True når en ny time starter
 bool nyttFriminutt = true;   // True når et nytt friminutt starter
 bool ferdigForDagen = true;  // True når skoledagen er ferdig
 bool erHelg = true;          // True når fredagens skoledag er ferdig (signal for helgeSluttAnimasjon, nullstilles etterpå)
+bool menyAktiv = false;      // True når menyen er aktiv
 
 bool knappSist = false;
 // ========== FUNKSJONSERKLÆRINGER ==========
@@ -220,10 +221,7 @@ void setup() {
     blinkLED(strip.Color(255, 150, 0), 2); // Oransje/gul = dummytid aktiv
   }
 
-  // Klargjør trådløs programmering (OTA) hvis WiFi er tilkoblet
-  if (WiFi.status() == WL_CONNECTED) {
-    setupArduinoOTA();
-  }
+  // OTA (trådløs programmering) startes i loop() så snart WiFi er tilkoblet
 
   // (Ekstra stor oppgave) Sett opp webserveren for web-grensesnittet, hvis implementert
   settOppWebserver();
@@ -315,30 +313,64 @@ void debugInfo() {
 
 
 void visMeny() {
-  // Laget av: 
-  // TODO: Lag en meny på Serial-monitor der brukeren kan velge å teste de andre funksjonene
-  // Tips: Serial.println() for å skrive ut valg, Serial.readStringUntil('\n') for å lese input
-  // Tips: input.toInt() gjør om teksten brukeren skriver til et tall du kan bruke i switch/case
-  // Tips: Du kan kalle settDummyTid(ONSDAG, 9, 30, 0) som et menyvalg for å simulere/teste ulike dager og tider!
-  Serial.println("TODO: Lag menyen din her!");
-}
+  // Laget av: Endre
+  Serial.println("~ ~ ~ ~ Meny ~ ~ ~ ~");
 
+  Serial.println("Kategori 1");
+  Serial.println("1: Det som skjer når man trykker 1");
+  Serial.println("2: Det som skjer når man trykker 2");
+
+  Serial.println("Kategori 2");
+  Serial.println("3: Det som skjer når man trykker 3");  
+  Serial.println("4: Det som skjer når man trykker 4");
+}
 //==================================================================================================================================
 
 void sjekkSerialMeny() {
   // Laget av: Endre
   if(Serial.available()){
-      String svar = Serial.readStringUntil('\n');
+    String svar = Serial.readStringUntil('\n');
     svar.trim();
     if(svar == "meny"){
       Serial.println("Vis MENY");
       visMeny();
+      menyAktiv = true;
     }
     else{
-        Serial.println("UGYLDIG KOMMANDO");
+      if(menyAktiv){
+
+        int valg = svar.toInt();
+        
+        switch (valg)
+        {
+        case 1:
+          Serial.println("Menyvalg 1 er valgt");
+          break;
+        case 2:
+          Serial.println("Menyvalg 2 er valgt");
+          break;
+        case 3:
+          Serial.println("Menyvalg 3 er valgt");
+          break;
+        case 4:
+          Serial.println("Menyvalg 4 er valgt");
+          break;
+        
+        default:
+          break;
+        }
+        menyAktiv = false;
+      }
+      else{
+        Serial.println("Ugyldig kommando. Skriv 'meny' for å åpne menyen.");
+        menyAktiv = false;
+      }
     }
   }  
 }
+
+
+
 
 //==================================================================================================================================
 
@@ -544,11 +576,11 @@ void visKlokkevisere(int time, int minutt, int sec) {
   // Henter hele og delvise sekunder fra samme kall, slik at de alltid er i fase
   struct timeval tv;
   gettimeofday(&tv, NULL);
-  int millisekunder = (tv.tv_sec % 60) * 1000 + tv.tv_usec / 1000;
+  int millisek = (tv.tv_sec % 60) * 1000 + tv.tv_usec / 1000;
 
   strip.setPixelColor(time_viser(time, minutt), strip.Color(148, 0, 211));
   strip.setPixelColor(minutt_viser(minutt, sec), strip.Color(0, 255, 0)); 
-  strip.setPixelColor(sekund_viser(millisekunder), strip.Color(0, 255, 255));
+  strip.setPixelColor(sekund_viser(millisek), strip.Color(0, 255, 255));
 
 }
 
