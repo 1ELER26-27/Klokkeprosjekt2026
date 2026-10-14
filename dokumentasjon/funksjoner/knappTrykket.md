@@ -4,7 +4,7 @@
 Magnus
 
 **Hva gjør den?**
-Denne funksjonen ser om knappen er trykket inn og sjekker hvis knappen var tidligere trykket inn
+Denne funksjonen ser om knappen er trykket inn
 
 **Parametere:**
 Ingen
