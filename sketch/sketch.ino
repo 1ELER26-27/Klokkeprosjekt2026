@@ -30,6 +30,11 @@
 #define NUM_LEDS 77       // Antall LEDs på ringen/stripen (juster dette tallet hvis dere bruker en ring med f.eks. 60 eller 24 LEDs)
 #define soundpin 26       // Buzzerpin hvis vil bruke buzzer....
 #define BUTTON_PIN 27     // Pin for valgfri fysisk knapp (kobles med INPUT_PULLUP: ett ben til pinnen, det andre til GND)
+#define MAX_LYSSTYRKE 60  // Global lysstyrke 0-255 (begrenser strømforbruket; 77 LEDs på full hvit kan trekke ca. 4,6 A - USB gir bare ca. 0,5 A)
+
+// Rotary encoder (uten bryter - knappen er BUTTON_PIN). Kobles med INPUT_PULLUP: A/CLK og B/DT til pinnene, midtbenet (C) til GND
+const int ENCODER_CLK_PIN = 32; // Encoder A / CLK
+const int ENCODER_DT_PIN  = 33; // Encoder B / DT
 
 Adafruit_NeoPixel strip = Adafruit_NeoPixel(NUM_LEDS, LED_PIN, NEO_GRB + NEO_KHZ800);
 
@@ -148,10 +153,16 @@ void settDummyTid(int ukedag, int time, int minutt, int sekund) {
 }
 
 void setupArduinoOTA() {
+  // Skru av WiFi-strømsparing: gir lavere forsinkelse og stabil OTA-overføring
+  WiFi.setSleep(false);
+
   // Hostname som vises i Arduino IDE og på nettverket
   ArduinoOTA.setHostname("klokke-esp32");
 
   ArduinoOTA.onStart([]() {
+    // Slå av LED-ringen under opplasting for lavt strømtrekk (unngår brownout)
+    strip.clear();
+    strip.show();
     String type = (ArduinoOTA.getCommand() == U_FLASH) ? "skisse/kode" : "filsystem";
     Serial.println("\n📡 Starter trådløs OTA-oppdatering (" + type + ")...");
   });
@@ -192,6 +203,7 @@ void setup() {
   
   // Initialiser LED-strip
   strip.begin();
+  strip.setBrightness(MAX_LYSSTYRKE); // Begrens strømforbruket (unngår brownout på USB-strøm)
   strip.show();
   startupAnimasjon();
   
