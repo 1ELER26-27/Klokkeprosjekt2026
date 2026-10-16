@@ -12,6 +12,7 @@
 #include <ArduinoOTA.h> // Bibliotek for trådløs programmering (Over-The-Air) over WiFi
 #include <time.h> // Bibliotek for tidsfunksjoner, inkludert i Arduino IDE
 #include <sys/time.h> // Bibliotek for timeval og settimeofday (brukes til dummytid/testing)
+#include <esp_sntp.h> // Brukes til å stoppe NTP-synkronisering når testtid er satt fra menyen
 #include <Adafruit_NeoPixel.h> // Bibliotek for NeoPixel LED-ring, må lastes ned via Library Manager i Arduino IDE
 #include "pitches.h" // Bibliotek med tonefrekvenser for buzzer (må lastes ned via Library Manager i Arduino IDE)
 #include "sanger.h"
@@ -35,6 +36,31 @@
 // Rotary encoder (uten bryter - knappen er BUTTON_PIN). Kobles med INPUT_PULLUP: A/CLK og B/DT til pinnene, midtbenet (C) til GND
 const int ENCODER_CLK_PIN = 32; // Encoder A / CLK
 const int ENCODER_DT_PIN  = 33; // Encoder B / DT
+
+// Encoder-avlesing: encoderDelta samler opp minutter (+ med klokka, - mot klokka) til nedtelleren henter dem.
+// Bruker kvadratur-dekoding på både CLK og DT: kun gyldige overganger teller, og ett "steg" krever en hel syklus (4 overganger).
+// Det gjør avlesningen robust mot prell (ellers hopper den og kan telle feil vei).
+volatile int encoderDelta = 0;
+volatile uint8_t encoderForrige = 0;   // Siste 2 tilstander (4 bit): forrige<<2 | ny
+volatile int8_t encoderAkk = 0;        // Akkumulerte overganger mot ett steg (+-4)
+volatile unsigned long encoderSisteSteg = 0;
+void IRAM_ATTR encoderISR() {
+  static const int8_t tabell[16] = {0, -1, 1, 0,  1, 0, 0, -1,  -1, 0, 0, 1,  0, 1, -1, 0};
+  uint8_t ny = (digitalRead(ENCODER_CLK_PIN) << 1) | digitalRead(ENCODER_DT_PIN);
+  uint8_t forrige = encoderForrige & 0x03;
+  if(ny == forrige) { return; }                 // Ingen endring (støy)
+  encoderForrige = (forrige << 2) | ny;
+  if((forrige ^ ny) == 3) { encoderAkk = 0; return; } // Hopp over to tilstander = prell, forkast
+  encoderAkk += tabell[encoderForrige & 0x0F];
+  if(encoderAkk >= 4 || encoderAkk <= -4) {
+    int retning = (encoderAkk > 0) ? 1 : -1;
+    encoderAkk = 0;
+    unsigned long na = micros();
+    int steg = ((na - encoderSisteSteg) < 40000) ? 5 : 1; // Rask dreiing = 5 minutter, ellers 1 minutt
+    encoderSisteSteg = na;
+    encoderDelta += retning * steg;
+  }
+}
 
 Adafruit_NeoPixel strip = Adafruit_NeoPixel(NUM_LEDS, LED_PIN, NEO_GRB + NEO_KHZ800);
 
@@ -77,6 +103,8 @@ bool nyttFriminutt = true;   // True når et nytt friminutt starter
 bool ferdigForDagen = true;  // True når skoledagen er ferdig
 bool erHelg = true;          // True når fredagens skoledag er ferdig (signal for helgeSluttAnimasjon, nullstilles etterpå)
 bool menyAktiv = false;      // True når menyen er aktiv
+bool venterTestTid = false;  // True når menyen venter på at brukeren skal skrive en testtid ("ukedag time minutt")
+const char* TZ_NORGE = "CET-1CEST,M3.5.0/2,M10.5.0/3"; // Norsk tidssone med sommer-/vintertid
 
 bool knappSist = false;
 // ========== FUNKSJONSERKLÆRINGER ==========
@@ -115,6 +143,7 @@ void startNedtelling(uint32_t farge, int minutt, int sekund); // Blokkerende ned
 void spillAnimasjon(uint32_t farge, int sekunder); // Fri animasjon i en gitt farge, i et gitt antall sekunder
 void startStoppeklokke(uint32_t farge); // Blokkerende stoppeklokke (teller oppover), avbrytes ved å skrive "stopp" i Serial
 bool knappTrykket(); // Returnerer true én gang når den fysiske knappen trykkes ned (krever kabling, se HARDWARE.md)
+void startEncoderNedtelling(); // Nedteller: drei encoderen for å stille inn tid, trykk for å starte/avbryte
 void spillRTTTL(String sang); // Spiller av en RTTTL-ringetonestreng på buzzeren
 void settOppWebserver(); // (Ekstra stor oppgave) Setter opp webserveren og definerer nettsidene
 void handterWebKlient(); // (Ekstra stor oppgave) Håndterer innkommende nettleser-forespørsler, kalles hver loop()
@@ -200,6 +229,13 @@ void setup() {
 
   // Initialiser valgfri fysisk knapp (se HARDWARE.md for kobling)
   pinMode(BUTTON_PIN, INPUT_PULLUP);
+
+  // Rotary encoder: CLK/DT leses via avbrudd på begge pinner (se encoderISR)
+  pinMode(ENCODER_CLK_PIN, INPUT_PULLUP);
+  pinMode(ENCODER_DT_PIN, INPUT_PULLUP);
+  encoderForrige = (digitalRead(ENCODER_CLK_PIN) << 1) | digitalRead(ENCODER_DT_PIN);
+  attachInterrupt(digitalPinToInterrupt(ENCODER_CLK_PIN), encoderISR, CHANGE);
+  attachInterrupt(digitalPinToInterrupt(ENCODER_DT_PIN), encoderISR, CHANGE);
   
   // Initialiser LED-strip
   strip.begin();
@@ -265,7 +301,7 @@ void loop() {
   localtime_r(&now, &timeinfo);
 
   sjekkSerialMeny();
-  if (knappTrykket()) { visMeny(); } // Valgfri fysisk knapp åpner menyen (se ELEVOPPGAVER.md)
+  if (knappTrykket()) { startEncoderNedtelling(); } // Trykk på encoderen: still inn og start nedteller
   handterWebKlient(); // (Ekstra stor oppgave) Håndterer nettleser-forespørsler, hvis implementert
 
   // Beregn gjeldende fag og tid igjen
@@ -328,13 +364,16 @@ void visMeny() {
   // Laget av: Endre
   Serial.println("~ ~ ~ ~ Meny ~ ~ ~ ~");
 
-  Serial.println("Kategori 1");
-  Serial.println("1: Det som skjer når man trykker 1");
-  Serial.println("2: Det som skjer når man trykker 2");
+  Serial.println("Animasjoner");
+  Serial.println("1: Time-start animasjon (timeStartAnimasjon)");
+  Serial.println("2: Friminutt-animasjon (friminuttAnimasjon)");
 
-  Serial.println("Kategori 2");
-  Serial.println("3: Det som skjer når man trykker 3");  
-  Serial.println("4: Det som skjer når man trykker 4");
+  Serial.println("Lyd");
+  Serial.println("3: Fanfare for Engelsk (fanfareKort)");
+
+  Serial.println("Tid");
+  Serial.println("4: Sett testtid (stopper NTP)");
+  Serial.println("5: Tilbake til NTP-tid");
 }
 //==================================================================================================================================
 
@@ -343,6 +382,25 @@ void sjekkSerialMeny() {
   if(Serial.available()){
     String svar = Serial.readStringUntil('\n');
     svar.trim();
+
+    // Forrige menyvalg (4) ba om en testtid på formatet "ukedag time minutt"
+    if(venterTestTid){
+      venterTestTid = false;
+      int dag, time, minutt;
+      if(sscanf(svar.c_str(), "%d %d %d", &dag, &time, &minutt) == 3 &&
+         dag >= 0 && dag <= 6 && time >= 0 && time <= 23 && minutt >= 0 && minutt <= 59){
+        esp_sntp_stop();                  // Stopp NTP slik at testtiden ikke blir overskrevet
+        setenv("TZ", TZ_NORGE, 1);        // Sørg for norsk tidssone så testtiden tolkes riktig
+        tzset();
+        settDummyTid(dag, time, minutt, 0);
+        Serial.printf("Testtid satt: ukedag %d, kl. %02d:%02d. NTP er stoppet (velg 5 i menyen for å gå tilbake).\n", dag, time, minutt);
+      }
+      else{
+        Serial.println("Ugyldig testtid. Bruk formatet: ukedag time minutt (f.eks. 3 9 30). Skriv 'meny' og prøv på nytt.");
+      }
+      return;
+    }
+
     if(svar == "meny"){
       Serial.println("Vis MENY");
       visMeny();
@@ -356,19 +414,34 @@ void sjekkSerialMeny() {
         switch (valg)
         {
         case 1:
-          Serial.println("Menyvalg 1 er valgt");
+          Serial.println("Kjører timeStartAnimasjon()...");
+          timeStartAnimasjon(fagFarge(ENGELSK));
           break;
         case 2:
-          Serial.println("Menyvalg 2 er valgt");
+          Serial.println("Kjører friminuttAnimasjon()...");
+          friminuttAnimasjon(0, 1); // minutt 0, plan[1] = første friminutt (mandag)
           break;
         case 3:
-          Serial.println("Menyvalg 3 er valgt");
+          Serial.println("Spiller fanfareKort(ENGELSK, false)...");
+          fanfareKort(ENGELSK, false);
           break;
         case 4:
-          Serial.println("Menyvalg 4 er valgt");
+          Serial.println("Skriv testtid som: ukedag time minutt");
+          Serial.println("(ukedag 0=søndag, 1=mandag ... 6=lørdag, f.eks. '3 9 30' = onsdag 09:30)");
+          venterTestTid = true;
+          break;
+        case 5:
+          if(WiFi.status() == WL_CONNECTED){
+            configTzTime(TZ_NORGE, "pool.ntp.org"); // Starter NTP på nytt og synkroniserer snart
+            Serial.println("NTP startet på nytt. Tiden synkroniseres om kort tid.");
+          }
+          else{
+            Serial.println("Ingen WiFi-tilkobling - kan ikke hente NTP-tid akkurat nå.");
+          }
           break;
         
         default:
+          Serial.println("Ugyldig menyvalg.");
           break;
         }
         menyAktiv = false;
@@ -726,7 +799,8 @@ int melodyLength = 0;
     for (int j = 0; j <= varighet[thisNote].nestenote; j++) {
 
       int noteduration = 1000/okningdelay;
-      int pauseduration = 1000/varighet[thisNote+j].pausestopp;
+      float pausestopp = varighet[thisNote+j].pausestopp;
+      int pauseduration = (pausestopp > 0) ? (int)(1000/pausestopp) : 0; // Unngå deling på 0 (ga uendelig lang delay på ekte ESP32)
       tone(soundpin, melody[thisNote+j], noteduration);
       int (pauseBetweenNotes) = noteduration * 1.30;
       int (pauseAfterNotes) = pauseduration * 1.30;
@@ -739,7 +813,7 @@ int melodyLength = 0;
     }
   }
 }
-  noTone(9);
+  noTone(soundpin);
 
 }
 
@@ -876,7 +950,7 @@ int planIndex(int ukedag, int time, int minutt) {
 bool hentInternetTid() {
   // Laget av: Marcel & Luka
   int forsok = 0;
-  const char* TZ_INFO = "CET-1CEST,M3.5.0/2,M10.5.0/3";
+  const char* TZ_INFO = TZ_NORGE;
 
   // wifiMulti.run() skanner og kobler automatisk til beste tilgjengelige nettverk (Wokwi eller fysisk)
   while(wifiMulti.run() != WL_CONNECTED && forsok < 20) {
@@ -1218,6 +1292,115 @@ void startNedtelling(uint32_t farge, int minutt, int sekund) {
   strip.clear();
   strip.show();
   
+}
+
+//==================================================================================================================================
+
+// Posisjon (LED-indeks) for klokketall 1-12 på ringen (12 = toppen = LED 0)
+int timeMarkorPos(int klokketall) {
+  return ((klokketall * NUM_LEDS + 6) / 12) % NUM_LEDS;
+}
+
+// Tegner innstillingsvisningen: én LED per hele time (på klokketall 1, 2, 3 ...) + minuttviseren
+void visInnstillingNedtelling(int minutter) {
+  strip.clear();
+  for(int h = 1; h <= minutter / 60; h++) {
+    strip.setPixelColor(timeMarkorPos(h), strip.Color(148, 0, 211)); // Lilla = hele timer
+  }
+  strip.setPixelColor(((minutter % 60) * NUM_LEDS) / 60, strip.Color(0, 255, 0)); // Grønn = minuttviser
+  strip.show();
+}
+
+// Trykk på encoderen (SW) med enkel debounce
+bool encoderTrykk() {
+  static unsigned long sistTrykk = 0;
+  if(knappTrykket() && millis() - sistTrykk > 250) {
+    sistTrykk = millis();
+    return true;
+  }
+  return false;
+}
+
+void startEncoderNedtelling() {
+  // Dreie encoderen stiller inn minutter, trykk starter nedtellingen, trykk igjen avbryter.
+  const int MAKS_MINUTTER = 180;          // Maks 3 timer
+  const unsigned long TIMEOUT_MS = 30000; // Avbryt innstilling etter 30 s uten aktivitet
+  int minutter = 0;
+
+  noInterrupts(); encoderDelta = 0; interrupts();
+  Serial.println("Nedteller: drei encoderen for å stille inn tid, trykk for å starte.");
+  visInnstillingNedtelling(minutter);
+
+  // ----- Fase 1: Still inn tiden -----
+  unsigned long sisteAktivitet = millis();
+  while(true) {
+    if(WiFi.status() == WL_CONNECTED) { ArduinoOTA.handle(); }
+
+    noInterrupts(); int delta = encoderDelta; encoderDelta = 0; interrupts();
+    if(delta != 0) {
+      minutter = constrain(minutter + delta, 0, MAKS_MINUTTER);
+      visInnstillingNedtelling(minutter);
+      Serial.printf("Innstilt tid: %d t %02d min\n", minutter / 60, minutter % 60);
+      sisteAktivitet = millis();
+    }
+
+    if(encoderTrykk()) {
+      if(minutter == 0) {
+        Serial.println("Nedteller avbrutt (ingen tid valgt).");
+        strip.clear(); strip.show();
+        return;
+      }
+      break; // Start nedtelling
+    }
+
+    if(millis() - sisteAktivitet > TIMEOUT_MS) {
+      Serial.println("Nedteller avbrutt (ingen aktivitet).");
+      strip.clear(); strip.show();
+      return;
+    }
+    delay(10);
+  }
+
+  // ----- Fase 2: Nedtelling (hele ringen = innstilt tid, tømmes mot klokka) -----
+  Serial.printf("Nedtelling startet: %d minutter. Trykk for å avbryte.\n", minutter);
+  const unsigned long totalMs = (unsigned long)minutter * 60000UL;
+  const unsigned long startMs = millis();
+  while(true) {
+    if(WiFi.status() == WL_CONNECTED) { ArduinoOTA.handle(); }
+
+    if(encoderTrykk()) {
+      Serial.println("Nedtelling avbrutt.");
+      strip.clear(); strip.show();
+      return;
+    }
+
+    unsigned long gatt = millis() - startMs;
+    if(gatt >= totalMs) { break; }
+
+    // Antall LED-er igjen (rundet opp), 77 -> 1. LED 0 (toppen) slukker sist, så lyset trekker seg mot klokka
+    int antall = (int)((((totalMs - gatt) * NUM_LEDS) + totalMs - 1) / totalMs);
+    int gronn = (int)(((totalMs - gatt) * 255UL) / totalMs); // Går fra grønn mot rød
+    strip.clear();
+    for(int i = 0; i < antall; i++) {
+      strip.setPixelColor(i, strip.Color(255 - gronn, gronn, 0));
+    }
+    strip.show();
+    delay(50);
+  }
+
+  // ----- Ferdig: blink og fanfare -----
+  Serial.println("Nedtelling ferdig!");
+  for(int b = 0; b < 3; b++) {
+    strip.fill(strip.Color(255, 0, 0));
+    strip.show();
+    delay(300);
+    strip.clear();
+    strip.show();
+    delay(300);
+  }
+  fanfareKort(INGENTING, false);
+  strip.clear();
+  strip.show();
 }
 
 //==================================================================================================================================
