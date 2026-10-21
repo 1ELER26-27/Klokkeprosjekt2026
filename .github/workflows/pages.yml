@@ -1,0 +1,65 @@
+name: Publiser sketch.ino til GitHub Pages
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Hent kode
+        uses: actions/checkout@v5
+
+      - name: Generer HTML-side fra sketch/sketch.ino
+        run: |
+          mkdir -p _site
+          cp sketch/sketch.ino _site/sketch.txt
+          python3 - << 'EOF'
+          import html, pathlib, datetime
+
+          sketch_path = pathlib.Path("sketch/sketch.ino")
+          code = sketch_path.read_text(encoding="utf-8")
+          escaped_code = html.escape(code)
+          updated = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
+
+          html_content = f"""<!DOCTYPE html>
+          <html lang="no">
+          <head>
+            <meta charset="utf-8">
+            <title>Klokkeprosjekt2026 - sketch.ino</title>
+          </head>
+          <body>
+            <h1>sketch/sketch.ino (Siste versjon fra main)</h1>
+            <p>Sist oppdatert: {updated}</p>
+            <pre><code>{escaped_code}</code></pre>
+          </body>
+          </html>
+          """
+
+          pathlib.Path("_site/index.html").write_text(html_content, encoding="utf-8")
+          pathlib.Path("_site/sketch.html").write_text(html_content, encoding="utf-8")
+          EOF
+
+      - name: Last opp til GitHub Pages
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: '_site'
+
+      - name: Publiser til GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
